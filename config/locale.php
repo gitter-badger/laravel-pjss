@@ -39,5 +39,6 @@ return [
         'pt-BR' => ['pt_BR', 'pt_BR', false],
         'sv'    => ['sv', 'sv_SE', false],
         'th'    => ['th', 'th_TH', false],
+        'zh'    => ['zh', 'zh_CN', false],
     ],
 ];
