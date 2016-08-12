@@ -29,16 +29,16 @@ return [
          * Index 1 of sub-array is the PHP locale code for setlocale()
          * Index 2 of sub-array is whether or not to use RTL (right-to-left) css for this language
          */
-        'ar'    => ['ar', 'ar_AR', true],
-        'da'    => ['da', 'da_DK', false],
-        'de'    => ['de', 'de_DE', false],
+//         'ar'    => ['ar', 'ar_AR', true],
+//         'da'    => ['da', 'da_DK', false],
+//         'de'    => ['de', 'de_DE', false],
         'en'    => ['en', 'en_US', false],
-        'es'    => ['es', 'es_ES', false],
-        'fr'    => ['fr', 'fr_FR', false],
-        'it'    => ['it', 'it_IT', false],
-        'pt-BR' => ['pt_BR', 'pt_BR', false],
-        'sv'    => ['sv', 'sv_SE', false],
-        'th'    => ['th', 'th_TH', false],
+//         'es'    => ['es', 'es_ES', false],
+//         'fr'    => ['fr', 'fr_FR', false],
+//         'it'    => ['it', 'it_IT', false],
+//         'pt-BR' => ['pt_BR', 'pt_BR', false],
+//         'sv'    => ['sv', 'sv_SE', false],
+//         'th'    => ['th', 'th_TH', false],
         'zh'    => ['zh', 'zh_CN', false],
     ],
 ];
