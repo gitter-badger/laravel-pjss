@@ -23,6 +23,7 @@
 			@if (config('locale.status') && count(config('locale.languages')) > 1)
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                	<i class="glyphicon glyphicon-globe"></i>
                 	{{ trans('menus.language-picker.language') }}
                 	<span class="caret"></span>
             	</a>

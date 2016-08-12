@@ -73,6 +73,15 @@ return [
                 ],
             ],
         ],
+        'organization' => [
+            'management' => '组织架构',
+            'project' => [
+                'management' => '项目',
+            ],
+            'team' => [
+                'management' => '团队',
+            ],
+        ],
     ],
 
     'frontend' => [

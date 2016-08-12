@@ -47,6 +47,7 @@ return [
             'general' => 'General',
             'organization' => [
                 'index' => '组织',
+                'project' => '项目',
                 'team' => '团队',
             ],
             
@@ -54,7 +55,7 @@ return [
     ],
 
     'language-picker' => [
-        'language' => 'Language',
+        'language' => '中文',
         /**
          * Add the new language to this array.
          * The key should have the same language code as the folder name.

@@ -1,0 +1,4 @@
+.floating-label-form-group:not(:first-child ) {
+	border-left: 0 !important;
+	padding-left: 0 !important;
+}

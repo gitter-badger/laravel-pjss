@@ -4,7 +4,7 @@
 			<li class="nav-header">
 				<div class="dropdown profile-element">
 					<span>
-						<img alt="image" class="img-circle" src="{{ access()->user()->picture }}" />
+						<img alt="image" class="img-circle" src="#{{ access()->user()->picture }}" />
 					</span>
 					<a data-toggle="dropdown" class="dropdown-toggle"
 						href="empty_page.html#">
@@ -38,8 +38,32 @@
             		<span class="fa arrow"></span>
         		</a>
                 <ul class="nav nav-second-level collapse">
+                	<li class="{{ Active::pattern('admin/organization/project') }}">
+						{{ link_to_route('admin.organization.project.index', trans('menus.backend.sidebar.organization.project')) }}
+					</li>
 					<li class="{{ Active::pattern('admin/organization/team') }}">
 						{{ link_to_route('admin.organization.team.index', trans('menus.backend.sidebar.organization.team')) }}
+					</li>
+				</ul>
+            </li>
+            
+            <li class="">
+            	<a href="#">
+            		<i class="fa fa-external-link"></i>
+            		<span class="nav-label">Friend Links</span>
+            		<span class="fa arrow"></span>
+        		</a>
+                <ul class="nav nav-second-level collapse">
+					<li class="">
+						<a href="#">
+                    		<span class="nav-label">PHP性能监控</span>
+                    		<span class="fa arrow"></span>
+                		</a>
+                        <ul class="nav nav-third-level">
+        					<li class="">
+                                {{ link_to('//user.oneapm.com/pages/v2/home', 'OneAPM', ['target' => '_blank']) }}
+                            </li>
+        				</ul>
 					</li>
 				</ul>
             </li>
