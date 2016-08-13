@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\Backend\Organization\Project;
 
 use DB;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -76,7 +77,13 @@ class ProjectController extends Controller
             $input = $request->all();
             $project = $input['project'];
             $members = $input['members'];
+            
+            $users = User::all();
     
+            DB::delete('delete from projects where id = :id', ['id' => $project['id']]);
+            DB::delete('delete m from members m inner join members2project m2p on m.id = m2p.member_id where m2p.project_id = :id', ['id' => $project['id']]);
+            DB::delete('delete from members2project where project_id = :id', ['id' => $project['id']]);
+            
             $project['create_date'] = date('y-m-d h:i:s',time());
             DB::insert('insert into projects (id, name, create_date) values (?, ?, ?)', [
                 $project['id'], $project['name'], $project['create_date']
@@ -89,21 +96,26 @@ class ProjectController extends Controller
                     $member['id'], $member['email'], $member['head_img_letter'], $member['head_img_name'], $member['head_img_path'], $member['head_img_status'], $member['is_admin'], $member['nick_name']
                 ]);
                 
-                // 创建用户
-                $password = str_random(6);
-                $this->users->create(
-                    [
-                        'name' => $member['nick_name'],
-                        'email' => $member['email'],
-                        'password' => $password,
-                        'password_confirmation' => $password,
-                        'status' => 1,
-                        'confirmation_email' => 1
-                    ],
-                    [ 
-                        'assignees_roles' => ['3']
-                    ]
-                );
+                $exists = $users->filter(function($user) use($member) {
+                    return $user->email == $member['id'];
+                })->count() > 0;
+                if ($exists){
+                    // 创建用户
+                    $password = str_random(6);
+                    $this->users->create(
+                        [
+                            'name' => $member['nick_name'],
+                            'email' => $member['email'],
+                            'password' => $password,
+                            'password_confirmation' => $password,
+                            'status' => 1,
+                            'confirmation_email' => 1
+                        ],
+                        [ 
+                            'assignees_roles' => ['3']
+                        ]
+                    );
+                }
             }
     
             return response()->json([

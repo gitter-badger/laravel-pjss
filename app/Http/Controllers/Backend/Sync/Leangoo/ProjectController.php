@@ -30,9 +30,8 @@ class ProjectController extends Controller
         $pwd = $request->get('pwd');
         
         $sync = new SyncHelper($un);
-       
-        $sync->login($un, $pwd);
-        $projDetail = $sync->getProjectDetail($id);
+        $projDetail = $sync->login($un, $pwd)->getProjectDetail($id);
+
         return response()->json($projDetail);
     }
     
@@ -46,9 +45,7 @@ class SyncHelper
         if (is_null($symbol)){
             $symbol = rand();
         }
-        $this->cookie_jar = public_path() . '/temp/cookies/' . $symbol . '.cookie';
-        
-        //file_put_contents($this->cookie_jar, '');
+        $this->cookie_jar = storage_path('app/public/cookies/' . $symbol . '.cookie');
     }
     
     function login($email, $pswd){
@@ -59,12 +56,12 @@ class SyncHelper
             'loginRemPwdVal' => TRUE,
             'from_page' => '%2Fproject%2Fgo%2F1633'
         ];
-        //var_dump(file_get_contents($this->cookie_jar));
         
-        return $this->curl_post($url, $data, [
+        $this->curl_post($url, $data, [
             CURLOPT_COOKIEJAR => $this->cookie_jar,
             CURLOPT_COOKIEFILE => $this->cookie_jar,
         ]);
+        return $this;
     }
     
     function getProjectDetail($projId) {
