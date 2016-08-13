@@ -4,30 +4,40 @@ namespace App\Http\Controllers\Backend\Organization\Project;
 use DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use function GuzzleHttp\json_encode;
+
+use App\Models\Access\User\User;
+use App\Repositories\Backend\Access\User\UserRepositoryContract;
+use App\Repositories\Backend\Access\Role\RoleRepositoryContract;
 
 /**
  * Class TeamController
  */
 class ProjectController extends Controller
 {
+    /**
+     * @var UserRepositoryContract
+     */
+    protected $users;
 
     /**
-     *
-     * @param UserRepositoryContract $users            
-     * @param RoleRepositoryContract $roles            
+     * @var RoleRepositoryContract
      */
-    public function __construct()
+    protected $roles;
+
+    /**
+     * @param UserRepositoryContract $users
+     * @param RoleRepositoryContract $roles
+     */
+    public function __construct(UserRepositoryContract $users, RoleRepositoryContract $roles)
     {
-        // $this->middleware('auth');
-        
-        // $this->middleware('log', []);
+        $this->users = $users;
+        $this->roles = $roles;
     }
     
     // GET /project
     public function index(Request $request)
     {
-        $projects = DB::select('select * from projects limit 10;');
+        $projects = DB::select('select * from projects;');
         $members = DB::select('select * from members;');
         $members2projects = DB::select('select * from members2project;');
         foreach ($projects as $project) {
@@ -42,6 +52,10 @@ class ProjectController extends Controller
                 }
             }
             $project->members = $tmp_members;
+        }
+        
+        if ($request->ajax()){
+            return response()->json($projects);
         }
         
         return view('backend.project.index', [
@@ -74,6 +88,22 @@ class ProjectController extends Controller
                 DB::insert('insert into members (id, email, head_img_letter, head_img_name, head_img_path, head_img_status, is_admin, nick_name) values (?, ?, ?, ?, ?, ?, ?, ?)', [
                     $member['id'], $member['email'], $member['head_img_letter'], $member['head_img_name'], $member['head_img_path'], $member['head_img_status'], $member['is_admin'], $member['nick_name']
                 ]);
+                
+                // 创建用户
+                $password = str_random(6);
+                $this->users->create(
+                    [
+                        'name' => $member['nick_name'],
+                        'email' => $member['email'],
+                        'password' => $password,
+                        'password_confirmation' => $password,
+                        'status' => 1,
+                        'confirmation_email' => 1
+                    ],
+                    [ 
+                        'assignees_roles' => ['3']
+                    ]
+                );
             }
     
             return response()->json([

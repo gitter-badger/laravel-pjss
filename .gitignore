@@ -16,6 +16,6 @@ composer.phar
 error.log
 Todo.rtf
 .vagrant
+
 .settings/
 bower_components/
-node_modules/

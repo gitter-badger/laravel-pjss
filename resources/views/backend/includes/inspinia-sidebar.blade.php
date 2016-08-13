@@ -65,6 +65,17 @@
                             </li>
         				</ul>
 					</li>
+					<li class="">
+						<a href="#">
+                    		<span class="nav-label">搜索</span>
+                    		<span class="fa arrow"></span>
+                		</a>
+                        <ul class="nav nav-third-level">
+                            <li class="">
+                                {{ link_to('https://www.algolia.com/dashboard', 'Algolia', ['target' => '_blank']) }}
+                            </li>
+        				</ul>
+					</li>
 				</ul>
             </li>
 		</ul>

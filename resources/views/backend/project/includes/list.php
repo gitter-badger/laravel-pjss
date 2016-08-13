@@ -9,7 +9,7 @@
         <span class="label label-default">Leangoo</span>
     </td>
     <td class="project-title">
-        <a href="#">{{name}}</a>
+        <a href="#" class="name">{{name}}</a>
         <br/>
         <small>Created {{create_date | dateFormat}}</small>
     </td>
@@ -24,7 +24,7 @@
     </td>
     <td class="project-actions">
         <a href="https://www.leangoo.com/kanban/project/go/{{id}}" class="btn btn-white btn-sm" target="_blank">
-            <i class="fa fa-folder"></i> View
+            <i class="fa fa-external-link"></i> View
         </a>
     </td>
 </tr>
@@ -32,6 +32,7 @@
 <script id="tpl_member_list" type="text/html">
     {{each $data as member i}}
         {{include 'tpl_member_list_item' member}}
+        <span class="user_name user_name_{{i}}">{{member.nick_name}}</span>
     {{/each}}
 </script>
 <script id="tpl_member_list_item" type="text/html">
@@ -48,6 +49,9 @@
 </script>
 
 <style>
+    .project-people .user_name {
+	   font-size: 0;
+    }
     .project-people span.avatar {
     	display: inline-block;
         width: 32px;

@@ -201,6 +201,12 @@ return [
          * Has to override the Collective\Html\HtmlServiceProvider form singleton
          */
         App\Providers\MacroServiceProvider::class,
+        
+        /*
+         * AlgoliaSearch Providers
+         */
+        AlgoliaSearch\Laravel\AlgoliaServiceProvider::class,
+        
     ],
 
     /*

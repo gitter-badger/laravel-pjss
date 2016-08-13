@@ -12,10 +12,13 @@
 	{{ Html::script('vendor/toastr/toastr.min.js') }}
 	{{ Html::script('vendor/bootstrap-floating-labels/floating-labels.js') }}
 	{{ Html::script('vendor/artTemplate/template.js') }}
+	{{ Html::script('vendor/list.js/list.min.js') }}
+	{{ Html::script('vendor/list.js/plugin/list.fuzzysearch.min.js') }}
 <script>
 	$(function(){
 		var $$ = $(this);
 
+		/* template helper */
 		template.helper('dateFormat', function (date, format) {
 			date = new Date(date);
 
@@ -26,20 +29,8 @@
 		    return date;
 		});
 
-		template.helper('toLabel', function (code) {
-			code = parseInt(code, 10);
-		
-			var label;
-		    switch(code) {
-    		    case 0:
-    		    	label = 'warning';
-			    	break;
-			    default:
-			    	label = 'default';
-			    	break;
-		    }
-		    return label;
-		});
+		/* private members */
+		var searcher;
 
 		function render(data, method) {
 			method = method || 'append';
@@ -60,9 +51,15 @@
 				})
 			});
 		}
-		
+
+		function project_search(keyword) {
+			searcher.search(keyword);
+		}
+
+		/* events define */
 		$$.on('sync.leangoo.project', function(e){
-			var $form = $('#modal_sync_leangoo_project').find('form');
+			var $modal = $('#modal_sync_leangoo_project');
+			var $form = $modal.find('form');
 			var id = $form.find('[name="id"]').val();
 			
 			$.ajax({
@@ -85,12 +82,23 @@
 					render([project], 'prepend');
 
 					toastr.success('项目' + id + '已同步', '同步成功');
+					$modal.modal('hide');
 				});
 			}, function(jqXHR, textStatus, errorThrown){
 				toastr.error(errorThrown, '同步失败');
 			}); 
+		}).on('refresh', function(e){
+			$.ajax({
+				url: '{{route('admin.organization.project.index')}}'
+			}).then(function(data){
+				toastr.success('', 'Refreshed');
+				render(data, 'html');
+			});
+		}).on('search', function(e){
+			project_search($('#searcher').val());
 		});
 
+		/* events emmit */
 		$(document).on('click', 'a[href^="#"]', function(e){
 			e.preventDefault();
 
@@ -98,14 +106,25 @@
 			$$.trigger(eventName);
 		});
 
+		/* ctor */
 		render({!! $projects !!});
+		searcher = new List('project-items', { 
+            valueNames: ['name', 'user_name_0'
+                         , 'user_name_1', 'user_name_2', 'user_name_3', 'user_name_4', 'user_name_5'
+                         , 'user_name_6', 'user_name_7', 'user_name_8', 'user_name_9', 'user_name_10'
+                         , 'user_name_11', 'user_name_12', 'user_name_13', 'user_name_14', 'user_name_15'
+                         , 'user_name_16', 'user_name_17', 'user_name_18', 'user_name_19', 'user_name_20'], 
+            plugins: [ ListFuzzySearch() ]
+		});
 	});
 </script>
 @endsection
 
 @section ('content')
+<!-- csrf -->
 {{csrf_field()}}
 
+<!-- modal_sync_leangoo_project -->
 <div class="modal fade" tabindex="-1" role="dialog"
 	id="modal_sync_leangoo_project">
 	<div class="modal-dialog" role="document">
@@ -140,40 +159,47 @@
 				<a href="#sync/leangoo/project" class="btn btn-primary">同步</a>
 			</div>
 		</div>
-		<!-- /.modal-content -->
 	</div>
-	<!-- /.modal-dialog -->
 </div>
-<!-- /.modal -->
 
 @include('backend.project.includes.list')
-<div class="wrapper wrapper-content animated fadeInUp">
-    <div class="ibox">
-        <div class="ibox-title">
-            <h5>所有项目</h5>
-            <div class="ibox-tools">
-                <a href="#" class="btn btn-primary btn-xs"
-                	data-toggle="modal" data-target="#modal_sync_leangoo_project">同步项目</a>
-            </div>
-        </div>
-        <div class="ibox-content">
-            <div class="row m-b-sm m-t-sm">
-                <div class="col-md-1">
-                    <button type="button" id="loading-example-btn" class="btn btn-white btn-sm" ><i class="fa fa-refresh"></i> Refresh</button>
-                </div>
-                <div class="col-md-11">
-                    <div class="input-group"><input type="text" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
-                        <button type="button" class="btn btn-sm btn-primary"> Go!</button> </span></div>
-                </div>
-            </div>
 
-            <div class="project-list">
-                <table class="table table-hover">
-                    <tbody>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+<!-- list -->
+<div class="wrapper wrapper-content animated fadeInUp" id="project-items">
+	<div class="ibox">
+		<div class="ibox-title">
+			<h5>所有项目</h5>
+			<div class="ibox-tools">
+				<a href="#" class="btn btn-primary btn-xs" data-toggle="modal"
+					data-target="#modal_sync_leangoo_project">同步项目</a>
+			</div>
+		</div>
+		<div class="ibox-content">
+			<div class="row m-b-sm m-t-sm">
+				<div class="col-md-1">
+					<a href="#refresh" id="loading-example-btn"
+						class="btn btn-white btn-sm">
+						<i class="fa fa-refresh"></i> 刷新
+					</a>
+				</div>
+				<div class="col-md-11">
+					<div class="input-group">
+						<input type="text" id="searcher" placeholder="请输入项目名称/成员名称" 
+							class="input-sm form-control search">
+						<span class="input-group-btn">
+							<a href="#search" class="btn btn-sm btn-primary">搜索</a>
+						</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="project-list">
+				<table class="table table-hover">
+					<tbody class="list">
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
 </div>
 @endsection

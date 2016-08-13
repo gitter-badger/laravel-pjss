@@ -74,7 +74,11 @@ class EloquentUserRepository implements UserRepositoryContract
      */
     public function create($input, $roles)
     {
+        //fix bug: No.92 中isset($input['confirmation_email'])始终为false，取值不对
+        $this->_is_confirmation_email = isset($input['confirmation_email']);
+        
         $user = $this->createUserStub($input);
+        $this->_password = $input['password'];
 
 		DB::transaction(function() use ($user, $roles) {
 			if ($user->save()) {
@@ -85,8 +89,9 @@ class EloquentUserRepository implements UserRepositoryContract
 				$user->attachRoles($roles['assignees_roles']);
 
 				//Send confirmation email if requested
-				if (isset($input['confirmation_email']) && $user->confirmed == 0) {
-					$this->user->sendConfirmationEmail($user->id);
+				if ($this->_is_confirmation_email && $user->confirmed == 0) {
+				    $user->password_confirmation = $this->_password;
+					$this->user->sendConfirmationEmail($user);
 				}
 
 				event(new UserCreated($user));

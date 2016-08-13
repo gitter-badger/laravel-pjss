@@ -14,7 +14,8 @@
     "arcanedev/no-captcha" : "~3.0",
     "spatie/laravel-backup" : "^3.0",
     "yajra/laravel-datatables-oracle" : "~6.0",
-    "curl/curl" : "1.4.0"
+    "curl/curl" : "1.4.0",
+    "algolia/algoliasearch-laravel" : "1.2.1"
   },
   "require-dev" : {
     "fzaninotto/faker" : "~1.4",
