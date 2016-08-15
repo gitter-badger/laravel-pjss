@@ -3,17 +3,41 @@
 @section ('title', trans('labels.backend.organization.project.management'))
 
 @section ('styles')
-	{{ Html::style("vendor/toastr/toastr.min.css") }}
-	{{ Html::style("vendor/bootstrap-floating-labels/floating-labels.css") }}
-	{{ Html::style("css/vendor.fix/bootstrap-floating-labels/floating-labels.css") }}
+{{ Html::style("vendor/toastr/toastr.min.css") }}
+{{ Html::style("vendor/bootstrap-floating-labels/floating-labels.css") }}
+{{ Html::style("css/vendor.fix/bootstrap-floating-labels/floating-labels.css") }}
+<style>
+    .project-people .user_name {
+	   font-size: 0;
+    }
+    .project-people span.avatar {
+    	display: inline-block;
+        width: 32px;
+    	height: 32px;
+    	border-radius: 50%;
+        background: #ccc;
+    	vertical-align: middle;
+    	font-size: 12px;
+        font-weight: 700;
+        line-height: 32px;
+        overflow: hidden;
+        text-align: center;
+    	color: #676a6c;
+    }
+    
+    .project-people span.admin {
+        background: #ccc url('/img/crown.png') no-repeat center 0;
+    	background-size: 40%;
+    }
+</style>
 @endsection
 
 @section ('scripts')
-	{{ Html::script('vendor/toastr/toastr.min.js') }}
-	{{ Html::script('vendor/bootstrap-floating-labels/floating-labels.js') }}
-	{{ Html::script('vendor/artTemplate/template.js') }}
-	{{ Html::script('vendor/list.js/list.min.js') }}
-	{{ Html::script('vendor/list.js/plugin/list.fuzzysearch.min.js') }}
+{{ Html::script('vendor/toastr/toastr.min.js') }}
+{{ Html::script('vendor/bootstrap-floating-labels/floating-labels.js') }}
+{{ Html::script('vendor/artTemplate/template.js') }}
+{{ Html::script('vendor/list.js/list.min.js') }}
+{{ Html::script('vendor/list.js/plugin/list.fuzzysearch.min.js') }}
 <script>
 	$(function(){
 		var $$ = $(this);

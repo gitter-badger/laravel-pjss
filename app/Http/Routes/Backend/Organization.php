@@ -6,12 +6,7 @@ Route::group([
     Route::group([
         'namespace' => 'Team'
     ], function () {
-        Route::resource('team', 'TeamController', []);
-        
-        /**
-         * For DataTables
-         */
-        Route::get('team/get', 'TeamController@get')->name('admin.organization.team.get');
+        Route::resource('team', 'TeamController');
     });
     
     Route::group([

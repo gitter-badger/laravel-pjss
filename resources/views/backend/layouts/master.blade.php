@@ -62,8 +62,7 @@
         </div><!-- ./wrapper -->
 
         <!-- JavaScripts -->
-        {{ HTML::script('https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js') }}
-        <script>window.jQuery || document.write('<script src="{{asset('js/vendor/jquery/jquery-2.1.4.min.js')}}"><\/script>')</script>
+        {{ HTML::script(asset('js/vendor/jquery/jquery-2.1.4.min.js')) }}
         {{ Html::script('js/vendor/bootstrap/bootstrap.min.js') }}
 
         @yield('before-scripts-end')

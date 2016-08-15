@@ -25,6 +25,14 @@ class TeamController extends Controller
      */
     public function index(Request $request)
     {
-        return view('backend.team.index');
+        $teams = [];
+        
+        if ($request->ajax()){
+            return response()->json($teams);
+        }
+        
+        return view('backend.team.index', [
+            'teams' => json_encode($teams, 0, 10)
+        ]);
     }
 }

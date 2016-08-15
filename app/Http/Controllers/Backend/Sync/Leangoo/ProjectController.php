@@ -130,7 +130,7 @@ class SyncHelper
             CURLOPT_RETURNTRANSFER => 1,
             CURLOPT_TIMEOUT => 4
         );
-         
+        
         $ch = curl_init();
         curl_setopt_array($ch, ($options + $defaults));
         if( ! $result = curl_exec($ch))

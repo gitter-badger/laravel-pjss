@@ -30,40 +30,21 @@
 </tr>
 </script>
 <script id="tpl_member_list" type="text/html">
-    {{each $data as member i}}
-        {{include 'tpl_member_list_item' member}}
-        <span class="user_name user_name_{{i}}">{{member.nick_name}}</span>
-    {{/each}}
+{{each $data as member i}}
+    {{include 'tpl_member_list_item' member}}
+    <span class="user_name user_name_{{i}}">{{member.nick_name}}</span>
+{{/each}}
 </script>
 <script id="tpl_member_list_item" type="text/html">
-    <a href="mailto:{{email}}" data-id="{{id}}">
-        {{if head_img_status == 1}}
-        <span class="avatar" title="{{nick_name}}">{{head_img_letter}}</span>
-        {{else if head_img_status == 2}}
-        <img alt="{{head_img_name}}" 
-            class="img-circle {{is_admin == 'Y' ? 'admin' : ''}}" 
-            src="https://www.leangoo.com/kanban{{head_img_path}}" title="{{nick_name}}" />
-        {{else}}
-        {{/if}}
-    </a>
+<a href="mailto:{{email}}" data-id="{{id}}">
+    {{if head_img_status == 1}}
+    <span class="avatar {{is_admin == 'Y' ? 'admin' : ''}}" title="{{nick_name}}">
+        {{head_img_letter}}
+    </span>
+    {{else if head_img_status == 2}}
+    <img alt="{{head_img_name}}" class="img-circle {{is_admin == 'Y' ? 'admin' : ''}}" 
+        src="https://www.leangoo.com/kanban{{head_img_path}}" title="{{nick_name}}" />
+    {{else}}
+    {{/if}}
+</a>
 </script>
-
-<style>
-    .project-people .user_name {
-	   font-size: 0;
-    }
-    .project-people span.avatar {
-    	display: inline-block;
-        width: 32px;
-    	height: 32px;
-    	border-radius: 50%;
-        background: #ccc;
-    	vertical-align: middle;
-    	font-size: 12px;
-        font-weight: 700;
-        line-height: 32px;
-        overflow: hidden;
-        text-align: center;
-    	color: #676a6c;
-    }
-</style>
