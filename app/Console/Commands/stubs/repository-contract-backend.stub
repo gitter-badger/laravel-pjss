@@ -1,0 +1,43 @@
+<?php
+
+namespace App\Repositories\Backend\{namespace}\{name};
+
+use App\Models\{namespace}\{name}\{name};
+
+/**
+ * Interface {name}RepositoryContract
+ * @package App\Repositories\{name}
+ */
+interface {name}RepositoryContract
+{
+    /**
+     * @param $input
+     * @return mixed
+     */
+    public function create($input);
+
+    /**
+     * @param {name} ${lower_name}
+     * @param $input
+     * @return mixed
+     */
+    public function update({name} ${lower_name}, $input);
+
+    /**
+     * @param  {name} ${lower_name}
+     * @return mixed
+     */
+    public function destroy({name} ${lower_name});
+
+    /**
+     * @param  {name} ${lower_name}
+     * @return mixed
+     */
+    public function delete({name} ${lower_name});
+
+    /**
+     * @param  {name} ${lower_name}
+     * @return mixed
+     */
+    public function restore({name} ${lower_name});
+}

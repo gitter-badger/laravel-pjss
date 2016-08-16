@@ -1,0 +1,142 @@
+<?php
+
+namespace App\Repositories\Frontend\{namespace}\{name};
+
+use App\Models\{namespace}\{name}\{name};
+use Illuminate\Support\Facades\DB;
+use App\Exceptions\GeneralException;
+use App\Events\Frontend\{namespace}\{name}\{name}Created;
+use App\Events\Frontend\{namespace}\{name}\{name}Updated;
+use App\Events\Frontend\{namespace}\{name}\{name}Deleted;
+use App\Events\Frontend\{namespace}\{name}\{name}Restored;
+
+/**
+ * Class Eloquent{name}Repository
+ * @package App\Repositories\{name}
+ */
+class Eloquent{name}Repository implements {name}RepositoryContract
+{
+    /**
+     */
+    public function __construct()
+    {
+        
+    }
+
+    /**
+     * @param  $input
+     * @param  $roles
+     * @throws GeneralException
+     * @return bool
+     */
+    public function create($input)
+    {
+        ${lower_name} = $this->create{name}Stub($input);
+
+		DB::transaction(function() use (${lower_name}) {
+			if (${lower_name}->save()) {
+				//TODO: set properties
+				
+				event(new {name}Created(${lower_name}));
+				return true;
+			}
+
+        	throw new GeneralException(trans('exceptions.backend.{lower_namespace}.{plural_lower_name}.create_error'));
+		});
+    }
+
+    /**
+     * @param {name} ${lower_name}
+     * @param $input
+     * @param $roles
+     * @return bool
+     * @throws GeneralException
+     */
+    public function update({name} ${lower_name}, $input, $roles)
+    {
+        $this->check{name}ByEmail($input, ${lower_name});
+
+		DB::transaction(function() use (${lower_name}, $input, $roles) {
+			if (${lower_name}->update($input)) {
+				//TODO: set properties
+
+				${lower_name}->save();
+
+				event(new {name}Updated(${lower_name}));
+				return true;
+			}
+
+        	throw new GeneralException(trans('exceptions.backend.{lower_namespace}.{plural_lower_name}.update_error'));
+		});
+    }
+    /**
+     * @param  {name} ${lower_name}
+     * @throws GeneralException
+     * @return bool
+     */
+    public function destroy({name} ${lower_name})
+    {
+        if (${lower_name}->delete()) {
+            event(new {name}Deleted(${lower_name}));
+            return true;
+        }
+
+        throw new GeneralException(trans('exceptions.backend.{lower_namespace}.{plural_lower_name}.delete_error'));
+    }
+
+    /**
+     * @param  {name} ${lower_name}
+     * @throws GeneralException
+     * @return boolean|null
+     */
+    public function delete({name} ${lower_name})
+    {
+        //Failsafe
+        if (is_null(${lower_name}->deleted_at)) {
+            throw new GeneralException("This {lower_name} must be deleted first before it can be destroyed permanently.");
+        }
+
+		DB::transaction(function() use (${lower_name}) {
+			//TODO: delete related entities
+
+			if (${lower_name}->forceDelete()) {
+				event(new {name}PermanentlyDeleted(${lower_name}));
+				return true;
+			}
+
+			throw new GeneralException(trans('exceptions.backend.{lower_namespace}.{plural_lower_name}.delete_error'));
+		});
+    }
+
+    /**
+     * @param  {name} ${lower_name}
+     * @throws GeneralException
+     * @return bool
+     */
+    public function restore({name} ${lower_name})
+    {
+        //Failsafe
+        if (is_null(${lower_name}->deleted_at)) {
+            throw new GeneralException("This {lower_name} is not deleted so it can not be restored.");
+        }
+
+        if (${lower_name}->restore()) {
+            event(new {name}Restored(${lower_name}));
+            return true;
+        }
+
+        throw new GeneralException(trans('exceptions.backend.{lower_namespace}.{plural_lower_name}.restore_error'));
+    }
+
+    /**
+     * @param  $input
+     * @return mixed
+     */
+    private function create{name}Stub($input)
+    {
+        ${lower_name}                    = new {name};
+        //TODO: set properties
+
+        return ${lower_name};
+    }
+}

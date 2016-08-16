@@ -1,0 +1,98 @@
+<?php
+
+namespace App\Listeners\Frontend\{namespace}\{name};
+
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Contracts\Queue\ShouldQueue;
+
+/**
+ * Class {name}EventListener
+ * @package App\Listeners\Frontend\{namespace}\{name}
+ */
+class {name}EventListener
+{
+	/**
+	 * @var string
+	 */
+	private $history_slug = '{name}';
+
+	/**
+	 * @param $event
+	 */
+	public function onCreated($event) {
+		history()->log(
+			$this->history_slug,
+			'trans("history.frontend.{plural_lower_name}.created") <strong>'.$event->{lower_name}->name.'</strong>',
+			$event->{lower_name}->id,
+			'plus',
+			'bg-green'
+		);
+	}
+
+	/**
+	 * @param $event
+	 */
+	public function onUpdated($event) {
+		history()->log(
+			$this->history_slug,
+			'trans("history.frontend.{plural_lower_name}.updated") <strong>'.$event->{lower_name}->name.'</strong>',
+			$event->{lower_name}->id,
+			'save',
+			'bg-aqua'
+		);
+	}
+
+	/**
+	 * @param $event
+	 */
+	public function onDeleted($event) {
+		history()->log(
+			$this->history_slug,
+			'trans("history.frontend.{plural_lower_name}.deleted") <strong>'.$event->{lower_name}->name.'</strong>',
+			$event->{lower_name}->id,
+			'trash',
+			'bg-maroon'
+		);
+	}
+
+	/**
+	 * @param $event
+	 */
+	public function onRestored($event) {
+		history()->log(
+			$this->history_slug,
+			'trans("history.frontend.{plural_lower_name}.restored") <strong>'.$event->{lower_name}->name.'</strong>',
+			$event->{lower_name}->id,
+			'refresh',
+			'bg-aqua'
+		);
+	}
+
+	/**
+	 * Register the listeners for the subscriber.
+	 *
+	 * @param  \Illuminate\Events\Dispatcher  $events
+	 */
+	public function subscribe($events)
+	{
+		$events->listen(
+			\App\Events\Frontend\{namespace}\{name}\{name}Created::class,
+			'App\Listeners\Frontend\{namespace}\{name}\{name}EventListener@onCreated'
+		);
+
+		$events->listen(
+			\App\Events\Frontend\{namespace}\{name}\{name}Updated::class,
+			'App\Listeners\Frontend\{namespace}\{name}\{name}EventListener@onUpdated'
+		);
+
+		$events->listen(
+			\App\Events\Frontend\{namespace}\{name}\{name}Deleted::class,
+			'App\Listeners\Frontend\{namespace}\{name}\{name}EventListener@onDeleted'
+		);
+
+		$events->listen(
+			\App\Events\Frontend\{namespace}\{name}\{name}Restored::class,
+			'App\Listeners\Frontend\{namespace}\{name}\{name}EventListener@onRestored'
+		);
+	}
+}

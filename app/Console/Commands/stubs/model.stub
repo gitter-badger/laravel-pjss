@@ -1,29 +1,34 @@
 <?php
 
-namespace DummyNamespace;
+namespace App\Models\{namespace}\{name};
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class DummyClass extends Model
+/**
+ * Class {name}
+ * @package App\Models\{namespace}\{name}
+ */
+class {name} extends Model
 {
 	use SoftDeletes;
 
     /**
-     * 与模型关联的数据表。
+     * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'Table';
+    protected $table = '{table}';
     
     /**
-     * 模型的日期字段保存格式。
+     * The storage format of the model's date columns.
      *
      * @var string
      */
     protected $dateFormat = 'U';
     
     /**
-     * 需要被转换成日期的属性。
+     * The attributes that should be mutated to dates.
      *
      * @var array
      */

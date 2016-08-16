@@ -1,24 +1,33 @@
 <?php
 
-namespace DummyNamespace;
+namespace App\Events\Frontend\Scrum\UserStory;
 
-use DummyRootNamespaceEvents\Event;
+use App\Events\Event;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class DummyClass extends Event
+/**
+ * Class UserStoryRestored
+ * @package App\Events\Frontend\Scrum\UserStory
+ */
+class UserStoryRestored extends Event
 {
     use SerializesModels;
+    
+    /**
+	 * @var $userstory
+	 */
+	public $userstory;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct()
-    {
-        //
-    }
+    public function __construct($userstory)
+	{
+		$this->userstory = $userstory;
+	}
 
     /**
      * Get the channels the event should be broadcast on.

@@ -1,26 +1,25 @@
 <?php
-
 namespace App\Console\Commands;
 
 use Illuminate\Support\Str;
 use App\Console\Commands\GeneratorCommand;
-use Symfony\Component\Console\Input\InputOption;
 
 class ModelMakeCommand extends GeneratorCommand
 {
+
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'make:pjss-model {namespace} {name} {--m|migration}';
+    protected $signature = 'make:pjss-model {namespace} {name}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = '创建一整套实体、Restful控制器、路由等';
+    protected $description = 'Create a new model class';
 
     /**
      * The type of class being generated.
@@ -37,11 +36,25 @@ class ModelMakeCommand extends GeneratorCommand
     public function fire()
     {
         if (parent::fire() !== false) {
-            if ($this->option('migration')) {
-                $table = $this->getTable();
-
-                $this->call('make:migration', ['name' => "create_{$table}_table", '--create' => $table]);
-            }
+            $table = $this->getTable();
+            
+            // $this->call('make:migration', ['name' => "create_{$table}_table", '--create' => $table]);
+            $this->call('make:pjss-repository-backend', [
+                'namespace' => $this->getNamespaceInput(),
+                'name' => $this->getNameInput()
+            ]);
+            $this->call('make:pjss-repository-frontend', [
+                'namespace' => $this->getNamespaceInput(),
+                'name' => $this->getNameInput()
+            ]);
+            $this->call('make:pjss-eloquent-repository-backend', [
+                'namespace' => $this->getNamespaceInput(),
+                'name' => $this->getNameInput()
+            ]);
+            $this->call('make:pjss-eloquent-repository-frontend', [
+                'namespace' => $this->getNamespaceInput(),
+                'name' => $this->getNameInput()
+            ]);
         }
     }
 
@@ -52,31 +65,59 @@ class ModelMakeCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return __DIR__.'/stubs/model.stub';
+        return __DIR__ . '/stubs/model.stub';
     }
 
     /**
      * Get the default namespace for the class.
      *
-     * @param  string  $rootNamespace
+     * @param string $rootNamespace            
      * @return string
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace . '\\Models\\' . 
-            Str::title($this->getNamespaceInput()) . '\\' . 
-            Str::title($this->getNameInput());
+        return $rootNamespace . '\Models' . '\\' . $this->getNamespaceInput() . '\\' . $this->getNameInput();
     }
 
     /**
-     * Get the console command options.
+     * Build the class with the given name.
      *
-     * @return array
+     * @param string $name            
+     * @return string
      */
-    protected function getOptions()
+    protected function buildClass($name)
     {
-        return [
-            ['migration', 'm', InputOption::VALUE_NONE, 'Create a new migration file for the model.'],
-        ];
+        $stub = parent::buildClass($name);
+        
+        $this->replaceTable($stub, $name);
+        
+        return $stub;
+    }
+
+    /**
+     * Replace the table for the given stub.
+     *
+     * @param string $stub            
+     * @param string $name            
+     * @return $this
+     */
+    protected function replaceTable(&$stub, $name)
+    {
+        $table = $this->getTable($name);
+        
+        $stub = str_replace('{table}', $table, $stub);
+        
+        return $this;
+    }
+
+    /**
+     * Get the full table name for a given class.
+     *
+     * @param string $name            
+     * @return string
+     */
+    protected function getTable()
+    {
+        return Str::snake($this->getNamespaceInput()) . '_' . Str::plural(Str::snake($this->getNameInput()));
     }
 }

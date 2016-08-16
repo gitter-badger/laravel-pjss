@@ -29,6 +29,14 @@ class EventServiceProvider extends ServiceProvider
 		 * Auth Subscribers
 		 */
 		\App\Listeners\Frontend\Auth\UserEventListener::class,
+        
+        // FrontendReplacer
+    
+        /**
+    	 * Scrum Subscribers
+    	 */
+        \App\Listeners\Frontend\Scrum\UserStory\UserStoryEventListener::class,
+        // ScrumFrontendReplacer
 
 		/**
 		 * Backend Subscribers
@@ -39,6 +47,14 @@ class EventServiceProvider extends ServiceProvider
 		 */
         \App\Listeners\Backend\Access\User\UserEventListener::class,
 		\App\Listeners\Backend\Access\Role\RoleEventListener::class,
+        
+        // BackendReplacer
+        
+        /**
+    	 * Scrum Subscribers
+    	 */
+        \App\Listeners\Backend\Scrum\UserStory\UserStoryEventListener::class,
+        // ScrumBackendReplacer
     ];
 
     /**
