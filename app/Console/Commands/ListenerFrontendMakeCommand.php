@@ -65,6 +65,38 @@ class ListenerFrontendMakeCommand extends GeneratorCommand
                 $this->comment('EventServiceProvider modified successfully.');
             }
         }
+        
+        
+        // 修改resources/lang/zh/history.php
+        $path = $this->laravel['path'] . '/../resources/lang/' . env('APP_LOCALE') . '/history.php';
+        
+        $lower_namespace = Str::lower($this->getNamespaceInput());
+        $lower_name = Str::lower($this->getNameInput());
+        $plural_lower_name = Str::plural($lower_name);
+        
+        $array = $this->files->getRequire($path);
+        $contents = $this->files->get($path);
+        if (!array_has($array['frontend'], $lower_namespace)){
+            $contents = str_replace(
+                '   \'frontend\' => [',
+'   \'frontend\' => [
+        \'' . $lower_namespace . '\' => [/*frontend*/
+        ],'
+                , $contents);
+        }
+        if (!(array_has($array['frontend'], $lower_namespace) && array_has($array['frontend'][$lower_namespace], $plural_lower_name))) {
+            $contents = str_replace(
+                '       \'' . $lower_namespace . '\' => [/*frontend*/',
+'       \'' . $lower_namespace . '\' => [/*frontend*/
+            \'' . $plural_lower_name . '\' => [
+                \'created\' => \'created ' . $lower_name . '\',
+                \'deleted\' => \'deleted ' . $lower_name . '\',
+                \'updated\' => \'updated ' . $lower_name . '\',
+                \'restored\' => \'restored ' . $lower_name . '\',
+            ],'
+                , $contents);
+        }
+        $this->files->put($path, $contents);
     }
     
     /**

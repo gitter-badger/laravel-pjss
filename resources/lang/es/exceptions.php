@@ -1,18 +1,17 @@
 <?php
-
 return [
-
+    
     /*
-    |--------------------------------------------------------------------------
-    | Exception Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are used in Exceptions thrown throughout the system.
-    | Regardless where it is placed, a button can be listed here so it is easily
-    | found in a intuitive way.
-    |
-    */
-
+     * |--------------------------------------------------------------------------
+     * | Exception Language Lines
+     * |--------------------------------------------------------------------------
+     * |
+     * | The following language lines are used in Exceptions thrown throughout the system.
+     * | Regardless where it is placed, a button can be listed here so it is easily
+     * | found in a intuitive way.
+     * |
+     */
+    
     'backend' => [
         'access' => [
             'roles' => [
@@ -23,9 +22,9 @@ return [
                 'has_users' => 'No puede eliminar un Rol que tenga usuarios asignados.',
                 'needs_permission' => 'Debe seleccionar al menos un permiso para cada Rol.',
                 'not_found' => 'El Rol requerido no existe.',
-                'update_error' => 'Hubo un problema al modificar el Rol. Intentelo de nuevo.',
+                'update_error' => 'Hubo un problema al modificar el Rol. Intentelo de nuevo.'
             ],
-
+            
             'users' => [
                 'cant_deactivate_self' => 'No puede desactivarse a sí mismo.',
                 'cant_delete_self' => 'No puede eliminarse usted mismo.',
@@ -38,11 +37,11 @@ return [
                 'role_needed_create' => 'Los Usuarios deben tener al menos un Rol. El Usuario fue creado, pero desactivado.',
                 'role_needed' => 'Debes elegir al menos un Rol.',
                 'update_error' => 'Hubo un problema al modificar el Usuario. Intentelo de nuevo.',
-                'update_password_error' => 'Hubo un problema al cambiar la contraseña. Intentelo de nuevo.',
-            ],
-        ],
+                'update_password_error' => 'Hubo un problema al cambiar la contraseña. Intentelo de nuevo.'
+            ]
+        ]
     ],
-
+    
     'frontend' => [
         'auth' => [
             'confirmation' => [
@@ -53,17 +52,16 @@ return [
                 'not_found' => 'El código de verificación especificado no existe.',
                 'resend' => 'Su cuenta no ha sido verificada todavía. Por favor, revise su e-mail, o <a href="' . route('account.confirm.resend', ':user_id') . '">pulse aquí</a> para re-enviar el correo de verificación.',
                 'success' => 'Su cuenta ha sido verificada satisfactoriamente!',
-                'resent' => 'Un nuevo correo de verificación le ha sido enviado.',
+                'resent' => 'Un nuevo correo de verificación le ha sido enviado.'
             ],
-
+            
             'deactivated' => 'Su cuenta ha sido desactivada.',
             'email_taken' => 'El correo especificado ya está registrado.',
-
+            
             'password' => [
-                'change_mismatch' => 'La contraseña antigua no coincide.',
-            ],
-
-
-        ],
-    ],
+                'change_mismatch' => 'La contraseña antigua no coincide.'
+            ]
+        ]
+        
+    ]
 ];

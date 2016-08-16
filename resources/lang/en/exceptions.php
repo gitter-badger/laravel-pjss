@@ -1,18 +1,17 @@
 <?php
-
 return [
-
+    
     /*
-    |--------------------------------------------------------------------------
-    | Exception Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are used in Exceptions thrown throughout the system.
-    | Regardless where it is placed, a button can be listed here so it is easily
-    | found in a intuitive way.
-    |
-    */
-
+     * |--------------------------------------------------------------------------
+     * | Exception Language Lines
+     * |--------------------------------------------------------------------------
+     * |
+     * | The following language lines are used in Exceptions thrown throughout the system.
+     * | Regardless where it is placed, a button can be listed here so it is easily
+     * | found in a intuitive way.
+     * |
+     */
+    
     'backend' => [
         'access' => [
             'roles' => [
@@ -23,9 +22,9 @@ return [
                 'has_users' => 'You can not delete a role with associated users.',
                 'needs_permission' => 'You must select at least one permission for this role.',
                 'not_found' => 'That role does not exist.',
-                'update_error' => 'There was a problem updating this role. Please try again.',
+                'update_error' => 'There was a problem updating this role. Please try again.'
             ],
-
+            
             'users' => [
                 'cant_deactivate_self' => 'You can not do that to yourself.',
                 'cant_delete_self' => 'You can not delete yourself.',
@@ -38,11 +37,11 @@ return [
                 'role_needed_create' => 'You must choose at lease one role. User has been created but deactivated.',
                 'role_needed' => 'You must choose at least one role.',
                 'update_error' => 'There was a problem updating this user. Please try again.',
-                'update_password_error' => 'There was a problem changing this users password. Please try again.',
-            ],
-        ],
+                'update_password_error' => 'There was a problem changing this users password. Please try again.'
+            ]
+        ]
     ],
-
+    
     'frontend' => [
         'auth' => [
             'confirmation' => [
@@ -53,15 +52,15 @@ return [
                 'not_found' => 'That confirmation code does not exist.',
                 'resend' => 'Your account is not confirmed. Please click the confirmation link in your e-mail, or <a href="' . route('account.confirm.resend', ':user_id') . '">click here</a> to resend the confirmation e-mail.',
                 'success' => 'Your account has been successfully confirmed!',
-                'resent' => 'A new confirmation e-mail has been sent to the address on file.',
+                'resent' => 'A new confirmation e-mail has been sent to the address on file.'
             ],
-
+            
             'deactivated' => 'Your account has been deactivated.',
             'email_taken' => 'That e-mail address is already taken.',
-
+            
             'password' => [
-                'change_mismatch' => 'That is not your old password.',
-            ],
-        ],
-    ],
+                'change_mismatch' => 'That is not your old password.'
+            ]
+        ]
+    ]
 ];

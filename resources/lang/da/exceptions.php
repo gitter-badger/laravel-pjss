@@ -1,18 +1,17 @@
 <?php
-
 return [
-
+    
     /*
-    |--------------------------------------------------------------------------
-    | Exception Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are used in Exceptions thrown throughout the system.
-    | Regardless where it is placed, a button can be listed here so it is easily
-    | found in a intuitive way.
-    |
-    */
-
+     * |--------------------------------------------------------------------------
+     * | Exception Language Lines
+     * |--------------------------------------------------------------------------
+     * |
+     * | The following language lines are used in Exceptions thrown throughout the system.
+     * | Regardless where it is placed, a button can be listed here so it is easily
+     * | found in a intuitive way.
+     * |
+     */
+    
     'backend' => [
         'access' => [
             'roles' => [
@@ -23,9 +22,9 @@ return [
                 'has_users' => 'Du kan ikke slette en rolle med tilhørende brugere.',
                 'needs_permission' => 'Du skal vælge mindst én tilladelse til denne rolle.',
                 'not_found' => 'Denne rolle findes ikke.',
-                'update_error' => 'Der opstod et problem at opdatere denne rolle. Prøv igen.',
+                'update_error' => 'Der opstod et problem at opdatere denne rolle. Prøv igen.'
             ],
-
+            
             'users' => [
                 'cant_deactivate_self' => 'Du kan ikke gøre det for dig selv.',
                 'cant_delete_self' => 'Du kan ikke slette dig selv.',
@@ -38,11 +37,11 @@ return [
                 'role_needed_create' => 'Du skal vælge mindst én rolle. Bruger er oprettet, men deaktiveret.',
                 'role_needed' => 'Du skal vælge mindst én rolle.',
                 'update_error' => 'Der opstod et problem at opdatere denne bruger. Prøv igen.',
-                'update_password_error' => 'Der opstod et problem at ændre denne brugers adgangskode. Prøv igen.',
-            ],
-        ],
+                'update_password_error' => 'Der opstod et problem at ændre denne brugers adgangskode. Prøv igen.'
+            ]
+        ]
     ],
-
+    
     'frontend' => [
         'auth' => [
             'confirmation' => [
@@ -53,17 +52,16 @@ return [
                 'not_found' => 'At bekræftelseskode findes ikke.',
                 'resend' => 'Din konto er ikke bekræftet. Klik på linket bekræftelse e-mail eller <a href="' . route('account.confirm.resend', ':user_id') . '">tryk her</a> for at gensende bekræftelses e-mailen.',
                 'success' => 'Din konto er blevet succesfuldt bekræftet!',
-                'resent' => 'En ny bekræftelses e-mail er blevet sendt til adressen vi kender.',
+                'resent' => 'En ny bekræftelses e-mail er blevet sendt til adressen vi kender.'
             ],
-
+            
             'deactivated' => 'Din konto er blevet deaktiveret.',
             'email_taken' => 'At e-mail-adresse er allerede taget.',
-
+            
             'password' => [
-                'change_mismatch' => 'Det er ikke din gamle adgangskode.',
-            ],
-
-
-        ],
-    ],
+                'change_mismatch' => 'Det er ikke din gamle adgangskode.'
+            ]
+        ]
+        
+    ]
 ];

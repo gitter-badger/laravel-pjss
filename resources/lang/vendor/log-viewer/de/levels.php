@@ -1,13 +1,12 @@
 <?php
-
 return [
-    'all'       => 'Alle',
+    'all' => 'Alle',
     'emergency' => 'Notfall',
-    'alert'     => 'Alarm',
-    'critical'  => 'Kritisch',
-    'error'     => 'Fehler',
-    'warning'   => 'Warnung',
-    'notice'    => 'Hinweis',
-    'info'      => 'Info',
-    'debug'     => 'Debug',
+    'alert' => 'Alarm',
+    'critical' => 'Kritisch',
+    'error' => 'Fehler',
+    'warning' => 'Warnung',
+    'notice' => 'Hinweis',
+    'info' => 'Info',
+    'debug' => 'Debug'
 ];

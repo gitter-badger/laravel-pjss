@@ -22,7 +22,7 @@ class {name}EventListener
 	public function onCreated($event) {
 		history()->log(
 			$this->history_slug,
-			'trans("history.backend.{plural_lower_name}.created") <strong>'.$event->{lower_name}->name.'</strong>',
+			'trans("history.backend.{namespace}.{plural_lower_name}.created") <strong>'.$event->{lower_name}->name.'</strong>',
 			$event->{lower_name}->id,
 			'plus',
 			'bg-green'
@@ -35,7 +35,7 @@ class {name}EventListener
 	public function onUpdated($event) {
 		history()->log(
 			$this->history_slug,
-			'trans("history.backend.{plural_lower_name}.updated") <strong>'.$event->{lower_name}->name.'</strong>',
+			'trans("history.backend.{namespace}.{plural_lower_name}.updated") <strong>'.$event->{lower_name}->name.'</strong>',
 			$event->{lower_name}->id,
 			'save',
 			'bg-aqua'
@@ -48,7 +48,7 @@ class {name}EventListener
 	public function onDeleted($event) {
 		history()->log(
 			$this->history_slug,
-			'trans("history.backend.{plural_lower_name}.deleted") <strong>'.$event->{lower_name}->name.'</strong>',
+			'trans("history.backend.{namespace}.{plural_lower_name}.deleted") <strong>'.$event->{lower_name}->name.'</strong>',
 			$event->{lower_name}->id,
 			'trash',
 			'bg-maroon'
@@ -61,7 +61,7 @@ class {name}EventListener
 	public function onRestored($event) {
 		history()->log(
 			$this->history_slug,
-			'trans("history.backend.{plural_lower_name}.restored") <strong>'.$event->{lower_name}->name.'</strong>',
+			'trans("history.backend.{namespace}.{plural_lower_name}.restored") <strong>'.$event->{lower_name}->name.'</strong>',
 			$event->{lower_name}->id,
 			'refresh',
 			'bg-aqua'

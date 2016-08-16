@@ -1,30 +1,29 @@
 <?php
-
 return [
-
+    
     /*
-    |--------------------------------------------------------------------------
-    | Menus Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are used in menu items throughout the system.
-    | Regardless where it is placed, a menu item can be listed here so it is easily
-    | found in a intuitive way.
-    |
-    */
-
+     * |--------------------------------------------------------------------------
+     * | Menus Language Lines
+     * |--------------------------------------------------------------------------
+     * |
+     * | The following language lines are used in menu items throughout the system.
+     * | Regardless where it is placed, a menu item can be listed here so it is easily
+     * | found in a intuitive way.
+     * |
+     */
+    
     'backend' => [
         'access' => [
             'title' => 'การจัดการผู้ใช้และสิทธิ์',
-
+            
             'roles' => [
                 'all' => 'บทบาททั้งหมด',
                 'create' => 'สร้างบทบาท',
                 'edit' => 'แก้ไขบทบาท',
                 'management' => 'การจัดการบทบาท',
-                'main' => 'บทบาท',
+                'main' => 'บทบาท'
             ],
-
+            
             'users' => [
                 'all' => 'ผู้ใช้ทั้งหมด',
                 'change-password' => 'เปลี่ยนรหัสผ่าน',
@@ -32,22 +31,22 @@ return [
                 'deactivated' => 'ผู้ใช้ที่ถูกพักการใช้งาน',
                 'deleted' => 'ผู้ใช้ที่ถูกลบ',
                 'edit' => 'แก้ไขผู้ใช้',
-                'main' => 'ผู้ใช้',
-            ],
+                'main' => 'ผู้ใช้'
+            ]
         ],
-
+        
         'log-viewer' => [
             'main' => 'Log Viewer',
             'dashboard' => 'แผงควบคุม',
-            'logs' => 'รายการล็อก',
+            'logs' => 'รายการล็อก'
         ],
-
+        
         'sidebar' => [
             'dashboard' => 'แผงควบคุม',
-            'general' => 'ทั่วไป',
-        ],
+            'general' => 'ทั่วไป'
+        ]
     ],
-
+    
     'language-picker' => [
         'language' => 'ภาษา',
         /**
@@ -66,7 +65,7 @@ return [
             'it' => 'อิตาลี (Italian)',
             'pt-BR' => 'โปรตุเกสแบบบราซิล (Brazilian Portuguese)',
             'sv' => 'สวีเดน (Swedish)',
-            'th' => 'ไทย (Thai)',
-        ],
-    ],
+            'th' => 'ไทย (Thai)'
+        ]
+    ]
 ];

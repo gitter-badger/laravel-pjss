@@ -1,18 +1,17 @@
 <?php
-
 return [
-
+    
     /*
-    |--------------------------------------------------------------------------
-    | Exception Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are used in Exceptions thrown throughout the system.
-    | Regardless where it is placed, a button can be listed here so it is easily
-    | found in a intuitive way.
-    |
-    */
-
+     * |--------------------------------------------------------------------------
+     * | Exception Language Lines
+     * |--------------------------------------------------------------------------
+     * |
+     * | The following language lines are used in Exceptions thrown throughout the system.
+     * | Regardless where it is placed, a button can be listed here so it is easily
+     * | found in a intuitive way.
+     * |
+     */
+    
     'backend' => [
         'access' => [
             'roles' => [
@@ -23,9 +22,9 @@ return [
                 'has_users' => 'Eine Rolle mit zugeordnerten Benutzern kann nicht gelöscht werden.',
                 'needs_permission' => 'Für diese Rolle muss mind. eine Berechtigung ausgewählt sein.',
                 'not_found' => 'Diese Rolle existiert nicht.',
-                'update_error' => 'Beim aktualisieren der Rolle ist ein Fehler aufgetreten. Bitte versuche es erneut.',
+                'update_error' => 'Beim aktualisieren der Rolle ist ein Fehler aufgetreten. Bitte versuche es erneut.'
             ],
-
+            
             'users' => [
                 'cant_deactivate_self' => 'Du kannst das nicht mit dir selber machen.',
                 'cant_delete_self' => 'Du kannst dich nciht selber löschen.',
@@ -38,11 +37,11 @@ return [
                 'role_needed_create' => 'Du musst mind. eine Rolle auswählen. Der Benutzer wurde erstellt, jedoch deaktiviert.',
                 'role_needed' => 'Du musst mind. eine Rolle auswählen.',
                 'update_error' => 'Beim aktualisieren des Benutzers ist ein Fehler aufgetrten. Bitte versuche es erneut.',
-                'update_password_error' => 'Das Passwort den Benutzers konnte nicht geändert werden. Bitte versuche es erneut.',
-            ],
-        ],
+                'update_password_error' => 'Das Passwort den Benutzers konnte nicht geändert werden. Bitte versuche es erneut.'
+            ]
+        ]
     ],
-
+    
     'frontend' => [
         'auth' => [
             'confirmation' => [
@@ -53,17 +52,16 @@ return [
                 'not_found' => 'Der Aktivierungscode existiert nicht.',
                 'resend' => 'Dein Account ist nicht aktiviert. Bitte klicke auf den Link in der Aktivierungsmail, oder <a href="' . route('account.confirm.resend', ':user_id') . '">klicke hier</a> um die aktivierungsmail erneut zu senden.',
                 'success' => 'Dein Account wurde aktiviert!',
-                'resent' => 'Eine neue aktivierungsmail wurde an die hinterlegte E-Mailadresse gesendet.',
+                'resent' => 'Eine neue aktivierungsmail wurde an die hinterlegte E-Mailadresse gesendet.'
             ],
-
+            
             'deactivated' => 'Dein Account wurde deaktiviert.',
             'email_taken' => 'Diese E-Mailadresse wird schon verwendet.',
-
+            
             'password' => [
-                'change_mismatch' => 'Das ist nicht dein altes Passwort.',
-            ],
-
-
-        ],
-    ],
+                'change_mismatch' => 'Das ist nicht dein altes Passwort.'
+            ]
+        ]
+        
+    ]
 ];

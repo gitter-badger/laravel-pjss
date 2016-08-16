@@ -1,18 +1,17 @@
 <?php
-
 return [
-
+    
     /*
-    |--------------------------------------------------------------------------
-    | Buttons Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are used in buttons throughout the system.
-    | Regardless where it is placed, a button can be listed here so it is easily
-    | found in a intuitive way.
-    |
-    */
-
+     * |--------------------------------------------------------------------------
+     * | Buttons Language Lines
+     * |--------------------------------------------------------------------------
+     * |
+     * | The following language lines are used in buttons throughout the system.
+     * | Regardless where it is placed, a button can be listed here so it is easily
+     * | found in a intuitive way.
+     * |
+     */
+    
     'backend' => [
         'access' => [
             'users' => [
@@ -22,22 +21,22 @@ return [
                 'delete_permanently' => 'Slet permanent',
                 'login_as' => 'Login As :user',
                 'resend_email' => 'Gensend bekræftelse E-mail',
-                'restore_user' => 'Genskab bruger',
-            ],
-        ],
+                'restore_user' => 'Genskab bruger'
+            ]
+        ]
     ],
-
+    
     'general' => [
         'cancel' => 'Fortryd',
-
+        
         'crud' => [
             'create' => 'Opret',
             'delete' => 'Slet',
             'edit' => 'Rediger',
-            'update' => 'Opdater',
+            'update' => 'Opdater'
         ],
-
+        
         'save' => 'Gem',
-        'view' => 'Vis',
-    ],
+        'view' => 'Vis'
+    ]
 ];

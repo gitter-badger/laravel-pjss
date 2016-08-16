@@ -1,18 +1,17 @@
 <?php
-
 return [
-
+    
     /*
-    |--------------------------------------------------------------------------
-    | Exception Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are used in Exceptions thrown throughout the system.
-    | Regardless where it is placed, a button can be listed here so it is easily
-    | found in a intuitive way.
-    |
-    */
-
+     * |--------------------------------------------------------------------------
+     * | Exception Language Lines
+     * |--------------------------------------------------------------------------
+     * |
+     * | The following language lines are used in Exceptions thrown throughout the system.
+     * | Regardless where it is placed, a button can be listed here so it is easily
+     * | found in a intuitive way.
+     * |
+     */
+    
     'backend' => [
         'access' => [
             'roles' => [
@@ -23,9 +22,9 @@ return [
                 'has_users' => 'Ce rôle est associé à des utilisateurs et ne peut être supprimé.',
                 'needs_permission' => 'Vous devez sélectionner au moins une permission pour ce rôle.',
                 'not_found' => "Ce rôle n'existe pas.",
-                'update_error' => 'Un problème est survenu lors de la mise à jour du rôle. Veuillez réessayer.',
+                'update_error' => 'Un problème est survenu lors de la mise à jour du rôle. Veuillez réessayer.'
             ],
-
+            
             'users' => [
                 'cant_deactivate_self' => 'Vous ne pouvez pas vous désactiver vous même.',
                 'cant_delete_self' => 'Vous ne pouvez pas vous supprimer vous même.',
@@ -38,11 +37,11 @@ return [
                 'role_needed_create' => "Vous devez sélectionner au moins un rôle. L'utilisateur a été créé mais désactivé.",
                 'role_needed' => 'Vous devez sélectionner au moins un rôle.',
                 'update_error' => "Un problème est survenu lors de la mise à jour de l'utilisateur. Veuillez réessayer.",
-                'update_password_error' => "Un problème est survenu lors du changement du mot de passe de l'utilisateur. Veuillez réessayer.",
-            ],
-        ],
+                'update_password_error' => "Un problème est survenu lors du changement du mot de passe de l'utilisateur. Veuillez réessayer."
+            ]
+        ]
     ],
-
+    
     'frontend' => [
         'auth' => [
             'confirmation' => [
@@ -53,17 +52,16 @@ return [
                 'not_found' => "Votre code de confirmation n'existe pas.",
                 'resend' => 'Votre compte n\'est pas confirmé. Veuillez utiliser le lien qui vous a été envoyé par email, ou <a href="' . route('account.confirm.resend', ':user_id') . '">cliquez ici </a> pour recevoir un email de nouveau.',
                 'success' => "Votre compte est dorénavant confirmé !",
-                'resent' => "Un nouvel email a été envoyé à l'adresse enregistrée.",
+                'resent' => "Un nouvel email a été envoyé à l'adresse enregistrée."
             ],
-
+            
             'deactivated' => 'Votre compte a été désactivé.',
             'email_taken' => 'Cet email est déjà utilisé.',
-
+            
             'password' => [
-                'change_mismatch' => "L'ancien mot de passe dst invalide.",
-            ],
-
-
-        ],
-    ],
+                'change_mismatch' => "L'ancien mot de passe dst invalide."
+            ]
+        ]
+        
+    ]
 ];

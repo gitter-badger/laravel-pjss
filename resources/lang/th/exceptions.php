@@ -1,18 +1,17 @@
 <?php
-
 return [
-
+    
     /*
-    |--------------------------------------------------------------------------
-    | Exception Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are used in Exceptions thrown throughout the system.
-    | Regardless where it is placed, a button can be listed here so it is easily
-    | found in a intuitive way.
-    |
-    */
-
+     * |--------------------------------------------------------------------------
+     * | Exception Language Lines
+     * |--------------------------------------------------------------------------
+     * |
+     * | The following language lines are used in Exceptions thrown throughout the system.
+     * | Regardless where it is placed, a button can be listed here so it is easily
+     * | found in a intuitive way.
+     * |
+     */
+    
     'backend' => [
         'access' => [
             'roles' => [
@@ -23,9 +22,9 @@ return [
                 'has_users' => 'คุณไม่สามารถลบบทบาทที่มีผู้ใช้สวมบทบาทนี้อยู่',
                 'needs_permission' => 'คุณต้องเลือกอย่างน้อยหนึ่งสิทธิ์ให้กับบทบาทนี้',
                 'not_found' => 'ไม่พบบทบาทนี้',
-                'update_error' => 'มีข้อผิดพลาดในการแก้ไขบทบาทนี้ กรุณาลองใหม่อีกครั้ง',
+                'update_error' => 'มีข้อผิดพลาดในการแก้ไขบทบาทนี้ กรุณาลองใหม่อีกครั้ง'
             ],
-
+            
             'users' => [
                 'cant_deactivate_self' => 'คุณไม่สามารถกระทำกับตนเองได้',
                 'cant_delete_self' => 'คุณไม่สามารถลบตนเองได้',
@@ -38,11 +37,11 @@ return [
                 'role_needed_create' => 'คุณต้องเลือกอย่างน้อยหนึ่งบทบาท ผู้ใช้ถูกสร้างใหม่ด้วยสถานะถูกพักการใช้งาน',
                 'role_needed' => 'คุณต้องเลือกอย่างน้อยหนึ่งบทบาท',
                 'update_error' => 'มีข้อผิดพลาดในการแก้ไขผู้ใช้นี้ กรุณาลองใหม่อีกครั้ง',
-                'update_password_error' => 'มีข้อผิดพลาดในการเปลี่ยนรหัสผ่านของผู้ใช้นี้ กรุณาลองใหม่อีกครั้ง',
-            ],
-        ],
+                'update_password_error' => 'มีข้อผิดพลาดในการเปลี่ยนรหัสผ่านของผู้ใช้นี้ กรุณาลองใหม่อีกครั้ง'
+            ]
+        ]
     ],
-
+    
     'frontend' => [
         'auth' => [
             'confirmation' => [
@@ -53,15 +52,15 @@ return [
                 'not_found' => 'ไม่พบรหัสที่ใช้ยืนยันตัวตนนี้',
                 'resend' => 'บัญชีผู้ใช้ของคุณยังไม่ได้รับการยืนยันตัวตน กรุณาคลิกลิงก์ในอีเมลของคุณ หรือ <a href="' . route('account.confirm.resend', ':user_id') . '">คลิกที่นี่</a> เพื่อส่งอีเมลยืนยันตัวตนอีกครั้ง',
                 'success' => 'บัญชีผู้ใช้ของคุณได้รับการยืนยันตัวตนสำเร็จแล้ว!',
-                'resent' => 'อีเมลยืนยันตัวตนฉบับใหม่ได้ถูกส่งไปยังปลายทางแล้ว',
+                'resent' => 'อีเมลยืนยันตัวตนฉบับใหม่ได้ถูกส่งไปยังปลายทางแล้ว'
             ],
-
+            
             'deactivated' => 'บัญชีผู้ใช้ของคุณถูกพักการใช้งาน',
             'email_taken' => 'อีเมลนี้ถูกใช้ในระบบแล้ว',
-
+            
             'password' => [
-                'change_mismatch' => 'รหัสผ่านเดิมไม่ถูกต้อง',
-            ],
-        ],
-    ],
+                'change_mismatch' => 'รหัสผ่านเดิมไม่ถูกต้อง'
+            ]
+        ]
+    ]
 ];

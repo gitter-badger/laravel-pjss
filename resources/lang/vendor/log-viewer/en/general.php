@@ -1,6 +1,5 @@
 <?php
-
 return [
-    'all'  => 'All',
-    'date' => 'Date',
+    'all' => 'All',
+    'date' => 'Date'
 ];

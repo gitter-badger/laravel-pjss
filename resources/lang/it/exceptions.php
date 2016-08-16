@@ -1,18 +1,17 @@
 <?php
-
 return [
-
+    
     /*
-    |--------------------------------------------------------------------------
-    | Exception Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are used in Exceptions thrown throughout the system.
-    | Regardless where it is placed, a button can be listed here so it is easily
-    | found in a intuitive way.
-    |
-    */
-
+     * |--------------------------------------------------------------------------
+     * | Exception Language Lines
+     * |--------------------------------------------------------------------------
+     * |
+     * | The following language lines are used in Exceptions thrown throughout the system.
+     * | Regardless where it is placed, a button can be listed here so it is easily
+     * | found in a intuitive way.
+     * |
+     */
+    
     'backend' => [
         'access' => [
             'roles' => [
@@ -23,9 +22,9 @@ return [
                 'has_users' => 'Non è possibile cancellare un ruolo associato a degli utenti.',
                 'needs_permission' => 'Bisogna selezionare almeno un permesso per questo ruolo.',
                 'not_found' => 'Questo ruolo non esiste.',
-                'update_error' => "C'è stato un problema durante l'aggiornamento di questo ruolo. Si prega di riprovare più tardi.",
+                'update_error' => "C'è stato un problema durante l'aggiornamento di questo ruolo. Si prega di riprovare più tardi."
             ],
-
+            
             'users' => [
                 'cant_deactivate_self' => 'Non puoi eseguire questa operazione su te stesso.',
                 'cant_delete_self' => 'Non puoi cancellare te stesso.',
@@ -38,11 +37,11 @@ return [
                 'role_needed_create' => "Devi scegliere almeno un ruolo. L'utente è stato creato ma è disattivato.",
                 'role_needed' => 'Devi scegliere almeno un ruolo',
                 'update_error' => "C'è stato un problema durante l'aggiornamento dell'utente. Si prega di riprovare",
-                'update_password_error' => "C'è stato un problema durante il cambio di password per l'utente. Si prega di riprovare.",
-            ],
-        ],
+                'update_password_error' => "C'è stato un problema durante il cambio di password per l'utente. Si prega di riprovare."
+            ]
+        ]
     ],
-
+    
     'frontend' => [
         'auth' => [
             'confirmation' => [
@@ -53,17 +52,16 @@ return [
                 'not_found' => 'Questo codice di conferma non esiste.',
                 'resend' => 'Il tuo account non è confermato. Per cortesia clicca sul link di conferma nell\'email che ti abbiamo mandato, o <a href="' . route('account.confirm.resend', ':user_id') . '">clicca qui</a> per rimandare l\'email di conferma.',
                 'success' => "Il tuo account è stato confermato con successo!",
-                'resent' => "Una nuova e-mail di conferma è stata inviata all'indirizzo registrato.",
+                'resent' => "Una nuova e-mail di conferma è stata inviata all'indirizzo registrato."
             ],
-
+            
             'deactivated' => 'Il tuo account è stato disattivato.',
             'email_taken' => 'Questo indirizzo e-mail è stato già utilizzato.',
-
+            
             'password' => [
-                'change_mismatch' => 'Questa non è la tua vecchia password.',
-            ],
-
-
-        ],
-    ],
+                'change_mismatch' => 'Questa non è la tua vecchia password.'
+            ]
+        ]
+        
+    ]
 ];

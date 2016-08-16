@@ -1,30 +1,29 @@
 <?php
-
 return [
-
+    
     /*
-    |--------------------------------------------------------------------------
-    | Menus Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are used in menu items throughout the system.
-    | Regardless where it is placed, a menu item can be listed here so it is easily
-    | found in a intuitive way.
-    |
-    */
-
+     * |--------------------------------------------------------------------------
+     * | Menus Language Lines
+     * |--------------------------------------------------------------------------
+     * |
+     * | The following language lines are used in menu items throughout the system.
+     * | Regardless where it is placed, a menu item can be listed here so it is easily
+     * | found in a intuitive way.
+     * |
+     */
+    
     'backend' => [
         'access' => [
             'title' => 'Access Management',
-
+            
             'roles' => [
                 'all' => 'All Roles',
                 'create' => 'Create Role',
                 'edit' => 'Edit Role',
                 'management' => 'Role Management',
-                'main' => 'Roles',
+                'main' => 'Roles'
             ],
-
+            
             'users' => [
                 'all' => 'All Users',
                 'change-password' => 'Change Password',
@@ -32,22 +31,22 @@ return [
                 'deactivated' => 'Deactivated Users',
                 'deleted' => 'Deleted Users',
                 'edit' => 'Edit User',
-                'main' => 'Users',
-            ],
+                'main' => 'Users'
+            ]
         ],
-
+        
         'log-viewer' => [
             'main' => 'Log Viewer',
             'dashboard' => 'Dashboard',
-            'logs' => 'Logs',
+            'logs' => 'Logs'
         ],
-
+        
         'sidebar' => [
             'dashboard' => 'Dashboard',
-            'general' => 'General',
-        ],
+            'general' => 'General'
+        ]
     ],
-
+    
     'language-picker' => [
         'language' => 'Language',
         /**
@@ -66,7 +65,7 @@ return [
             'it' => 'Italian',
             'pt-BR' => 'Brazilian Portuguese',
             'sv' => 'Swedish',
-            'th' => 'Thai',
-        ],
-    ],
+            'th' => 'Thai'
+        ]
+    ]
 ];

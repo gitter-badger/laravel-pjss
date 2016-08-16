@@ -1,30 +1,29 @@
 <?php
-
 return [
-
+    
     /*
-    |--------------------------------------------------------------------------
-    | Menus Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are used in menu items throughout the system.
-    | Regardless where it is placed, a menu item can be listed here so it is easily
-    | found in a intuitive way.
-    |
-    */
-
+     * |--------------------------------------------------------------------------
+     * | Menus Language Lines
+     * |--------------------------------------------------------------------------
+     * |
+     * | The following language lines are used in menu items throughout the system.
+     * | Regardless where it is placed, a menu item can be listed here so it is easily
+     * | found in a intuitive way.
+     * |
+     */
+    
     'backend' => [
         'access' => [
             'title' => 'Vedligehold adgangsrettigheder',
-
+            
             'roles' => [
                 'all' => 'Alle roller',
                 'create' => 'Opret rolle',
                 'edit' => 'rediger rolle',
                 'management' => 'Vedligehold roller',
-                'main' => 'Roller',
+                'main' => 'Roller'
             ],
-
+            
             'users' => [
                 'all' => 'Alle brugere',
                 'change-password' => 'Ændre kodeord',
@@ -32,22 +31,22 @@ return [
                 'deactivated' => 'Deaktiver bruger',
                 'deleted' => 'Slet bruger',
                 'edit' => 'Rediger bruger',
-                'main' => 'Brugere',
-            ],
+                'main' => 'Brugere'
+            ]
         ],
-
+        
         'log-viewer' => [
             'main' => 'Log viser',
             'dashboard' => 'Dashboard',
-            'logs' => 'Logs',
+            'logs' => 'Logs'
         ],
-
+        
         'sidebar' => [
             'dashboard' => 'Dashboard',
-            'general' => 'Generelt',
-        ],
+            'general' => 'Generelt'
+        ]
     ],
-
+    
     'language-picker' => [
         'language' => 'Sprog',
         /**
@@ -66,7 +65,7 @@ return [
             'it' => 'Italiensk',
             'pt-BR' => 'Brasiliansk portugisisk',
             'sv' => 'Svensk',
-            'th' => 'Thai',
-        ],
-    ],
+            'th' => 'Thai'
+        ]
+    ]
 ];

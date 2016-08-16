@@ -1,18 +1,17 @@
 <?php
-
 return [
-
+    
     /*
-    |--------------------------------------------------------------------------
-    | Labels Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are used in labels throughout the system.
-    | Regardless where it is placed, a label can be listed here so it is easily
-    | found in a intuitive way.
-    |
-    */
-
+     * |--------------------------------------------------------------------------
+     * | Labels Language Lines
+     * |--------------------------------------------------------------------------
+     * |
+     * | The following language lines are used in labels throughout the system.
+     * | Regardless where it is placed, a label can be listed here so it is easily
+     * | found in a intuitive way.
+     * |
+     */
+    
     'general' => [
         'all' => 'Todos',
         'yes' => 'Sim',
@@ -21,30 +20,30 @@ return [
         'actions' => 'Ações',
         'buttons' => [
             'save' => 'Salvar',
-            'update' => 'Atualizar',
+            'update' => 'Atualizar'
         ],
         'hide' => 'Esconder',
         'none' => 'Nenhum',
         'show' => 'Mostrar',
-        'toggle_navigation' => 'Mostrar / Esconder Navegação',
+        'toggle_navigation' => 'Mostrar / Esconder Navegação'
     ],
-
+    
     'backend' => [
         'access' => [
             'roles' => [
                 'create' => 'Criar Papel',
                 'edit' => 'Criar Papel',
                 'management' => 'Gerenciamento de Papéis',
-
+                
                 'table' => [
                     'number_of_users' => 'Número de Usuários',
                     'permissions' => 'Permissões',
                     'role' => 'Papel',
                     'sort' => 'Ordenar',
-                    'total' => 'total de permissao|total de permissões',
-                ],
+                    'total' => 'total de permissao|total de permissões'
+                ]
             ],
-
+            
             'users' => [
                 'active' => 'Ativar Usuários',
                 'all_permissions' => 'Todas as Permissões',
@@ -58,7 +57,7 @@ return [
                 'no_permissions' => 'Sem permissões',
                 'no_roles' => 'Sem papéis para definir.',
                 'permissions' => 'Permissões',
-
+                
                 'table' => [
                     'confirmed' => 'Confirmado',
                     'created' => 'Criado',
@@ -69,61 +68,61 @@ return [
                     'no_deactivated' => 'Nenhum usuário desativado.',
                     'no_deleted' => 'Nenhum usuário excluído',
                     'roles' => 'Papéis',
-                    'total' => 'total de usuário|total de usuários',
-                ],
-            ],
-        ],
+                    'total' => 'total de usuário|total de usuários'
+                ]
+            ]
+        ]
     ],
-
+    
     'frontend' => [
-
+        
         'auth' => [
             'login_box_title' => 'Login',
             'login_button' => 'Login',
             'login_with' => 'Login com :social_media',
             'register_box_title' => 'Registrar',
             'register_button' => 'Registrar',
-            'remember_me' => 'Lembrar-me',
+            'remember_me' => 'Lembrar-me'
         ],
-
+        
         'passwords' => [
             'forgot_password' => 'Esqueceu Sua Senha?',
             'reset_password_box_title' => 'Resetar Senha',
             'reset_password_button' => 'Resetar Senha',
-            'send_password_reset_link_button' => 'Enviar link para redefinição de senha',
+            'send_password_reset_link_button' => 'Enviar link para redefinição de senha'
         ],
-
+        
         'macros' => [
             'country' => [
                 'alpha' => 'Códigos de País Alpha',
                 'alpha2' => 'Códigos de País Alpha 2',
                 'alpha3' => 'Códigos de País Alpha 3',
-                'numeric' => 'Códigos Numéricos País',
+                'numeric' => 'Códigos Numéricos País'
             ],
-
+            
             'macro_examples' => 'Exemplo de Macros',
-
+            
             'state' => [
                 'mexico' => 'Lista de Estados do México',
                 'us' => [
                     'us' => 'Lista de estados dos EUA',
                     'outlying' => 'Territórios Distantes EUA',
-                    'armed' => 'Forças Armadas dos EUA',
-                ],
+                    'armed' => 'Forças Armadas dos EUA'
+                ]
             ],
-
+            
             'territories' => [
-                'canada' => 'Província do Canadá e Lista de Territórios',
+                'canada' => 'Província do Canadá e Lista de Territórios'
             ],
-
-            'timezone' => 'Fuso horário',
+            
+            'timezone' => 'Fuso horário'
         ],
-
+        
         'user' => [
             'passwords' => [
-                'change' => 'Alterar Senha',
+                'change' => 'Alterar Senha'
             ],
-
+            
             'profile' => [
                 'avatar' => 'Avatar',
                 'created_at' => 'Criado em',
@@ -131,9 +130,9 @@ return [
                 'email' => 'E-mail',
                 'last_updated' => 'Última atualização',
                 'name' => 'Nome',
-                'update_information' => 'Atualizar informação',
-            ],
-        ],
-
-    ],
+                'update_information' => 'Atualizar informação'
+            ]
+        ]
+    ]
+    
 ];

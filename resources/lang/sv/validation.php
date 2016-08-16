@@ -1,86 +1,85 @@
 <?php
-
 return [
-
+    
     /*
-    |--------------------------------------------------------------------------
-    | Validation Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines contain the default error messages used by
-    | the validator class. Some of these rules have multiple versions such
-    | as the size rules. Feel free to tweak each of these messages here.
-    |
-    */
-
-    'accepted'             => ':attribute måste accepteras.',
-    'active_url'           => ':attribute är inte en giltig webbadress.',
-    'after'                => ':attribute måste vara ett datum efter den :date.',
-    'alpha'                => ':attribute får endast innehålla bokstäver.',
-    'alpha_dash'           => ':attribute får endast innehålla bokstäver, siffror och bindestreck.',
-    'alpha_num'            => ':attribute får endast innehålla bokstäver och siffror.',
-    'array'                => ':attribute måste vara en array.',
-    'before'               => ':attribute måste vara ett datum innan den :date.',
-    'between'              => [
+     * |--------------------------------------------------------------------------
+     * | Validation Language Lines
+     * |--------------------------------------------------------------------------
+     * |
+     * | The following language lines contain the default error messages used by
+     * | the validator class. Some of these rules have multiple versions such
+     * | as the size rules. Feel free to tweak each of these messages here.
+     * |
+     */
+    
+    'accepted' => ':attribute måste accepteras.',
+    'active_url' => ':attribute är inte en giltig webbadress.',
+    'after' => ':attribute måste vara ett datum efter den :date.',
+    'alpha' => ':attribute får endast innehålla bokstäver.',
+    'alpha_dash' => ':attribute får endast innehålla bokstäver, siffror och bindestreck.',
+    'alpha_num' => ':attribute får endast innehålla bokstäver och siffror.',
+    'array' => ':attribute måste vara en array.',
+    'before' => ':attribute måste vara ett datum innan den :date.',
+    'between' => [
         'numeric' => ':attribute måste vara en siffra mellan :min och :max.',
-        'file'    => ':attribute måste vara mellan :min till :max kilobyte stor.',
-        'string'  => ':attribute måste innehålla :min till :max tecken.',
-        'array'   => ':attribute måste innehålla mellan :min - :max objekt.',
+        'file' => ':attribute måste vara mellan :min till :max kilobyte stor.',
+        'string' => ':attribute måste innehålla :min till :max tecken.',
+        'array' => ':attribute måste innehålla mellan :min - :max objekt.'
     ],
-    'boolean'              => ':attribute måste vara sant eller falskt',
-    'confirmed'            => ':attribute bekräftelsen matchar inte.',
-    'date'                 => ':attribute är inte ett giltigt datum.',
-    'date_format'          => ':attribute matchar inte formatet :format.',
-    'different'            => ':attribute och :other får inte vara lika.',
-    'digits'               => ':attribute måste vara minst :digits tecken.',
-    'digits_between'       => ':attribute måste vara mellan :min och :max tecken.',
-    'dimensions'           => 'The :attribute has invalid image dimensions.',
-    'distinct'             => 'The :attribute field has a duplicate value.',
-    'email'                => 'Fältet :attribute måste innehålla en korrekt e-postadress.',
-    'exists'               => 'Det valda :attribute är ogiltigt.',
-    'file'                 => 'The :attribute must be a file.',
-    'filled'               => 'Fältet :attribute är obligatoriskt.',
-    'image'                => ':attribute måste vara en bild.',
-    'in'                   => 'Det valda :attribute är ogiltigt.',
-    'in_array'             => 'The :attribute field does not exist in :other.',
-    'integer'              => ':attribute måste vara en siffra.',
-    'ip'                   => ':attribute måste vara en giltig IP-adress.',
-    'json'                 => 'The :attribute must be a valid JSON string.',
-    'max'                  => [
+    'boolean' => ':attribute måste vara sant eller falskt',
+    'confirmed' => ':attribute bekräftelsen matchar inte.',
+    'date' => ':attribute är inte ett giltigt datum.',
+    'date_format' => ':attribute matchar inte formatet :format.',
+    'different' => ':attribute och :other får inte vara lika.',
+    'digits' => ':attribute måste vara minst :digits tecken.',
+    'digits_between' => ':attribute måste vara mellan :min och :max tecken.',
+    'dimensions' => 'The :attribute has invalid image dimensions.',
+    'distinct' => 'The :attribute field has a duplicate value.',
+    'email' => 'Fältet :attribute måste innehålla en korrekt e-postadress.',
+    'exists' => 'Det valda :attribute är ogiltigt.',
+    'file' => 'The :attribute must be a file.',
+    'filled' => 'Fältet :attribute är obligatoriskt.',
+    'image' => ':attribute måste vara en bild.',
+    'in' => 'Det valda :attribute är ogiltigt.',
+    'in_array' => 'The :attribute field does not exist in :other.',
+    'integer' => ':attribute måste vara en siffra.',
+    'ip' => ':attribute måste vara en giltig IP-adress.',
+    'json' => 'The :attribute must be a valid JSON string.',
+    'max' => [
         'numeric' => ':attribute får inte vara större än :max.',
-        'file'    => ':attribute får max vara :max kilobyte stor.',
-        'string'  => ':attribute får max innehålla :max tecken.',
-        'array'   => ':attribute får inte innehålla mer än :max objekt.',
+        'file' => ':attribute får max vara :max kilobyte stor.',
+        'string' => ':attribute får max innehålla :max tecken.',
+        'array' => ':attribute får inte innehålla mer än :max objekt.'
     ],
-    'mimes'                => ':attribute måste vara en fil av typen: :values.',
-    'min'                  => [
+    'mimes' => ':attribute måste vara en fil av typen: :values.',
+    'min' => [
         'numeric' => ':attribute måste vara större än :min.',
-        'file'    => ':attribute måste vara minst :min kilobyte stor.',
-        'string'  => ':attribute måste innehålla minst :min tecken.',
-        'array'   => ':attribute måste innehålla minst :min objekt.',
+        'file' => ':attribute måste vara minst :min kilobyte stor.',
+        'string' => ':attribute måste innehålla minst :min tecken.',
+        'array' => ':attribute måste innehålla minst :min objekt.'
     ],
-    'not_in'               => 'Det valda :attribute är ogiltigt.',
-    'numeric'              => ':attribute måste vara en siffra.',
-    'present'              => 'The :attribute field must be present.',
-    'regex'                => 'Formatet för :attribute är ogiltigt.',
-    'required'             => 'Fältet :attribute är obligatoriskt.',
-    'required_if'          => 'Fältet :attribute är obligatoriskt då :other är :value.',
-    'required_unless'      => 'The :attribute field is required unless :other is in :values.',
-    'required_with'        => 'Fältet :attribute är obligatoriskt då :values är ifyllt.',
-    'required_with_all'    => 'Fältet :attribute är obligatoriskt när :values är ifyllt.',
-    'required_without'     => 'Fältet :attribute är obligatoriskt då :values ej är ifyllt.',
+    'not_in' => 'Det valda :attribute är ogiltigt.',
+    'numeric' => ':attribute måste vara en siffra.',
+    'present' => 'The :attribute field must be present.',
+    'regex' => 'Formatet för :attribute är ogiltigt.',
+    'required' => 'Fältet :attribute är obligatoriskt.',
+    'required_if' => 'Fältet :attribute är obligatoriskt då :other är :value.',
+    'required_unless' => 'The :attribute field is required unless :other is in :values.',
+    'required_with' => 'Fältet :attribute är obligatoriskt då :values är ifyllt.',
+    'required_with_all' => 'Fältet :attribute är obligatoriskt när :values är ifyllt.',
+    'required_without' => 'Fältet :attribute är obligatoriskt då :values ej är ifyllt.',
     'required_without_all' => 'Fältet :attribute är obligatoriskt när ingen av :values är ifyllt.',
-    'same'                 => ':attribute och :other måste vara lika.',
-    'size'                 => [
+    'same' => ':attribute och :other måste vara lika.',
+    'size' => [
         'numeric' => ':attribute måste vara :size.',
-        'file'    => ':attribute får endast vara :size kilobyte stor.',
-        'string'  => ':attribute måste innehålla :size tecken.',
-        'array'   => ':attribute måste innehålla :size objekt.',
+        'file' => ':attribute får endast vara :size kilobyte stor.',
+        'string' => ':attribute måste innehålla :size tecken.',
+        'array' => ':attribute måste innehålla :size objekt.'
     ],
-    'string'               => ':attribute måste vara en sträng.',
-    'timezone'             => ':attribute måste vara en giltig tidszon.',
-    'unique'               => ':attribute används redan.',
-    'url'                  => 'Formatet :attribute är ogiltigt.',
+    'string' => ':attribute måste vara en sträng.',
+    'timezone' => ':attribute måste vara en giltig tidszon.',
+    'unique' => ':attribute används redan.',
+    'url' => 'Formatet :attribute är ogiltigt.',
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Language Lines
@@ -94,8 +93,8 @@ return [
 
     'custom' => [
         'attribute-name' => [
-            'rule-name' => 'custom-message',
-        ],
+            'rule-name' => 'custom-message'
+        ]
     ],
 
     /*
@@ -110,7 +109,7 @@ return [
     */
 
     'attributes' => [
-
+        
         'backend' => [
             'access' => [
                 'permissions' => [
@@ -119,21 +118,21 @@ return [
                     'display_name' => 'Namn som visas',
                     'group' => 'Tillståndsgrupp',
                     'group_sort' => 'Ordning för tillståndsgrupp',
-
+                    
                     'groups' => [
-                        'name' => 'Namn för tillståndsgrupp',
+                        'name' => 'Namn för tillståndsgrupp'
                     ],
-
+                    
                     'name' => 'Namn',
-                    'system' => 'System-status?',
+                    'system' => 'System-status?'
                 ],
-
+                
                 'roles' => [
                     'associated_permissions' => 'Sammankopplade tillstånd',
                     'name' => 'Namn',
-                    'sort' => 'Ordning',
+                    'sort' => 'Ordning'
                 ],
-
+                
                 'users' => [
                     'active' => 'Aktiv',
                     'associated_roles' => 'Sammankopplade roller',
@@ -143,11 +142,11 @@ return [
                     'other_permissions' => 'Övriga tillstånd',
                     'password' => 'Lösenord',
                     'password_confirmation' => 'Bekräfta lösenord',
-                    'send_confirmation_email' => 'Skicka bekräftelsemail',
-                ],
-            ],
+                    'send_confirmation_email' => 'Skicka bekräftelsemail'
+                ]
+            ]
         ],
-
+        
         'frontend' => [
             'email' => 'E-postadress',
             'name' => 'Namn',
@@ -155,8 +154,8 @@ return [
             'password_confirmation' => 'Bekräfta lösenord',
             'old_password' => 'Gammalt lösenord',
             'new_password' => 'Nytt lösenord',
-            'new_password_confirmation' => 'Bekräfta nytt lösenord',
-        ],
-    ],
-
-];
+            'new_password_confirmation' => 'Bekräfta nytt lösenord'
+        ]
+    ]
+]
+;

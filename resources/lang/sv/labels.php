@@ -1,18 +1,17 @@
 <?php
-
 return [
-
+    
     /*
-    |--------------------------------------------------------------------------
-    | Labels Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are used in labels throughout the system.
-    | Regardless where it is placed, a label can be listed here so it is easily
-    | found in a intuitive way.
-    |
-    */
-
+     * |--------------------------------------------------------------------------
+     * | Labels Language Lines
+     * |--------------------------------------------------------------------------
+     * |
+     * | The following language lines are used in labels throughout the system.
+     * | Regardless where it is placed, a label can be listed here so it is easily
+     * | found in a intuitive way.
+     * |
+     */
+    
     'general' => [
         'all' => 'Alla',
         'yes' => 'Ja',
@@ -21,30 +20,30 @@ return [
         'actions' => 'Hantera',
         'buttons' => [
             'save' => 'Spara',
-            'update' => 'Uppdatera',
+            'update' => 'Uppdatera'
         ],
         'hide' => 'Dölj',
         'none' => 'Inga',
         'show' => 'Visa',
-        'toggle_navigation' => 'Växla navigering',
+        'toggle_navigation' => 'Växla navigering'
     ],
-
+    
     'backend' => [
         'access' => [
             'roles' => [
                 'create' => 'Skapa roll',
                 'edit' => 'Redigera roll',
                 'management' => 'Hantera roller',
-
+                
                 'table' => [
                     'number_of_users' => 'Antal användare',
                     'permissions' => 'Tillstånd',
                     'role' => 'Roll',
                     'sort' => 'Ordning',
-                    'total' => 'roll totalt|roller totalt',
-                ],
+                    'total' => 'roll totalt|roller totalt'
+                ]
             ],
-
+            
             'users' => [
                 'active' => 'Aktiverade användare',
                 'all_permissions' => 'Alla tillstånd',
@@ -58,7 +57,7 @@ return [
                 'no_permissions' => 'Inga tillstånd',
                 'no_roles' => 'Inga roller att anta.',
                 'permissions' => 'Tillstånd',
-
+                
                 'table' => [
                     'confirmed' => 'Bekräftad',
                     'created' => 'Skapad',
@@ -69,61 +68,61 @@ return [
                     'no_deactivated' => 'Inga inaktiverade användare',
                     'no_deleted' => 'Inga raderade användare',
                     'roles' => 'Roller',
-                    'total' => 'användare totalt|användare totalt',
-                ],
-            ],
-        ],
+                    'total' => 'användare totalt|användare totalt'
+                ]
+            ]
+        ]
     ],
-
+    
     'frontend' => [
-
+        
         'auth' => [
             'login_box_title' => 'Logga in',
             'login_button' => 'Logga in',
             'login_with' => 'Logga in med :social_media',
             'register_box_title' => 'Registrera',
             'register_button' => 'Registrera',
-            'remember_me' => 'Kom ihåg mig',
+            'remember_me' => 'Kom ihåg mig'
         ],
-
+        
         'passwords' => [
             'forgot_password' => 'Glömt lösenordet?',
             'reset_password_box_title' => 'Återställ lösenord',
             'reset_password_button' => 'Återställ lösenord',
-            'send_password_reset_link_button' => 'Skicka länk för att återställa lösenordet.',
+            'send_password_reset_link_button' => 'Skicka länk för att återställa lösenordet.'
         ],
-
+        
         'macros' => [
             'country' => [
                 'alpha' => 'Land Alpha koder',
                 'alpha2' => 'Land Alpha 2 koder',
                 'alpha3' => 'Land Alpha 3 koder',
-                'numeric' => 'Land sifferkod',
+                'numeric' => 'Land sifferkod'
             ],
-
+            
             'macro_examples' => 'Macro exempel',
-
+            
             'state' => [
                 'mexico' => 'Mexicos stater',
                 'us' => [
                     'us' => 'USA:s stater',
                     'outlying' => 'USA:s avlägsna territorier',
-                    'armed' => 'US Armed Forces',
-                ],
+                    'armed' => 'US Armed Forces'
+                ]
             ],
-
+            
             'territories' => [
-                'canada' => 'Kanadas provinser och områden',
+                'canada' => 'Kanadas provinser och områden'
             ],
-
-            'timezone' => 'Tidszoner',
+            
+            'timezone' => 'Tidszoner'
         ],
-
+        
         'user' => [
             'passwords' => [
-                'change' => 'Byt lösenord',
+                'change' => 'Byt lösenord'
             ],
-
+            
             'profile' => [
                 'avatar' => 'Profilbild',
                 'created_at' => 'Skapad',
@@ -131,9 +130,9 @@ return [
                 'email' => 'E-post',
                 'last_updated' => 'Senast uppdaterad',
                 'name' => 'Namn',
-                'update_information' => 'Uppdatera profil',
-            ],
-        ],
-
-    ],
+                'update_information' => 'Uppdatera profil'
+            ]
+        ]
+    ]
+    
 ];
