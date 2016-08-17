@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Backend\Scrum\UserStory;
+namespace App\Http\Controllers\Frontend\Scrum\UserStory;
 
 use App\Models\Scrum\UserStory\UserStory;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\Scrum\UserStory\StoreUserStoryRequest;
-use App\Http\Requests\Backend\Scrum\UserStory\ManageUserStoryRequest;
-use App\Http\Requests\Backend\Scrum\UserStory\UpdateUserStoryRequest;
-use App\Repositories\Backend\Scrum\UserStory\UserStoryRepositoryContract;
+use App\Http\Requests\Frontend\Scrum\UserStory\StoreUserStoryRequest;
+use App\Http\Requests\Frontend\Scrum\UserStory\ManageUserStoryRequest;
+use App\Http\Requests\Frontend\Scrum\UserStory\UpdateUserStoryRequest;
+use App\Repositories\Frontend\Scrum\UserStory\UserStoryRepositoryContract;
 
 /**
  * Class UserStoryController
@@ -34,11 +34,11 @@ class UserStoryController extends Controller
     public function index(ManageUserStoryRequest $request)
     {
     	if ($request->ajax()){
-            return response()->json($userstories->all());
+            return response()->json($this->userstories);
         }
     
         return view('frontend.scrum.userstory.index')
-        	->withUserStory($userstories->all());
+        	->withUserStories($this->userstories);
     }
 
 	/**
@@ -59,7 +59,7 @@ class UserStoryController extends Controller
         $this->userstories->create(
             $request
         );
-        return redirect()->route('admin.scrum.userstory.index')->withFlashSuccess(trans('alerts.frontend.scrum.userstories.created'));
+        return redirect()->route('scrum.userstory.index')->withFlashSuccess(trans('alerts.frontend.scrum.userstories.created'));
     }
     
     /**
@@ -94,7 +94,7 @@ class UserStoryController extends Controller
         $this->userstories->update($userstory,
             $request
         );
-        return redirect()->route('admin.scrum.userstory.index')->withFlashSuccess(trans('alerts.frontend.scrum.userstories.updated'));
+        return redirect()->route('scrum.userstory.index')->withFlashSuccess(trans('alerts.frontend.scrum.userstories.updated'));
     }
 
 	/**

@@ -1,6 +1,6 @@
-@extends ('backend.layouts.inspinia')
+@extends ('frontend.layouts.inspinia')
 
-@section ('title', trans('labels.backend.scrum.userstory.management'))
+@section ('title', trans('labels.frontend.scrum.userstories.management'))
 
 @section ('styles')
 

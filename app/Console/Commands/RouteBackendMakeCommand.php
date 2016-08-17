@@ -64,7 +64,7 @@ class RouteBackendMakeCommand extends GeneratorCommand
                 $contents = $this->files->get($path);
                 $replacer = '    // Backend Replacer';
                 $comment = '    // ' . $this->getNamespaceInput() . ' Require';
-                $sutb = '    require __DIR__ . \'/Routes/Frontend/' . $this->getNamespaceInput() . '.php\';';
+                $sutb = '    require __DIR__ . \'/Routes/Backend/' . $this->getNamespaceInput() . '.php\';';
                 
                 if (strpos($contents, $comment) === false) {
                     $contents = str_replace($replacer, 

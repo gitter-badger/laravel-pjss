@@ -30,6 +30,7 @@ class Kernel extends ConsoleKernel
         Commands\EventFrontendMakeCommand::class,
         Commands\ListenerBackendMakeCommand::class,
         Commands\ListenerFrontendMakeCommand::class,
+        Commands\ServiceProviderMakeCommand::class,
         
         Commands\ControllerBackendMakeCommand::class,
         Commands\ControllerFrontendMakeCommand::class,

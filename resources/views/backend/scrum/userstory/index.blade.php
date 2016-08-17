@@ -1,6 +1,6 @@
 @extends ('backend.layouts.inspinia')
 
-@section ('title', trans('labels.backend.scrum.userstory.management'))
+@section ('title', trans('labels.backend.scrum.userstories.management'))
 
 @section ('styles')
 
@@ -51,7 +51,7 @@
 		});
 
 		/* ctor */
-		render({!! $userstories !!});
+		render({!! $user_stories !!});
 	});
 </script>
 @endsection

@@ -15,9 +15,9 @@ return [
     'backend' => [
         'scrum' => [/*backend*/
             'userstories' => [
-                'create' => 'Create UserStory',
-                'detail' => 'Information UserStory',
-                'edit' => 'Edit UserStory',
+                'create' => '创建用户故事',
+                'detail' => '用户故事详情',
+                'edit' => '编辑用户故事',
             ],
         ],
         'access' => [
@@ -55,6 +55,10 @@ return [
                 'index' => '组织',
                 'project' => '项目',
                 'team' => '团队'
+            ],
+            'scrum' => [
+                'index' => '敏捷',
+                'userstory' => '用户故事'
             ]
         ]
         

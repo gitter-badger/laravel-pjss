@@ -52,7 +52,7 @@ class Eloquent{name}Repository implements {name}RepositoryContract
      * @return bool
      * @throws GeneralException
      */
-    public function update({name} ${lower_name}, $input, $roles)
+    public function update({name} ${lower_name}, $input)
     {
         $this->check{name}ByEmail($input, ${lower_name});
 

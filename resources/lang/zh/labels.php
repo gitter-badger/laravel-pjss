@@ -30,8 +30,9 @@ return [
     
     'backend' => [
         'scrum' => [/*backend*/
+            'management' => '敏捷',
             'userstories' => [
-                'management' => 'userstory',
+                'management' => '用户故事',
             ],
         ],
         'access' => [

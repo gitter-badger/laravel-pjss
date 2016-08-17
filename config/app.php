@@ -182,6 +182,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\HistoryServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        // Scrum Require
+        App\Providers\ScrumServiceProvider::class,
+        // Service Provider Replacer
 
         /*
          * Third Party Providers

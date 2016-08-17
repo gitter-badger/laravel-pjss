@@ -1,6 +1,6 @@
-@extends ('backend.layouts.inspinia')
+@extends ('frontend.layouts.inspinia')
 
-@section ('title', trans('labels.backend.{lower_namespace}.{lower_name}.management'))
+@section ('title', trans('labels.frontend.{lower_namespace}.{plural_lower_name}.management'))
 
 @section ('styles')
 
@@ -51,12 +51,12 @@
 		});
 
 		/* ctor */
-		render({!! ${plural_lower_name} !!});
+		render({!! ${plural_snake_name} !!});
 	});
 </script>
 @endsection
 
 @section ('content')
-@include('backend.{lower_name}.includes.list')
+@include('frontend.{lower_name}.includes.list')
 
 @endsection

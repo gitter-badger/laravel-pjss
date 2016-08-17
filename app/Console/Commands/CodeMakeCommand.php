@@ -53,6 +53,20 @@ class CodeMakeCommand extends Command
             'namespace' => $this->getNamespaceInput(),
             'name' => $this->getNameInput(),
         ]);
+        
+        // 清除缓存
+        $this->call('clear-compiled', [
+        ]);
+        $this->call('cache:clear', [
+        ]);
+        $this->call('config:clear', [
+        ]);
+        $this->call('debugbar:clear', [
+        ]);
+        $this->call('route:clear', [
+        ]);
+        $this->call('view:clear', [
+        ]);
     }
 
     /**

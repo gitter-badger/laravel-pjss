@@ -38,7 +38,7 @@ class ModelMakeCommand extends GeneratorCommand
         if (parent::fire() !== false) {
             $table = $this->getTable();
             
-            // $this->call('make:migration', ['name' => "create_{$table}_table", '--create' => $table]);
+            //$this->call('make:migration', ['name' => "create_{$table}_table", '--create' => $table]);
             $this->call('make:pjss-repository-backend', [
                 'namespace' => $this->getNamespaceInput(),
                 'name' => $this->getNameInput()
@@ -52,6 +52,11 @@ class ModelMakeCommand extends GeneratorCommand
                 'name' => $this->getNameInput()
             ]);
             $this->call('make:pjss-eloquent-repository-frontend', [
+                'namespace' => $this->getNamespaceInput(),
+                'name' => $this->getNameInput()
+            ]);
+            
+            $this->call('make:pjss-service-provider', [
                 'namespace' => $this->getNamespaceInput(),
                 'name' => $this->getNameInput()
             ]);

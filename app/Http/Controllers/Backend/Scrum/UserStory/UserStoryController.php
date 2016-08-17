@@ -33,12 +33,14 @@ class UserStoryController extends Controller
      */
     public function index(ManageUserStoryRequest $request)
     {
+    	$user_stories = UserStory::all();
+    	
     	if ($request->ajax()){
-            return response()->json($userstories->all());
+            return response()->json(user_stories);
         }
     
         return view('backend.scrum.userstory.index')
-        	->withUserStory($userstories->all());
+        	->withUserStories($user_stories);
     }
 
 	/**

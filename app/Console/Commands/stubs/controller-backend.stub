@@ -33,12 +33,14 @@ class {name}Controller extends Controller
      */
     public function index(Manage{name}Request $request)
     {
+    	${plural_snake_name} = {name}::all();
+    	
     	if ($request->ajax()){
-            return response()->json(${plural_lower_name}->all());
+            return response()->json({plural_snake_name});
         }
     
         return view('backend.{lower_namespace}.{lower_name}.index')
-        	->with{name}(${plural_lower_name}->all());
+        	->with{plural_name}(${plural_snake_name});
     }
 
 	/**

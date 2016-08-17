@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Backend\{namespace}\{name};
+namespace App\Http\Controllers\Frontend\{namespace}\{name};
 
 use App\Models\{namespace}\{name}\{name};
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\{namespace}\{name}\Store{name}Request;
-use App\Http\Requests\Backend\{namespace}\{name}\Manage{name}Request;
-use App\Http\Requests\Backend\{namespace}\{name}\Update{name}Request;
-use App\Repositories\Backend\{namespace}\{name}\{name}RepositoryContract;
+use App\Http\Requests\Frontend\{namespace}\{name}\Store{name}Request;
+use App\Http\Requests\Frontend\{namespace}\{name}\Manage{name}Request;
+use App\Http\Requests\Frontend\{namespace}\{name}\Update{name}Request;
+use App\Repositories\Frontend\{namespace}\{name}\{name}RepositoryContract;
 
 /**
  * Class {name}Controller
@@ -34,11 +34,11 @@ class {name}Controller extends Controller
     public function index(Manage{name}Request $request)
     {
     	if ($request->ajax()){
-            return response()->json(${plural_lower_name}->all());
+            return response()->json($this->{plural_lower_name});
         }
     
         return view('frontend.{lower_namespace}.{lower_name}.index')
-        	->with{name}(${plural_lower_name}->all());
+        	->with{plural_name}($this->{plural_lower_name});
     }
 
 	/**
@@ -59,7 +59,7 @@ class {name}Controller extends Controller
         $this->{plural_lower_name}->create(
             $request
         );
-        return redirect()->route('admin.{lower_namespace}.{lower_name}.index')->withFlashSuccess(trans('alerts.frontend.{lower_namespace}.{plural_lower_name}.created'));
+        return redirect()->route('{lower_namespace}.{lower_name}.index')->withFlashSuccess(trans('alerts.frontend.{lower_namespace}.{plural_lower_name}.created'));
     }
     
     /**
@@ -94,7 +94,7 @@ class {name}Controller extends Controller
         $this->{plural_lower_name}->update(${lower_name},
             $request
         );
-        return redirect()->route('admin.{lower_namespace}.{lower_name}.index')->withFlashSuccess(trans('alerts.frontend.{lower_namespace}.{plural_lower_name}.updated'));
+        return redirect()->route('{lower_namespace}.{lower_name}.index')->withFlashSuccess(trans('alerts.frontend.{lower_namespace}.{plural_lower_name}.updated'));
     }
 
 	/**

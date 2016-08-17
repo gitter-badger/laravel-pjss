@@ -46,6 +46,18 @@
 					</li>
 				</ul>
             </li>
+            <li class="{{ Active::pattern('admin/scrum/*') }}">
+            	<a href="#">
+            		<i class="fa fa-sitemap"></i>
+            		<span class="nav-label">{{ trans('menus.backend.sidebar.scrum.index') }}</span>
+            		<span class="fa arrow"></span>
+        		</a>
+                <ul class="nav nav-second-level collapse">
+                	<li class="{{ Active::pattern('admin/organization/project') }}">
+						{{ link_to_route('admin.scrum.userstory.index', trans('menus.backend.sidebar.scrum.userstory')) }}
+					</li>
+				</ul>
+            </li>
             
             <li class="">
             	<a href="#">

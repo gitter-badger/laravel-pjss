@@ -196,8 +196,10 @@ abstract class GeneratorCommand extends Command
      */
     protected function replaceClass(&$stub, $name)
     {
+        $stub = str_replace('{plural_snake_name}', Str::plural(Str::snake($this->getNameInput())), $stub);
         $stub = str_replace('{lower_name}', Str::lower($this->getNameInput()), $stub);
         $stub = str_replace('{plural_lower_name}', Str::plural(Str::lower($this->getNameInput())), $stub);
+        $stub = str_replace('{plural_name}', Str::plural($this->getNameInput()), $stub);
         $stub = str_replace('{name}', $this->getNameInput(), $stub);
         
         return $this;

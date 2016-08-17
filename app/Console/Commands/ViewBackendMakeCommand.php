@@ -50,6 +50,7 @@ class ViewBackendMakeCommand extends GeneratorCommand
                 $contents = str_replace(
                     '   \'backend\' => [',
                     '   \'backend\' => [' . PHP_EOL .
+                    '       \'management\' => \'' . $this->getNamespaceInput() . ' Management\',' . PHP_EOL .
                     '        \'' . $lower_namespace . '\' => [/*backend*/' . PHP_EOL .
                     '        ],'
                     , $contents);

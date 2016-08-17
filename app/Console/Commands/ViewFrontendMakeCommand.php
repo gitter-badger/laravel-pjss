@@ -50,6 +50,7 @@ class ViewFrontendMakeCommand extends GeneratorCommand
                 $contents = str_replace(
                     '   \'frontend\' => [',
                     '   \'frontend\' => [' . PHP_EOL .
+                    '       \'management\' => \'' . $this->getNamespaceInput() . ' Management\',' . PHP_EOL .
                     '        \'' . $lower_namespace . '\' => [/*frontend*/' . PHP_EOL .
                     '        ],'
                     , $contents);

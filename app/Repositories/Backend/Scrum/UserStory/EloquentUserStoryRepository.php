@@ -52,7 +52,7 @@ class EloquentUserStoryRepository implements UserStoryRepositoryContract
      * @return bool
      * @throws GeneralException
      */
-    public function update(UserStory $userstory, $input, $roles)
+    public function update(UserStory $userstory, $input)
     {
         $this->checkUserStoryByEmail($input, $userstory);
 
