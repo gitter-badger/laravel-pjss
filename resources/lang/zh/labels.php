@@ -29,6 +29,11 @@ return [
     ],
     
     'backend' => [
+        'scrum' => [/*backend*/
+            'userstories' => [
+                'management' => 'userstory',
+            ],
+        ],
         'access' => [
             'roles' => [
                 'create' => 'Create Role',
@@ -84,6 +89,11 @@ return [
     ],
     
     'frontend' => [
+        'scrum' => [/*frontend*/
+            'userstories' => [
+                'management' => 'userstory',
+            ],
+        ],
         
         'auth' => [
             'login_box_title' => 'Login',

@@ -1,104 +1,110 @@
 <?php
 
-namespace UserStoryspace;
+namespace App\Http\Controllers\Backend\Scrum\UserStory;
 
-use Illuminate\Http\Request;
-
-use DummyRootNamespaceHttp\Requests;
-use DummyRootNamespaceHttp\Controllers\Controller;
+use App\Models\Scrum\UserStory\UserStory;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Backend\Scrum\UserStory\StoreUserStoryRequest;
+use App\Http\Requests\Backend\Scrum\UserStory\ManageUserStoryRequest;
+use App\Http\Requests\Backend\Scrum\UserStory\UpdateUserStoryRequest;
+use App\Repositories\Backend\Scrum\UserStory\UserStoryRepositoryContract;
 
 /**
- * Class DummyClass
+ * Class UserStoryController
  */
-class DummyClass extends Controller
+class UserStoryController extends Controller
 {
-
-	/**
+    /**
      * @var UserStoryRepositoryContract
      */
-    protected $userStories;
+    protected $userstories;
     
     /**
-     * @param UserStoryRepositoryContract $users
+     * @param UserStoryRepositoryContract $userstories
      */
-    public function __construct(UserStoryRepositoryContract $userStories)
+    public function __construct(UserStoryRepositoryContract $userstories)
     {
-        $this->userStories = $userStories;
+        $this->userstories = $userstories;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+	/**
+     * @param ManageUserStoryRequest $request
+     * @return mixed
      */
-    public function index()
+    public function index(ManageUserStoryRequest $request)
     {
-        //
+    	if ($request->ajax()){
+            return response()->json($userstories->all());
+        }
+    
+        return view('backend.scrum.index')
+        	->withUserStory($userstories->all());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+	/**
+     * @param ManageUserStoryRequest $request
+     * @return mixed
      */
-    public function create()
+    public function create(ManageUserStoryRequest $request)
     {
-        //
+        return view('backend.scrum.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+	/**
+     * @param StoreUserStoryRequest $request
+     * @return mixed
      */
-    public function store(Request $request)
+    public function store(StoreUserStoryRequest $request)
     {
-        //
+        $this->userstories->create(
+            $request
+        );
+        return redirect()->route('admin.scrum.userstory.index')->withFlashSuccess(trans('alerts.backend.scrum.userstories.created'));
+    }
+    
+    /**
+     * @param UserStory $userstory
+     * @param ManageUserStoryRequest $request
+     * @return mixed
+     */
+    public function show(UserStory $userstory, ManageUserStoryRequest $request)
+    {
+        return view('backend.scrum.detail')
+        	->withUserStory($userstory);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+	/**
+     * @param UserStory $userstory
+     * @param ManageUserStoryRequest $request
+     * @return mixed
      */
-    public function show($id)
+    public function edit(UserStory $userstory, ManageUserStoryRequest $request)
     {
-        //
+        return view('backend.scrum.edit')
+            ->withUserStory($userstory);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+	/**
+     * @param UserStory $userstory
+     * @param UpdateUserStoryRequest $request
+     * @return mixed
      */
-    public function edit($id)
+    public function update(UserStory $userstory, UpdateUserStoryRequest $request)
     {
-        //
+        $this->userstories->update($userstory,
+            $request
+        );
+        return redirect()->route('admin.scrum.userstory.index')->withFlashSuccess(trans('alerts.backend.scrum.userstories.updated'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+	/**
+     * @param UserStory $userstory
+     * @param ManageUserStoryRequest $request
+     * @return mixed
      */
-    public function update(Request $request, $id)
+    public function destroy(UserStory $userstory, ManageUserStoryRequest $request)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $this->userstories->destroy($userstory);
+        return redirect()->back()->withFlashSuccess(trans('alerts.backend.scrum.userstories.deleted'));
     }
 }

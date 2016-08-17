@@ -1,0 +1,110 @@
+<?php
+
+namespace App\Http\Controllers\Backend\{namespace}\{name};
+
+use App\Models\{namespace}\{name}\{name};
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Backend\{namespace}\{name}\Store{name}Request;
+use App\Http\Requests\Backend\{namespace}\{name}\Manage{name}Request;
+use App\Http\Requests\Backend\{namespace}\{name}\Update{name}Request;
+use App\Repositories\Backend\{namespace}\{name}\{name}RepositoryContract;
+
+/**
+ * Class {name}Controller
+ */
+class {name}Controller extends Controller
+{
+    /**
+     * @var {name}RepositoryContract
+     */
+    protected ${plural_lower_name};
+    
+    /**
+     * @param {name}RepositoryContract ${plural_lower_name}
+     */
+    public function __construct({name}RepositoryContract ${plural_lower_name})
+    {
+        $this->{plural_lower_name} = ${plural_lower_name};
+    }
+
+	/**
+     * @param Manage{name}Request $request
+     * @return mixed
+     */
+    public function index(Manage{name}Request $request)
+    {
+    	if ($request->ajax()){
+            return response()->json(${plural_lower_name}->all());
+        }
+    
+        return view('frontend.{lower_namespace}.{lower_name}.index')
+        	->with{name}(${plural_lower_name}->all());
+    }
+
+	/**
+     * @param Manage{name}Request $request
+     * @return mixed
+     */
+    public function create(Manage{name}Request $request)
+    {
+        return view('frontend.{lower_namespace}.{lower_name}.create');
+    }
+
+	/**
+     * @param Store{name}Request $request
+     * @return mixed
+     */
+    public function store(Store{name}Request $request)
+    {
+        $this->{plural_lower_name}->create(
+            $request
+        );
+        return redirect()->route('admin.{lower_namespace}.{lower_name}.index')->withFlashSuccess(trans('alerts.frontend.{lower_namespace}.{plural_lower_name}.created'));
+    }
+    
+    /**
+     * @param {name} ${lower_name}
+     * @param Manage{name}Request $request
+     * @return mixed
+     */
+    public function show({name} ${lower_name}, Manage{name}Request $request)
+    {
+        return view('frontend.{lower_namespace}.{lower_name}.detail')
+        	->with{name}(${lower_name});
+    }
+
+	/**
+     * @param {name} ${lower_name}
+     * @param Manage{name}Request $request
+     * @return mixed
+     */
+    public function edit({name} ${lower_name}, Manage{name}Request $request)
+    {
+        return view('frontend.{lower_namespace}.{lower_name}.edit')
+            ->with{name}(${lower_name});
+    }
+
+	/**
+     * @param {name} ${lower_name}
+     * @param Update{name}Request $request
+     * @return mixed
+     */
+    public function update({name} ${lower_name}, Update{name}Request $request)
+    {
+        $this->{plural_lower_name}->update(${lower_name},
+            $request
+        );
+        return redirect()->route('admin.{lower_namespace}.{lower_name}.index')->withFlashSuccess(trans('alerts.frontend.{lower_namespace}.{plural_lower_name}.updated'));
+    }
+
+	/**
+     * @param {name} ${lower_name}
+     * @param Manage{name}Request $request
+     * @return mixed
+     */
+    public function destroy({name} ${lower_name}, Manage{name}Request $request)
+    {
+        $this->{plural_lower_name}->destroy(${lower_name});
+        return redirect()->back()->withFlashSuccess(trans('alerts.frontend.{lower_namespace}.{plural_lower_name}.deleted'));
+    }
+}

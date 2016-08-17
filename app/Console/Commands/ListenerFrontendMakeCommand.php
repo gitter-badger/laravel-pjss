@@ -37,15 +37,15 @@ class ListenerFrontendMakeCommand extends GeneratorCommand
     {
         if (parent::fire() !== false) {
             // 修改Providers/EventServiceProvider.php
-            $replace_comment_header = str_replace('{namespace}', $this->getNamespaceInput(),'// FrontendReplacer
+            $replace_comment_header = str_replace('{namespace}', $this->getNamespaceInput(),'// FrontendReplacer' . PHP_EOL .
+                PHP_EOL .
+                '        /**' . PHP_EOL .
+                '    	 * {namespace} Subscribers' . PHP_EOL .
+                '    	 */');
     
-        /**
-    	 * {namespace} Subscribers
-    	 */');
-    
-            $replace = '
-        \App\Listeners\Frontend\{namespace}\{name}\{name}EventListener::class,
-        ';
+            $replace = PHP_EOL .
+                '        \App\Listeners\Frontend\{namespace}\{name}\{name}EventListener::class,' . PHP_EOL .
+                '        ';
             $replace = str_replace('{namespace}', $this->getNamespaceInput(),$replace);
             $replace = str_replace('{name}', $this->getNameInput(),$replace);
     
@@ -79,21 +79,21 @@ class ListenerFrontendMakeCommand extends GeneratorCommand
         if (!array_has($array['frontend'], $lower_namespace)){
             $contents = str_replace(
                 '   \'frontend\' => [',
-'   \'frontend\' => [
-        \'' . $lower_namespace . '\' => [/*frontend*/
-        ],'
+                '   \'frontend\' => [' . PHP_EOL .
+                '        \'' . $lower_namespace . '\' => [/*frontend*/' . PHP_EOL .
+                '        ],'
                 , $contents);
         }
         if (!(array_has($array['frontend'], $lower_namespace) && array_has($array['frontend'][$lower_namespace], $plural_lower_name))) {
             $contents = str_replace(
                 '       \'' . $lower_namespace . '\' => [/*frontend*/',
-'       \'' . $lower_namespace . '\' => [/*frontend*/
-            \'' . $plural_lower_name . '\' => [
-                \'created\' => \'created ' . $lower_name . '\',
-                \'deleted\' => \'deleted ' . $lower_name . '\',
-                \'updated\' => \'updated ' . $lower_name . '\',
-                \'restored\' => \'restored ' . $lower_name . '\',
-            ],'
+                '       \'' . $lower_namespace . '\' => [/*frontend*/' . PHP_EOL .
+                '            \'' . $plural_lower_name . '\' => [' . PHP_EOL .
+                '                \'created\' => \'created ' . $lower_name . '\',' . PHP_EOL .
+                '                \'deleted\' => \'deleted ' . $lower_name . '\',' . PHP_EOL .
+                '                \'updated\' => \'updated ' . $lower_name . '\',' . PHP_EOL .
+                '                \'restored\' => \'restored ' . $lower_name . '\',' . PHP_EOL .
+                '            ],'
                 , $contents);
         }
         $this->files->put($path, $contents);

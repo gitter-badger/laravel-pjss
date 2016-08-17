@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 use Illuminate\Support\Str;
 use App\Console\Commands\GeneratorCommand;
 
-class EloquentRepositoryFrontendMakeCommand extends GeneratorCommand
+class ControllerFrontendMakeCommand extends GeneratorCommand
 {
 
     /**
@@ -12,22 +12,22 @@ class EloquentRepositoryFrontendMakeCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $signature = 'make:pjss-eloquent-repository-frontend {namespace} {name}';
+    protected $signature = 'make:pjss-controller-frontend {namespace} {name}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Create a new eloquent repository class';
+    protected $description = 'Create a new controller class';
 
     /**
      * The type of class being generated.
      *
      * @var string
      */
-    protected $type = 'EloquentRepository';
-    
+    protected $type = 'Controller';
+
     /**
      * Execute the console command.
      *
@@ -36,13 +36,34 @@ class EloquentRepositoryFrontendMakeCommand extends GeneratorCommand
     public function fire()
     {
         if (parent::fire() !== false) {
-            // 修改resources/lang/zh/exceptions.php
-            $path = $this->laravel['path'] . '/../resources/lang/' . env('APP_LOCALE') . '/exceptions.php';
-    
+            $this->call('make:pjss-view-frontend', [
+                'namespace' => $this->getNamespaceInput(),
+                'name' => $this->getNameInput(),
+                'type' => 'index',
+            ]);
+            $this->call('make:pjss-view-frontend', [
+                'namespace' => $this->getNamespaceInput(),
+                'name' => $this->getNameInput(),
+                'type' => 'create',
+            ]);
+            $this->call('make:pjss-view-frontend', [
+                'namespace' => $this->getNamespaceInput(),
+                'name' => $this->getNameInput(),
+                'type' => 'edit',
+            ]);
+            $this->call('make:pjss-view-frontend', [
+                'namespace' => $this->getNamespaceInput(),
+                'name' => $this->getNameInput(),
+                'type' => 'detail',
+            ]);
+            
+            // 修改resources/lang/zh/alerts.php
+            $path = $this->laravel['path'] . '/../resources/lang/' . env('APP_LOCALE') . '/alerts.php';
+            
             $lower_namespace = Str::lower($this->getNamespaceInput());
             $lower_name = Str::lower($this->getNameInput());
             $plural_lower_name = Str::plural($lower_name);
-    
+            
             $array = $this->files->getRequire($path);
             $contents = $this->files->get($path);
             if (!array_has($array['frontend'], $lower_namespace)){
@@ -58,15 +79,14 @@ class EloquentRepositoryFrontendMakeCommand extends GeneratorCommand
                     '       \'' . $lower_namespace . '\' => [/*frontend*/',
                     '       \'' . $lower_namespace . '\' => [/*frontend*/' . PHP_EOL .
                     '            \'' . $plural_lower_name . '\' => [' . PHP_EOL .
-                    '                \'create_error\' => \'There was a problem creating this ' . $lower_name . '. Please try again.\',' . PHP_EOL .
-                    '                \'delete_error\' => \'There was a problem deleting this ' . $lower_name . '. Please try again.\',' . PHP_EOL .
-                    '                \'restore_error\' => \'There was a problem restoring this ' . $lower_name . '. Please try again.\',' . PHP_EOL .
-                    '                \'update_error\' => \'There was a problem updating this ' . $lower_name . '. Please try again.\',' . PHP_EOL .
+                    '                \'created\' => \'The ' . $lower_name . ' was successfully created.\',' . PHP_EOL .
+                    '                \'deleted\' => \'The ' . $lower_name . ' was successfully deleted.\',' . PHP_EOL .
+                    '                \'updated\' => \'The ' . $lower_name . ' was successfully updated.\',' . PHP_EOL .
                     '            ],'
                     , $contents);
             }
             $this->files->put($path, $contents);
-            $this->comment('langs.exceptions modified successfully.');
+            $this->comment('langs.alerts modified successfully.');
         }
     }
 
@@ -77,7 +97,7 @@ class EloquentRepositoryFrontendMakeCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return __DIR__ . '/stubs/eloquent-repository-frontend.stub';
+        return __DIR__ . '/stubs/controller-frontend.stub';
     }
 
     /**
@@ -88,7 +108,7 @@ class EloquentRepositoryFrontendMakeCommand extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace . '\Repositories\Frontend' . '\\' . $this->getNamespaceInput() . '\\' . $this->getNameInput();
+        return $rootNamespace . '\Http\Controllers\Frontend' . '\\' . $this->getNamespaceInput() . '\\' . $this->getNameInput();
     }
 
     /**
@@ -101,6 +121,6 @@ class EloquentRepositoryFrontendMakeCommand extends GeneratorCommand
     {
         $name = str_replace($this->laravel->getNamespace(), '', $name);
         
-        return $this->laravel['path'] . '/' . Str::replaceLast($this->getNameInput(), 'Eloquent' . $this->getNameInput(), str_replace('\\', '/', $name)) . 'Repository.php';
+        return $this->laravel['path'] . '/' . str_replace('\\', '/', $name) . 'Controller.php';
     }
 }

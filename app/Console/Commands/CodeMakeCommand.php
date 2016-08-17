@@ -44,15 +44,14 @@ class CodeMakeCommand extends Command
         ]);
         
         // 后台控制器
-        $this->call('make:pjss-controller', [
-            'namespace' => $this->getNamespaceInput(),
-            'name' => $this->getNameInput()
-        ]);
-        // 前台控制器
-        $this->call('make:pjss-controller', [
+        $this->call('make:pjss-controller-backend', [
             'namespace' => $this->getNamespaceInput(),
             'name' => $this->getNameInput(),
-            '--frontend' => '--frontend'
+        ]);
+        // 前台控制器
+        $this->call('make:pjss-controller-frontend', [
+            'namespace' => $this->getNamespaceInput(),
+            'name' => $this->getNameInput(),
         ]);
     }
 

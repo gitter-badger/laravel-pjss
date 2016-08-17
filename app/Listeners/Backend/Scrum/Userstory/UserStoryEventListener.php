@@ -22,7 +22,7 @@ class UserStoryEventListener
 	public function onCreated($event) {
 		history()->log(
 			$this->history_slug,
-			'trans("history.backend.userstories.created") <strong>'.$event->userstory->name.'</strong>',
+			'trans("history.backend.Scrum.userstories.created") <strong>'.$event->userstory->name.'</strong>',
 			$event->userstory->id,
 			'plus',
 			'bg-green'
@@ -35,7 +35,7 @@ class UserStoryEventListener
 	public function onUpdated($event) {
 		history()->log(
 			$this->history_slug,
-			'trans("history.backend.userstories.updated") <strong>'.$event->userstory->name.'</strong>',
+			'trans("history.backend.Scrum.userstories.updated") <strong>'.$event->userstory->name.'</strong>',
 			$event->userstory->id,
 			'save',
 			'bg-aqua'
@@ -48,7 +48,7 @@ class UserStoryEventListener
 	public function onDeleted($event) {
 		history()->log(
 			$this->history_slug,
-			'trans("history.backend.userstories.deleted") <strong>'.$event->userstory->name.'</strong>',
+			'trans("history.backend.Scrum.userstories.deleted") <strong>'.$event->userstory->name.'</strong>',
 			$event->userstory->id,
 			'trash',
 			'bg-maroon'
@@ -61,7 +61,7 @@ class UserStoryEventListener
 	public function onRestored($event) {
 		history()->log(
 			$this->history_slug,
-			'trans("history.backend.userstories.restored") <strong>'.$event->userstory->name.'</strong>',
+			'trans("history.backend.Scrum.userstories.restored") <strong>'.$event->userstory->name.'</strong>',
 			$event->userstory->id,
 			'refresh',
 			'bg-aqua'

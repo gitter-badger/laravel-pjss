@@ -37,15 +37,15 @@ class ListenerBackendMakeCommand extends GeneratorCommand
     {
         if (parent::fire() !== false) {
             // 修改Providers/EventServiceProvider.php
-            $replace_comment_header = str_replace('{namespace}', $this->getNamespaceInput(),'// BackendReplacer
-        
-        /**
-    	 * {namespace} Subscribers
-    	 */');
+            $replace_comment_header = str_replace('{namespace}', $this->getNamespaceInput(),'// BackendReplacer' . PHP_EOL .
+                PHP_EOL .
+                '        /**' . PHP_EOL .
+                '    	 * {namespace} Subscribers' . PHP_EOL .
+                '    	 */');
             
-            $replace = '
-        \App\Listeners\Backend\{namespace}\{name}\{name}EventListener::class,
-        ';
+            $replace = PHP_EOL .
+            '        \App\Listeners\Backend\{namespace}\{name}\{name}EventListener::class,' . PHP_EOL .
+            '        ';
             $replace = str_replace('{namespace}', $this->getNamespaceInput(),$replace);
             $replace = str_replace('{name}', $this->getNameInput(),$replace);
             
@@ -78,21 +78,21 @@ class ListenerBackendMakeCommand extends GeneratorCommand
             if (!array_has($array['backend'], $lower_namespace)){
                 $contents = str_replace(
                     '   \'backend\' => [',
-'   \'backend\' => [
-        \'' . $lower_namespace . '\' => [/*backend*/
-        ],'
+                    '   \'backend\' => [' . PHP_EOL .
+                    '        \'' . $lower_namespace . '\' => [/*backend*/' . PHP_EOL .
+                    '        ],'
                     , $contents);
             }
             if (!(array_has($array['backend'], $lower_namespace) && array_has($array['backend'][$lower_namespace], $plural_lower_name))) {
                 $contents = str_replace(
                     '       \'' . $lower_namespace . '\' => [/*backend*/',
-'       \'' . $lower_namespace . '\' => [/*backend*/
-            \'' . $plural_lower_name . '\' => [
-                \'created\' => \'created ' . $lower_name . '\',
-                \'deleted\' => \'deleted ' . $lower_name . '\',
-                \'updated\' => \'updated ' . $lower_name . '\',
-                \'restored\' => \'restored ' . $lower_name . '\',
-            ],'
+                    '       \'' . $lower_namespace . '\' => [/*backend*/' . PHP_EOL .
+                    '            \'' . $plural_lower_name . '\' => [' . PHP_EOL .
+                    '                \'created\' => \'created ' . $lower_name . '\',' . PHP_EOL .
+                    '                \'deleted\' => \'deleted ' . $lower_name . '\',' . PHP_EOL .
+                    '                \'updated\' => \'updated ' . $lower_name . '\',' . PHP_EOL .
+                    '                \'restored\' => \'restored ' . $lower_name . '\',' . PHP_EOL .
+                    '            ],'
                     , $contents);
             }
             

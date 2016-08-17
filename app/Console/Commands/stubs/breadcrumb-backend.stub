@@ -1,0 +1,21 @@
+<?php
+
+Breadcrumbs::register('admin.{lower_namespace}.{lower_name}.index', function ($breadcrumbs) {
+    $breadcrumbs->parent('admin.{lower_namespace}.index');
+    $breadcrumbs->push(trans('labels.backend.{lower_namespace}.{plural_lower_name}.management'), route('admin.{lower_namespace}.{lower_name}.index'));
+});
+
+Breadcrumbs::register('admin.{lower_namespace}.{lower_name}.create', function ($breadcrumbs) {
+    $breadcrumbs->parent('admin.{lower_namespace}.{lower_name}.index');
+    $breadcrumbs->push(trans('menus.backend.{lower_namespace}.{plural_lower_name}.create'), route('admin.{lower_namespace}.{lower_name}.create'));
+});
+
+Breadcrumbs::register('admin.{lower_namespace}.{lower_name}.detail', function ($breadcrumbs, $id) {
+    $breadcrumbs->parent('admin.{lower_namespace}.{lower_name}.index');
+    $breadcrumbs->push(trans('menus.backend.{lower_namespace}.{plural_lower_name}.detail'), route('admin.{lower_namespace}.{lower_name}.detail', $id));
+});
+
+Breadcrumbs::register('admin.{lower_namespace}.{lower_name}.edit', function ($breadcrumbs, $id) {
+    $breadcrumbs->parent('admin.{lower_namespace}.{lower_name}.index');
+    $breadcrumbs->push(trans('menus.backend.{lower_namespace}.{plural_lower_name}.edit'), route('admin.{lower_namespace}.{lower_name}.edit', $id));
+});

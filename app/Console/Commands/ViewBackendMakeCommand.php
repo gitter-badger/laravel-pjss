@@ -3,12 +3,9 @@ namespace App\Console\Commands;
 
 use Illuminate\Support\Str;
 use App\Console\Commands\GeneratorCommand;
-use function GuzzleHttp\json_encode;
-use Symfony\Component\Translation\Loader\JsonFileLoader;
-use Symfony\Component\Console\Descriptor\JsonDescriptor;
-use Monolog\Formatter\JsonFormatter;
+use Symfony\Component\Console\Input\InputArgument;
 
-class EloquentRepositoryBackendMakeCommand extends GeneratorCommand
+class ViewBackendMakeCommand extends GeneratorCommand
 {
 
     /**
@@ -16,21 +13,21 @@ class EloquentRepositoryBackendMakeCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $signature = 'make:pjss-eloquent-repository-backend {namespace} {name}';
+    protected $signature = 'make:pjss-view-backend {namespace} {name} {type}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Create a new eloquent repository class';
+    protected $description = 'Create a new view file';
 
     /**
      * The type of class being generated.
      *
      * @var string
      */
-    protected $type = 'EloquentRepository';
+    protected $type = 'View';
     
     /**
      * Execute the console command.
@@ -40,13 +37,13 @@ class EloquentRepositoryBackendMakeCommand extends GeneratorCommand
     public function fire()
     {
         if (parent::fire() !== false) {
-            // 修改resources/lang/zh/exceptions.php
-            $path = $this->laravel['path'] . '/../resources/lang/' . env('APP_LOCALE') . '/exceptions.php';
-            
+            // 修改resources/lang/zh/labels.php
+            $path = $this->laravel['path'] . '/../resources/lang/' . env('APP_LOCALE') . '/labels.php';
+    
             $lower_namespace = Str::lower($this->getNamespaceInput());
             $lower_name = Str::lower($this->getNameInput());
             $plural_lower_name = Str::plural($lower_name);
-            
+    
             $array = $this->files->getRequire($path);
             $contents = $this->files->get($path);
             if (!array_has($array['backend'], $lower_namespace)){
@@ -62,15 +59,12 @@ class EloquentRepositoryBackendMakeCommand extends GeneratorCommand
                     '       \'' . $lower_namespace . '\' => [/*backend*/',
                     '       \'' . $lower_namespace . '\' => [/*backend*/' . PHP_EOL .
                     '            \'' . $plural_lower_name . '\' => [' . PHP_EOL .
-                    '                \'create_error\' => \'There was a problem creating this ' . $lower_name . '. Please try again.\',' . PHP_EOL .
-                    '                \'delete_error\' => \'There was a problem deleting this ' . $lower_name . '. Please try again.\',' . PHP_EOL .
-                    '                \'restore_error\' => \'There was a problem restoring this ' . $lower_name . '. Please try again.\',' . PHP_EOL .
-                    '                \'update_error\' => \'There was a problem updating this ' . $lower_name . '. Please try again.\',' . PHP_EOL .
+                    '                \'management\' => \'' . $lower_name . '\',' . PHP_EOL .
                     '            ],'
                     , $contents);
             }
             $this->files->put($path, $contents);
-            $this->comment('langs.exceptions modified successfully.');
+            $this->comment('langs.labels modified successfully.');
         }
     }
 
@@ -81,7 +75,7 @@ class EloquentRepositoryBackendMakeCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return __DIR__ . '/stubs/eloquent-repository-backend.stub';
+        return __DIR__ . '/stubs/view-backend-' . $this->argument('type') . '.stub';
     }
 
     /**
@@ -92,7 +86,7 @@ class EloquentRepositoryBackendMakeCommand extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace . '\Repositories\Backend' . '\\' . $this->getNamespaceInput() . '\\' . $this->getNameInput();
+        return $rootNamespace . '\..\resources\views\backend' . '\\' . Str::lower($this->getNamespaceInput()) . '\\' . Str::lower($this->getNameInput());
     }
 
     /**
@@ -105,6 +99,33 @@ class EloquentRepositoryBackendMakeCommand extends GeneratorCommand
     {
         $name = str_replace($this->laravel->getNamespace(), '', $name);
         
-        return $this->laravel['path'] . '/' . Str::replaceLast($this->getNameInput(), 'Eloquent' . $this->getNameInput(), str_replace('\\', '/', $name)) . 'Repository.php';
+        return $this->laravel['path'] . '/' . str_replace('\\', '/', $name) . $this->argument('type') . '.blade.php';
+    }
+    
+    /**
+     * Get the console command arguments.
+     *
+     * @return array
+     */
+    protected function getArguments()
+    {
+        return [
+            [
+                'namespace',
+                InputArgument::REQUIRED,
+                'The name of the namespace'
+            ],
+            [
+                'name',
+                InputArgument::REQUIRED,
+                'The name of the class'
+            ]
+            ,
+            [
+                'type',
+                InputArgument::REQUIRED,
+                'The type of the class'
+            ]
+        ];
     }
 }

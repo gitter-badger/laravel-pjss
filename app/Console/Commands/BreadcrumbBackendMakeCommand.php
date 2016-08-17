@@ -3,12 +3,8 @@ namespace App\Console\Commands;
 
 use Illuminate\Support\Str;
 use App\Console\Commands\GeneratorCommand;
-use function GuzzleHttp\json_encode;
-use Symfony\Component\Translation\Loader\JsonFileLoader;
-use Symfony\Component\Console\Descriptor\JsonDescriptor;
-use Monolog\Formatter\JsonFormatter;
 
-class EloquentRepositoryBackendMakeCommand extends GeneratorCommand
+class BreadcrumbBackendMakeCommand extends GeneratorCommand
 {
 
     /**
@@ -16,21 +12,21 @@ class EloquentRepositoryBackendMakeCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $signature = 'make:pjss-eloquent-repository-backend {namespace} {name}';
+    protected $signature = 'make:pjss-breadcrumb-backend {namespace} {name}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Create a new eloquent repository class';
+    protected $description = 'Create / Modify a new breadcrumb class';
 
     /**
      * The type of class being generated.
      *
      * @var string
      */
-    protected $type = 'EloquentRepository';
+    protected $type = 'Breadcrumb';
     
     /**
      * Execute the console command.
@@ -40,8 +36,13 @@ class EloquentRepositoryBackendMakeCommand extends GeneratorCommand
     public function fire()
     {
         if (parent::fire() !== false) {
-            // 修改resources/lang/zh/exceptions.php
-            $path = $this->laravel['path'] . '/../resources/lang/' . env('APP_LOCALE') . '/exceptions.php';
+            $this->call('make:pjss-breadcrumb-require-backend', [
+                'namespace' => $this->getNamespaceInput(),
+                'name' => $this->getNameInput(),
+            ]);
+            
+            // 修改resources/lang/zh/menus.php
+            $path = $this->laravel['path'] . '/../resources/lang/' . env('APP_LOCALE') . '/menus.php';
             
             $lower_namespace = Str::lower($this->getNamespaceInput());
             $lower_name = Str::lower($this->getNameInput());
@@ -62,15 +63,12 @@ class EloquentRepositoryBackendMakeCommand extends GeneratorCommand
                     '       \'' . $lower_namespace . '\' => [/*backend*/',
                     '       \'' . $lower_namespace . '\' => [/*backend*/' . PHP_EOL .
                     '            \'' . $plural_lower_name . '\' => [' . PHP_EOL .
-                    '                \'create_error\' => \'There was a problem creating this ' . $lower_name . '. Please try again.\',' . PHP_EOL .
-                    '                \'delete_error\' => \'There was a problem deleting this ' . $lower_name . '. Please try again.\',' . PHP_EOL .
-                    '                \'restore_error\' => \'There was a problem restoring this ' . $lower_name . '. Please try again.\',' . PHP_EOL .
-                    '                \'update_error\' => \'There was a problem updating this ' . $lower_name . '. Please try again.\',' . PHP_EOL .
+                    '                \'management\' => \'' . $lower_name . '\',' . PHP_EOL .
                     '            ],'
                     , $contents);
             }
             $this->files->put($path, $contents);
-            $this->comment('langs.exceptions modified successfully.');
+            $this->comment('langs.menus modified successfully.');
         }
     }
 
@@ -81,7 +79,7 @@ class EloquentRepositoryBackendMakeCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return __DIR__ . '/stubs/eloquent-repository-backend.stub';
+        return __DIR__ . '/stubs/breadcrumb-backend.stub';
     }
 
     /**
@@ -92,7 +90,7 @@ class EloquentRepositoryBackendMakeCommand extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace . '\Repositories\Backend' . '\\' . $this->getNamespaceInput() . '\\' . $this->getNameInput();
+        return $rootNamespace . '\Http\Breadcrumbs\Backend' . '\\' . $this->getNamespaceInput();
     }
 
     /**
@@ -105,6 +103,6 @@ class EloquentRepositoryBackendMakeCommand extends GeneratorCommand
     {
         $name = str_replace($this->laravel->getNamespace(), '', $name);
         
-        return $this->laravel['path'] . '/' . Str::replaceLast($this->getNameInput(), 'Eloquent' . $this->getNameInput(), str_replace('\\', '/', $name)) . 'Repository.php';
+        return $this->laravel['path'] . '/' . str_replace('\\', '/', $name) . '.php';
     }
 }

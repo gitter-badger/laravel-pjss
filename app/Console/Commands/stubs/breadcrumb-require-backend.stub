@@ -1,0 +1,9 @@
+<?php
+
+Breadcrumbs::register('admin.{lower_namespace}.index', function ($breadcrumbs) {
+    $breadcrumbs->parent('admin.dashboard');
+    $breadcrumbs->push(trans('labels.backend.{lower_namespace}.management'), '#');
+});
+
+// {name} Require
+require __DIR__ . '/{namespace}/{name}.php';
