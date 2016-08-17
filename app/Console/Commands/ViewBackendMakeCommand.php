@@ -99,7 +99,7 @@ class ViewBackendMakeCommand extends GeneratorCommand
     {
         $name = str_replace($this->laravel->getNamespace(), '', $name);
         
-        return $this->laravel['path'] . '/' . str_replace('\\', '/', $name) . $this->argument('type') . '.blade.php';
+        return $this->laravel['path'] . '/' . Str::replaceLast($this->getNameInput(), $this->argument('type'), str_replace('\\', '/', $name)) . '.blade.php';
     }
     
     /**

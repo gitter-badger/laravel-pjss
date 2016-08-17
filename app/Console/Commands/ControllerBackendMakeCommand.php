@@ -62,6 +62,27 @@ class ControllerBackendMakeCommand extends GeneratorCommand
                 'name' => $this->getNameInput(),
             ]);
             
+            $this->call('make:pjss-request-backend', [
+                'namespace' => $this->getNamespaceInput(),
+                'name' => $this->getNameInput(),
+                'type' => 'Manage',
+            ]);
+            $this->call('make:pjss-request-backend', [
+                'namespace' => $this->getNamespaceInput(),
+                'name' => $this->getNameInput(),
+                'type' => 'Store',
+            ]);
+            $this->call('make:pjss-request-backend', [
+                'namespace' => $this->getNamespaceInput(),
+                'name' => $this->getNameInput(),
+                'type' => 'Update',
+            ]);
+            
+            $this->call('make:pjss-route-backend', [
+                'namespace' => $this->getNamespaceInput(),
+                'name' => $this->getNameInput(),
+            ]);
+            
             // 修改resources/lang/zh/alerts.php
             $path = $this->laravel['path'] . '/../resources/lang/' . env('APP_LOCALE') . '/alerts.php';
             

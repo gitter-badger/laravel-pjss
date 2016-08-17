@@ -13,6 +13,13 @@ return [
      */
     
     'backend' => [
+        'scrum' => [/*backend*/
+            'userstories' => [
+                'create' => 'Create UserStory',
+                'detail' => 'Information UserStory',
+                'edit' => 'Edit UserStory',
+            ],
+        ],
         'access' => [
             'title' => 'Access Management',
             

@@ -37,6 +37,10 @@ class Kernel extends ConsoleKernel
         Commands\ViewFrontendMakeCommand::class,
         Commands\BreadcrumbBackendMakeCommand::class,
         Commands\BreadcrumbRequireBackendMakeCommand::class,
+        Commands\RequestBackendMakeCommand::class,
+        Commands\RequestFrontendMakeCommand::class,
+        Commands\RouteBackendMakeCommand::class,
+        Commands\RouteFrontendMakeCommand::class,
     ];
 
     /**

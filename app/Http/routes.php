@@ -15,6 +15,9 @@ Route::group(['middleware' => 'web'], function() {
     Route::group(['namespace' => 'Frontend'], function () {
         require (__DIR__ . '/Routes/Frontend/Frontend.php');
         require (__DIR__ . '/Routes/Frontend/Access.php');
+        // Scrum Require
+        require __DIR__ . '/Routes/Backend/Scrum.php';
+        // Frontend Replacer
     });
 });
 
@@ -36,4 +39,7 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'middleware' => 'ad
     require (__DIR__ . '/Routes/Backend/LogViewer.php');
     require (__DIR__ . '/Routes/Backend/Organization.php');
     require (__DIR__ . '/Routes/Backend/Sync.php');
+    // Scrum Require
+    require __DIR__ . '/Routes/Frontend/Scrum.php';
+    // Backend Replacer
 });

@@ -37,7 +37,7 @@ class UserStoryController extends Controller
             return response()->json($userstories->all());
         }
     
-        return view('backend.scrum.index')
+        return view('backend.scrum.userstory.index')
         	->withUserStory($userstories->all());
     }
 
@@ -47,7 +47,7 @@ class UserStoryController extends Controller
      */
     public function create(ManageUserStoryRequest $request)
     {
-        return view('backend.scrum.create');
+        return view('backend.scrum.userstory.create');
     }
 
 	/**
@@ -69,7 +69,7 @@ class UserStoryController extends Controller
      */
     public function show(UserStory $userstory, ManageUserStoryRequest $request)
     {
-        return view('backend.scrum.detail')
+        return view('backend.scrum.userstory.detail')
         	->withUserStory($userstory);
     }
 
@@ -80,7 +80,7 @@ class UserStoryController extends Controller
      */
     public function edit(UserStory $userstory, ManageUserStoryRequest $request)
     {
-        return view('backend.scrum.edit')
+        return view('backend.scrum.userstory.edit')
             ->withUserStory($userstory);
     }
 

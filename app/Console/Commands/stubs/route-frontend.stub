@@ -1,0 +1,14 @@
+<?php
+
+Route::group([
+    'prefix'     => '{lower_namespace}',
+    'namespace'  => '{namespace}',
+], function() {
+
+	/**
+	 * {name} Management
+	 */
+	Route::group(['namespace' => '{name}'], function() {
+		Route::resource('{lower_name}', '{name}Controller');
+	});
+});

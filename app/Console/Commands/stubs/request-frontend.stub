@@ -1,0 +1,34 @@
+<?php
+
+namespace App\Http\Requests\Frontend\{namespace}\{name};
+
+use App\Http\Requests\Request;
+
+/**
+ * Class {type}{name}Request
+ * @package App\Http\Requests\Frontend\{namespace}\{name}
+ */
+class {type}{name}Request extends Request
+{
+	/**
+	 * Determine if the {lower_name} is authorized to make this request.
+	 *
+	 * @return bool
+	 */
+	public function authorize()
+	{
+		return access()->allow('manage-{plural_lower_name}');
+	}
+
+	/**
+	 * Get the validation rules that apply to the request.
+	 *
+	 * @return array
+	 */
+	public function rules()
+	{
+		return [
+			//
+		];
+	}
+}

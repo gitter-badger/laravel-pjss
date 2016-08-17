@@ -63,7 +63,9 @@ class BreadcrumbBackendMakeCommand extends GeneratorCommand
                     '       \'' . $lower_namespace . '\' => [/*backend*/',
                     '       \'' . $lower_namespace . '\' => [/*backend*/' . PHP_EOL .
                     '            \'' . $plural_lower_name . '\' => [' . PHP_EOL .
-                    '                \'management\' => \'' . $lower_name . '\',' . PHP_EOL .
+                    '                \'create\' => \'Create ' . $this->getNameInput() . '\',' . PHP_EOL .
+                    '                \'detail\' => \'Information ' . $this->getNameInput() . '\',' . PHP_EOL .
+                    '                \'edit\' => \'Edit ' . $this->getNameInput() . '\',' . PHP_EOL .
                     '            ],'
                     , $contents);
             }
