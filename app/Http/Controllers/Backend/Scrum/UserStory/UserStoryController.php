@@ -8,6 +8,7 @@ use App\Http\Requests\Backend\Scrum\UserStory\StoreUserStoryRequest;
 use App\Http\Requests\Backend\Scrum\UserStory\ManageUserStoryRequest;
 use App\Http\Requests\Backend\Scrum\UserStory\UpdateUserStoryRequest;
 use App\Repositories\Backend\Scrum\UserStory\UserStoryRepositoryContract;
+use App\Http\Requests\Backend\Scrum\UserStory\Excel\UserStroyImport;
 
 /**
  * Class UserStoryController
@@ -108,5 +109,11 @@ class UserStoryController extends Controller
     {
         $this->userstories->destroy($userstory);
         return redirect()->back()->withFlashSuccess(trans('alerts.backend.scrum.userstories.deleted'));
+    }
+    
+    public function importExcel(UserStroyImport $import) {
+        // get the results
+        $results = $import->all();
+        var_dump($results->toArray());
     }
 }

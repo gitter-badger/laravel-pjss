@@ -24,8 +24,6 @@
 		});
 
 		/* private members */
-		var searcher;
-
 		function render(data, method) {
 			method = method || 'append';
 			

@@ -26,10 +26,14 @@
 						<li><a href="login.html">Logout</a></li>
 					</ul>
 				</div>
-				<div class="logo-element">{{ app_name() }}</div>
+				<div class="logo-element">PJSS+</div>
 			</li>
 			<li class="{{ Active::pattern('admin/dashboard') }}">
-                {{ link_to_route('admin.dashboard', trans('menus.backend.sidebar.dashboard')) }}
+				<a href="{{ route('admin.dashboard') }}">
+            		<i class="fa fa-dashboard"></i>
+            		<span class="nav-label">{{ trans('menus.backend.sidebar.dashboard') }}</span>
+            		<span class="fa arrow"></span>
+        		</a>
             </li>
             <li class="{{ Active::pattern('admin/organization/*') }}">
             	<a href="#">
@@ -48,7 +52,7 @@
             </li>
             <li class="{{ Active::pattern('admin/scrum/*') }}">
             	<a href="#">
-            		<i class="fa fa-sitemap"></i>
+            		<i class="fa fa-cubes"></i>
             		<span class="nav-label">{{ trans('menus.backend.sidebar.scrum.index') }}</span>
             		<span class="fa arrow"></span>
         		</a>

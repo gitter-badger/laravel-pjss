@@ -210,6 +210,13 @@ return [
          */
         AlgoliaSearch\Laravel\AlgoliaServiceProvider::class,
         
+        /*
+         * Excel Provider
+         * From     https://github.com/Maatwebsite/Laravel-Excel
+         * Also See https://github.com/PHPOffice
+         */
+        Maatwebsite\Excel\ExcelServiceProvider::class,
+        
     ],
 
     /*
@@ -266,5 +273,6 @@ return [
         'Gravatar'    => Creativeorange\Gravatar\Facades\Gravatar::class,
         'Html'        => Collective\Html\HtmlFacade::class,
         'Socialite'   => Laravel\Socialite\Facades\Socialite::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
     ],
 ];

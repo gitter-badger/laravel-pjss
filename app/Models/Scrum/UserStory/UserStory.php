@@ -21,13 +21,6 @@ class UserStory extends Model
     protected $table = 'scrum_user_stories';
     
     /**
-     * The model's attributes.
-     *
-     * @var array
-     */
-    protected $attributes = ['code', 'name'];
-    
-    /**
      * The storage format of the model's date columns.
      *
      * @var string

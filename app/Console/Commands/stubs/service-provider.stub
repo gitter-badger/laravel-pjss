@@ -1,0 +1,79 @@
+<?php
+
+namespace App\Providers;
+
+use App\Services\{namespace}\{namespace};
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\ServiceProvider;
+
+/**
+ * Class {namespace}ServiceProvider
+ * @package App\Providers
+ */
+class {namespace}ServiceProvider extends ServiceProvider
+{
+    /**
+     * Indicates if loading of the provider is deferred.
+     *
+     * @var bool
+     */
+    protected $defer = false;
+
+    /**
+     * Package boot method
+     */
+    public function boot()
+    {
+        $this->registerBladeExtensions();
+    }
+
+    /**
+     * Register the service provider.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->registerFacade();
+        $this->registerBindings();
+    }
+
+    /**
+     * Register the vault facade without the {lower_name} having to add it to the app.php file.
+     *
+     * @return void
+     */
+    public function registerFacade()
+    {
+        
+    }
+
+    /**
+     * Register service provider bindings
+     */
+    public function registerBindings()
+    {
+    	/**
+    	 * {name} Binding
+    	 */
+        $this->app->bind(
+            \App\Repositories\Frontend\{namespace}\{name}\{name}RepositoryContract::class,
+            \App\Repositories\Frontend\{namespace}\{name}\Eloquent{name}Repository::class
+        );
+
+        $this->app->bind(
+            \App\Repositories\Backend\{namespace}\{name}\{name}RepositoryContract::class,
+            \App\Repositories\Backend\{namespace}\{name}\Eloquent{name}Repository::class
+        );
+        
+        // Replacer
+    }
+
+    /**
+     * Register the blade extender to use new blade sections
+     */
+    protected function registerBladeExtensions()
+    {
+        
+    }
+}
