@@ -40,4 +40,10 @@ interface UserStoryRepositoryContract
      * @return mixed
      */
     public function restore(UserStory $userstory);
+    
+    /**
+     * @param $input
+     * @return mixed
+     */
+    public function importExcel($input);
 }

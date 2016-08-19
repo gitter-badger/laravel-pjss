@@ -56,6 +56,11 @@ class RepositoryFrontendMakeCommand extends GeneratorCommand
                 'name' => $this->getNameInput(),
                 'type' => 'Update',
             ]);
+            $this->call('make:pjss-event-frontend', [
+                'namespace' => $this->getNamespaceInput(),
+                'name' => $this->getNameInput(),
+                'type' => 'PermanentlyDeleted',
+            ]);
             
             $this->call('make:pjss-listener-frontend', [
                 'namespace' => $this->getNamespaceInput(),

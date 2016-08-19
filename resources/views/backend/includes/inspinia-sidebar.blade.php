@@ -92,6 +92,17 @@
                             </li>
         				</ul>
 					</li>
+					<li class="">
+						<a href="#">
+                    		<span class="nav-label">DBaaS</span>
+                    		<span class="fa arrow"></span>
+                		</a>
+                        <ul class="nav nav-third-level">
+                            <li class="">
+                                {{ link_to('https://www.bdp.cn/home.html', 'BDP', ['target' => '_blank']) }}
+                            </li>
+        				</ul>
+					</li>
 				</ul>
             </li>
 		</ul>

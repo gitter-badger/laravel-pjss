@@ -4,11 +4,24 @@
 
 @section ('styles')
 {{ Html::style('vendor/dropzone/dropzone.min.css') }}
+{{ Html::style('vendor/handsontable/pro/handsontable.full.min.css') }}
+{{ Html::style("vendor/toastr/toastr.min.css") }}
+<style>
+    .modal .modal-body .tab-content {
+	   margin: -20px -30px -30px -30px;
+    }
+    .modal .modal-footer .nav > li > a {
+	   padding: 8px 15px;
+    }
+</style>
 @endsection
 
 @section ('scripts')
+{{ Html::script('vendor/toastr/toastr.min.js') }}
 {{ Html::script('vendor/artTemplate/template.js') }}
 {{ Html::script('vendor/dropzone/dropzone.min.js') }}
+{{ Html::script('vendor/handsontable/pro/handsontable.full.min.js') }}
+{{ Html::script('vendor/js-xlsx/xlsx.core.min.js') }}
 <script>
 	$(function(){
 		var $$ = $(this);
@@ -24,16 +37,72 @@
 		    return date;
 		});
 
+		var type_enum = {
+    		'1': '功能性',
+    		'2': '技术性'
+		};
+
+		template.helper('typeFormat', function (type) {
+		    return type_enum[type];
+		});
+
+		template.helper('typeLabelFormat', function (type) {
+		    var label;
+
+		    switch(type){
+    		    case '1':
+    		    	label = 'primary';
+    			    break;
+    		    case '2':
+    		    	label = 'default';
+    			    break;
+			    default:
+			    	label = 'white';;
+			    	break;
+		    }
+
+		    return label;
+		});
+
+		template.helper('priorityLabelFormat', function (priority) {
+			var label;
+			
+		    if (priority > 80) {
+		    	label = 'danger';
+		    } else if (priority > 60) {
+		    	label = 'warning';
+		    } else if (priority > 40) {
+		    	label = 'success';
+		    } else if (priority > 20) {
+		    	label = 'info';
+		    } else {
+		    	label = 'white';
+		    }
+
+		    return label;
+		});
+
 		/* private members */
 		function render(data, method) {
 			method = method || 'append';
 			
 			var html = template('tpl_userstory_list', data);
-			$('.userstory-list').find('table > tbody')[method](html);
+			$('#user_story_list')[method](html);
+		}
+
+		function renderExcel(data) {
+			var sheet = template('tpl_sheet', data);
+			var excel = template('tpl_excel', data);
+
+			var $modal = $('#modal-excel-show');
+			$modal.find('.modal-footer .nav').html(sheet);
+			$modal.find('.modal-content .tab-content').html(excel);
 		}
 
 		/* events define */
-		$$.on('refresh', function(e){
+		$$.on('upload.excel.data', function() {
+			
+		}).on('refresh', function(e){
 			$.ajax({
 				url: '{{route('admin.scrum.userstory.index')}}'
 			}).then(function(data){
@@ -52,17 +121,69 @@
 		/* ctor */
 		render({!! $user_stories !!});
 
-		$('body').dropzone({ 
-			url: '{{ route('admin.scrum.userstory.import_excel') }}',
-			maxFilesize: 2,
-			acceptedFiles: '.xls,.xlsx',
-			headers: {
-				'X-CSRF-TOKEN': '{{ csrf_token() }}'
-			},
-			accept: function(file, done) {
-				done();
-			}
-		});
+
+    	(function(){
+    		var dropzone_options = { 
+    				url: '{{ route('admin.scrum.userstory.import_excel') }}',
+    				maxFilesize: 2,
+    				acceptedFiles: '.xls,.xlsx',
+    				headers: {
+    					'X-CSRF-TOKEN': '{{ csrf_token() }}'
+    				},
+    				accept: function(file, done) {
+    					try {
+    						throw new Error('暂时不显示预览');
+    						$('#modal-excel-show').modal('show');
+    
+    	    				var reader = new FileReader();
+    	    			    reader.onload = function(e) {
+    	    			      var data = e.target.result;
+    	    
+    	    			      /* if binary string, read with type 'binary' */
+    	    			      var workbook = XLSX.read(data, {type: 'binary'});
+    	    
+    	    			      console.info(workbook);
+    	    			      renderExcel(workbook.SheetNames);
+    	    			      $.each(workbook.Sheets, function(name, sheet){   			    	  
+    	    			    	  var data = XLSX.utils.sheet_to_json(sheet);
+    	    			    	  var hot = new Handsontable($('#excel-sheet-' + name + '-contrainer').get(0), {
+    	  		                    data: data,
+    	  		                    minSpareCols: 1,
+    	  		                    minSpareRows: 1,
+    	  		                    rowHeaders: true,
+    	  		                    colHeaders: true,
+    	  		                    contextMenu: true,
+    	  		                    width: 838,
+    	  		                    height: 400
+    	  						});
+    	    			      });
+    	    			    };
+    	    			    reader.readAsBinaryString(file);
+    					} catch(ex) {
+    						console.error(ex);
+    						console.log('ECMAScript5 is not supported. change to ajax mode!');
+    						done();
+    					}
+    				},
+    				success: function(file, excelData, e) {
+    					$.ajax({
+    						url: '{{ route('admin.scrum.userstory.index') }}'
+    					}).then(function(data){
+    						toastr.success('文件' + file.name + '已导入！', '导入成功');
+    						
+    						render(data, 'html');
+    					});
+    				},
+    				error: function(file, returnValue, xhr) {
+    					toastr.error('文件' + file.name + '存在错误！', '导入失败');
+    				}
+    			};
+			
+    			$('body').dropzone(dropzone_options);
+    			$('#import-excel').dropzone($.extend({ 
+    				clickable: true
+    			}, dropzone_options));
+    	})();
 	});
 </script>
 @endsection
@@ -76,14 +197,14 @@
   </button>
   <ul class="dropdown-menu dropdown-menu-right">
     <li>
-    	<a href="#">
+    	<a href="#" id="import-excel">
     		导入Excel
     		<span class="pull-right"><i class="fa fa-upload"></i></span>
 		</a>
 	</li>
     <li role="separator" class="divider"></li>
     <li>
-    	<a href="#">
+    	<a href="{{ route('admin.scrum.userstory.download_excel') }}">
     		导出Excel
     		<span class="pull-right"><i class="fa fa-download"></i></span>
 		</a>
@@ -93,7 +214,32 @@
 @endsection
 
 @section ('content')
-{{ csrf_field() }}
+<!-- modal-excel-show -->
+<div class="modal fade" tabindex="-1" role="dialog"
+	id="modal-excel-show">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title">确认数据</h4>
+			</div>
+			<div class="modal-body">
+                <div class="tab-content"></div>
+			</div>
+			<div class="modal-footer">
+				<div class="pull-left">
+					<ul class="nav nav-pills"></ul>
+				</div>
+			
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+				<a href="#upload/excel/data" class="btn btn-primary">导入</a>
+			</div>
+		</div>
+	</div>
+</div>
 
 @include('backend.scrum.userstory.includes.list')
 
@@ -103,12 +249,11 @@
 		<div class="ibox-title">
 			<h5>用户故事</h5>
 			<div class="ibox-tools">
-				
+				<i class="fa fa-hand-pointer-o"></i> 支持直接将Excel文件拖拽至本页面
 			</div>
 		</div>
         <div class="ibox-content">
-            <ul class="sortable-list connectList agile-list ui-sortable" id="user_story">
-            </ul>
+            <ul class="sortable-list connectList agile-list ui-sortable" id="user_story_list"></ul>
         </div>
     </div>
 </div>

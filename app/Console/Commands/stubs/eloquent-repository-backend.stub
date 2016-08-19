@@ -32,11 +32,10 @@ class Eloquent{name}Repository implements {name}RepositoryContract
     public function create($input)
     {
         ${lower_name} = $this->create{name}Stub($input);
+        //TODO: set properties
 
 		DB::transaction(function() use (${lower_name}) {
 			if (${lower_name}->save()) {
-				//TODO: set properties
-				
 				event(new {name}Created(${lower_name}));
 				return true;
 			}
@@ -54,14 +53,10 @@ class Eloquent{name}Repository implements {name}RepositoryContract
      */
     public function update({name} ${lower_name}, $input)
     {
-        $this->check{name}ByEmail($input, ${lower_name});
-
-		DB::transaction(function() use (${lower_name}, $input, $roles) {
+    	//TODO: set $input properties
+    	
+		DB::transaction(function() use (${lower_name}, $input) {
 			if (${lower_name}->update($input)) {
-				//TODO: set properties
-
-				${lower_name}->save();
-
 				event(new {name}Updated(${lower_name}));
 				return true;
 			}

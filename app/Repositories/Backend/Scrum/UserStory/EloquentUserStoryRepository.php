@@ -54,9 +54,7 @@ class EloquentUserStoryRepository implements UserStoryRepositoryContract
      */
     public function update(UserStory $userstory, $input)
     {
-        $this->checkUserStoryByEmail($input, $userstory);
-
-		DB::transaction(function() use ($userstory, $input, $roles) {
+		DB::transaction(function() use ($userstory, $input) {
 			if ($userstory->update($input)) {
 				//TODO: set properties
 
@@ -127,6 +125,44 @@ class EloquentUserStoryRepository implements UserStoryRepositoryContract
 
         throw new GeneralException(trans('exceptions.backend.scrum.userstories.restore_error'));
     }
+    
+    /**
+     * @param  $input
+     * @param  $roles
+     * @throws GeneralException
+     * @return bool
+     */
+    public function importExcel($input)
+    {
+        // 删除中文标题行
+        array_splice($input, 0, 1);
+        
+        $user_stories = UserStory::all()->where('project_id', session('project_id'));
+        foreach ($input as $num => $row) {
+            DB::transaction(function() use ($user_stories, $row) {
+                $user_story = $user_stories->first(function($key, $value) use ($row) {
+                    return $value->code == $row['code'];
+                });
+                if (!is_null($user_story)) {
+                    $row['story_type'] = $this->storyTypeEnum[$row['story_type']];
+                    
+                    if ($user_story->update($row)) {
+                        event(new UserStoryUpdated($user_story));
+                        return true;
+                    }   
+                } else {
+                    $userstory = $this->createUserStoryStub($row);
+                    
+                    if ($userstory->save()) {
+                        event(new UserStoryCreated($userstory));
+                        return true;
+                    }
+                }
+            
+                throw new GeneralException(trans('exceptions.backend.scrum.userstories.create_error'));
+            });
+        }
+    }
 
     /**
      * @param  $input
@@ -134,9 +170,24 @@ class EloquentUserStoryRepository implements UserStoryRepositoryContract
      */
     private function createUserStoryStub($input)
     {
-        $userstory                    = new UserStory;
-        //TODO: set properties
-
+        $userstory                  = new UserStory;
+        $userstory->code            = $input['code'];
+        $userstory->project_id      = session('project_id');
+        $userstory->role            = in_array('role', $input) ? $input['role'] : '';
+        $userstory->activity        = in_array('activity', $input) ? $input['activity'] : '';
+        $userstory->business_value  = in_array('business_value', $input) ? $input['business_value'] : '';
+        $userstory->description     = $input['description'];
+        $userstory->story_type      = $this->storyTypeEnum[$input['story_type']];
+        $userstory->priority        = $input['priority'];
+        $userstory->story_points    = in_array('story_points', $input) ? $input['story_points'] : '';
+        $userstory->remarks         = in_array('remarks', $input) ? $input['remarks'] : '';
+        $userstory->INVEST          = in_array('INVEST', $input) ? $input['INVEST'] : 0;
+        
         return $userstory;
     }
+    
+    private $storyTypeEnum = [
+        '功能性' => 1,
+        '技术性' => 2,
+    ];
 }

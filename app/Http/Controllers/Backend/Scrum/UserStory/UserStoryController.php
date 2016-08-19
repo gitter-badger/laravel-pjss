@@ -9,6 +9,7 @@ use App\Http\Requests\Backend\Scrum\UserStory\ManageUserStoryRequest;
 use App\Http\Requests\Backend\Scrum\UserStory\UpdateUserStoryRequest;
 use App\Repositories\Backend\Scrum\UserStory\UserStoryRepositoryContract;
 use App\Http\Requests\Backend\Scrum\UserStory\Excel\UserStroyImport;
+use DB;
 
 /**
  * Class UserStoryController
@@ -34,14 +35,21 @@ class UserStoryController extends Controller
      */
     public function index(ManageUserStoryRequest $request)
     {
-    	$user_stories = UserStory::all();
+        if (is_null(session('project_id'))) {
+            $project_id = DB::select('select m2p.project_id from members2project m2p inner join members m on m.id = m2p.member_id where m.email = :email', [
+                'email' => \Auth::user()->email
+            ]);
+            $request->session()->put('project_id', $project_id[0]->project_id);
+        }
+
+    	$user_stories = UserStory::all()->where('project_id', session('project_id'))->sortByDesc('priority');
     	
     	if ($request->ajax()){
-            return response()->json(user_stories);
+            return response()->json($user_stories->toArray());
         }
     
         return view('backend.scrum.userstory.index')
-        	->withUserStories($user_stories);
+        	->withUserStories($user_stories->toJson());
     }
 
 	/**
@@ -113,7 +121,9 @@ class UserStoryController extends Controller
     
     public function importExcel(UserStroyImport $import) {
         // get the results
-        $results = $import->all();
-        var_dump($results->toArray());
+        $results = $import->toArray();
+        $this->userstories->importExcel($results[0]);
+        
+        return response()->json($results);
     }
 }
