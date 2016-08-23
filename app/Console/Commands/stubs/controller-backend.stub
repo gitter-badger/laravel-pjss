@@ -59,7 +59,7 @@ class {name}Controller extends Controller
     public function store(Store{name}Request $request)
     {
         $this->{plural_lower_name}->create(
-            $request
+            $request->all()
         );
         return redirect()->route('admin.{lower_namespace}.{lower_name}.index')->withFlashSuccess(trans('alerts.backend.{lower_namespace}.{plural_lower_name}.created'));
     }
@@ -94,7 +94,7 @@ class {name}Controller extends Controller
     public function update({name} ${lower_name}, Update{name}Request $request)
     {
         $this->{plural_lower_name}->update(${lower_name},
-            $request
+            $request->all()
         );
         return redirect()->route('admin.{lower_namespace}.{lower_name}.index')->withFlashSuccess(trans('alerts.backend.{lower_namespace}.{plural_lower_name}.updated'));
     }

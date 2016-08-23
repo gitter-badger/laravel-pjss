@@ -32,7 +32,6 @@
 				<a href="{{ route('admin.dashboard') }}">
             		<i class="fa fa-dashboard"></i>
             		<span class="nav-label">{{ trans('menus.backend.sidebar.dashboard') }}</span>
-            		<span class="fa arrow"></span>
         		</a>
             </li>
             <li class="{{ Active::pattern('admin/organization/*') }}">

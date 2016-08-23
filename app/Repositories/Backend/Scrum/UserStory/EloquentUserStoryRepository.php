@@ -152,6 +152,7 @@ class EloquentUserStoryRepository implements UserStoryRepositoryContract
                     }   
                 } else {
                     $userstory = $this->createUserStoryStub($row);
+                    $userstory->story_type = $this->storyTypeEnum[$row['story_type']];
                     
                     if ($userstory->save()) {
                         event(new UserStoryCreated($userstory));
@@ -177,7 +178,7 @@ class EloquentUserStoryRepository implements UserStoryRepositoryContract
         $userstory->activity        = in_array('activity', $input) ? $input['activity'] : '';
         $userstory->business_value  = in_array('business_value', $input) ? $input['business_value'] : '';
         $userstory->description     = $input['description'];
-        $userstory->story_type      = $this->storyTypeEnum[$input['story_type']];
+        $userstory->story_type      = $input['story_type'];
         $userstory->priority        = $input['priority'];
         $userstory->story_points    = in_array('story_points', $input) ? $input['story_points'] : '';
         $userstory->remarks         = in_array('remarks', $input) ? $input['remarks'] : '';

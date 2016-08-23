@@ -10,6 +10,33 @@
 
 @endsection
 
-@section ('content')
+@section ('action')
+	<a href="{{ url()->previous() }}" class="btn btn-primary">
+		<i class="fa fa-arrow-left"></i> 返回
+	</a>
+@endsection
 
+@section ('content')
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+    	<div class="col-lg-12">
+    		<div class="ibox">
+    			<div class="ibox-title">
+    				<h5>
+    					{{ trans('menus.backend.scrum.userstories.create') }}
+    				</h5>
+    				<div class="ibox-tools">
+    				</div>
+    			</div>
+    			<div class="ibox-content">
+    				@include('backend.scrum.userstory.includes.form', [
+    					'method' => 'PUT', 
+    					'action' => route('admin.scrum.userstory.update', $user_story->id),
+    					'model' => $user_story,
+					])
+    			</div>
+    		</div>
+    	</div>
+    </div>
+</div>
 @endsection

@@ -41,6 +41,7 @@
     "datatables": "^1.10.12",
     "list.js": "^1.2.0",
     "handsontable": "^0.26.1",
-    "js-xlsx": "^0.8.0"
+    "js-xlsx": "^0.8.0",
+    "jquery-ui": "^1.12.0"
   }
 }

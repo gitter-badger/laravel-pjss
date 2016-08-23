@@ -100,7 +100,7 @@ class ProjectController extends Controller
                     return $user->email == $member['id'];
                 })->count() > 0;
                 if ($exists){
-                    // 创建用户
+                    // 闅忔満瀵嗙爜
                     $password = str_random(6);
                     $this->users->create(
                         [

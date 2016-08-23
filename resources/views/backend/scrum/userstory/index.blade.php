@@ -22,6 +22,7 @@
 {{ Html::script('vendor/dropzone/dropzone.min.js') }}
 {{ Html::script('vendor/handsontable/pro/handsontable.full.min.js') }}
 {{ Html::script('vendor/js-xlsx/xlsx.core.min.js') }}
+{{ Html::script('vendor/jquery-ui/jquery-ui.min.js') }}
 <script>
 	$(function(){
 		var $$ = $(this);
@@ -100,8 +101,82 @@
 		}
 
 		/* events define */
-		$$.on('upload.excel.data', function() {
+		$$.on('edit.begin', function(e, item) {
+			$("#user_story_list").sortable('enable');
+
+			var $btn = $(item);
+			$btn.toggleClass('hidden');
+			$btn.next().toggleClass('hidden');
+		}).on('edit.end', function(e, item) {
+			$("#user_story_list").sortable('disable');
+
+			var userStoryIDs = $('#user_story_list').sortable('toArray');
+
+        	$.ajax({
+            	type: 'POST',
+            	url: '{{ route('admin.scrum.userstory.re_order') }}',
+            	data: {
+                	ids: userStoryIDs
+            	},
+            	headers: {
+					'X-CSRF-TOKEN': '{{ csrf_token() }}'
+				}
+        	}).then(function(){
+        		var $btn = $(item);
+    			$btn.toggleClass('hidden');
+    			$btn.prev().toggleClass('hidden');
+    			
+        		$$.trigger('refresh');
+        	});
+		}).on('move.exchange', function(e, item) {
+			var $li = $(item).parents('li:first');
 			
+		}).on('move.up', function(e, item) {
+			var $li = $(item).parents('li:first');
+			var $prev = $li.prev();
+			if ($prev.size() > 0) {
+				$.ajax({
+                	type: 'POST',
+                	url: '{{ route('admin.scrum.userstory.exchange') }}',
+                	data: {
+                    	ids: [$li.attr('id'), $prev.attr('id')]
+                	},
+                	headers: {
+    					'X-CSRF-TOKEN': '{{ csrf_token() }}'
+    				}
+            	}).then(function(){
+            		$$.trigger('refresh');
+            	});
+			}
+		}).on('move.down', function(e, item) {
+			var $li = $(item).parents('li:first');
+			var $next = $li.next();
+			if ($next.size() > 0) {
+				$.ajax({
+                	type: 'POST',
+                	url: '{{ route('admin.scrum.userstory.exchange') }}',
+                	data: {
+                    	ids: [$li.attr('id'), $next.attr('id')]
+                	},
+                	headers: {
+    					'X-CSRF-TOKEN': '{{ csrf_token() }}'
+    				}
+            	}).then(function(){
+            		$$.trigger('refresh');
+            	});
+			}
+		}).on('delete', function(e, item) {
+			var $li = $(item).parents('li:first');
+
+			$.ajax({
+            	type: 'DELETE',
+            	url: '{{ route('admin.scrum.userstory.destroy', '') }}' + '/' + $li.attr('id'),
+            	headers: {
+					'X-CSRF-TOKEN': '{{ csrf_token() }}'
+				}
+        	}).then(function(){
+        		$$.trigger('refresh');
+        	});
 		}).on('refresh', function(e){
 			$.ajax({
 				url: '{{route('admin.scrum.userstory.index')}}'
@@ -115,13 +190,13 @@
 			e.preventDefault();
 
 			var eventName = $(this).attr('href').substr(1).replace(/\//g, '.');
-			$$.trigger(eventName);
+			$$.trigger(eventName, e.target);
 		});
 
 		/* ctor */
 		render({!! $user_stories !!});
 
-
+		// Dropzone
     	(function(){
     		var dropzone_options = { 
     				url: '{{ route('admin.scrum.userstory.import_excel') }}',
@@ -184,13 +259,19 @@
     				clickable: true
     			}, dropzone_options));
     	})();
+
+    	// Sortable
+    	$("#user_story_list").sortable({
+            connectWith: ".connectList",
+            disabled: true
+        }).disableSelection();
 	});
 </script>
 @endsection
 
 @section ('action')
 <div class="btn-group">
-  <a class="btn btn-primary">新增</a>
+  <a href="{{ route('admin.scrum.userstory.create') }}" class="btn btn-primary">新增</a>
   <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     <span class="caret"></span>
     <span class="sr-only">Toggle Dropdown</span>
@@ -204,13 +285,15 @@
 	</li>
     <li role="separator" class="divider"></li>
     <li>
-    	<a href="{{ route('admin.scrum.userstory.download_excel') }}">
+    	<a href="{{ route('admin.scrum.userstory.export_excel') }}">
     		导出Excel
     		<span class="pull-right"><i class="fa fa-download"></i></span>
 		</a>
 	</li>
   </ul>
 </div>
+<a href="#edit/begin" class="btn btn-primary">编辑</a>
+<a href="#edit/end" class="btn btn-primary hidden">完成</a>
 @endsection
 
 @section ('content')
@@ -245,19 +328,26 @@
 
 <!-- list -->
 <div class="wrapper wrapper-content animated fadeInRight">
-	<div class="ibox">
-		<div class="ibox-title">
-			<h5>用户故事</h5>
-			<div class="ibox-tools">
-				<i class="fa fa-hand-pointer-o"></i> 支持直接将Excel文件拖拽至本页面
-			</div>
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="ibox">
+        		<div class="ibox-title">
+        			<h5>用户故事</h5>
+        			<div class="ibox-tools">
+        				<i class="fa fa-hand-pointer-o"></i> 支持直接将Excel文件拖拽至本页面
+        			</div>
+        		</div>
+                <div class="ibox-content">
+                    <ul class="sortable-list connectList agile-list" id="user_story_list"></ul>
+                </div>
+            </div>
 		</div>
-        <div class="ibox-content">
-            <ul class="sortable-list connectList agile-list ui-sortable" id="user_story_list"></ul>
-        </div>
-    </div>
+	</div>
 </div>
 
 <!-- friendly links -->
 {{ link_to('http://www.dropzonejs.com/', 'DropzoneJS', ['target' => '_blank']) }}
+{{ link_to('https://github.com/SheetJS/js-xlsx', 'SheetJS', ['target' => '_blank']) }}
+{{ link_to('http://handsontable.com/', 'handsontable', ['target' => '_blank']) }}
+{{ link_to('http://jqueryui.com/', 'JqueryUI', ['target' => '_blank']) }}
 @endsection
