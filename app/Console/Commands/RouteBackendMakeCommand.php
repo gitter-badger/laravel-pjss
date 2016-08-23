@@ -52,7 +52,11 @@ class RouteBackendMakeCommand extends GeneratorCommand
             $comment_footer = '	// Replacer';
             
             if (strpos($contents, $comment_header) === false) {
-                $contents = str_replace($comment_footer, $comment_header . $stub . $comment_footer, $contents);
+                $contents = str_replace($comment_footer, 
+                    $comment_header . PHP_EOL . 
+                    $stub . PHP_EOL . 
+                    PHP_EOL . $comment_footer, 
+                    $contents);
                 $this->files->put($path, $contents);
             }
             $this->comment('Routes modified successfully.');

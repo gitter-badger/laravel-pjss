@@ -30,6 +30,9 @@ return [
     
     'backend' => [
         'scrum' => [/*backend*/
+            'acceptancecriterias' => [
+                'management' => 'acceptancecriteria',
+            ],
             'management' => '敏捷',
             'userstories' => [
                 'management' => '用户故事',
@@ -91,6 +94,9 @@ return [
     
     'frontend' => [
         'scrum' => [/*frontend*/
+            'acceptancecriterias' => [
+                'management' => 'acceptancecriteria',
+            ],
             'userstories' => [
                 'management' => 'userstory',
             ],

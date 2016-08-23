@@ -7,3 +7,5 @@ Breadcrumbs::register('admin.scrum.index', function ($breadcrumbs) {
 
 // UserStory Require
 require __DIR__ . '/Scrum/UserStory.php';
+// AcceptanceCriteria Require
+require __DIR__ . '/Scrum/AcceptanceCriteria.php';

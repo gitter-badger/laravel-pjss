@@ -18,5 +18,11 @@ Route::group([
 		Route::post('userstory/exchange', 'UserStoryController@exchange')->name('admin.scrum.userstory.exchange');
 	});
 	
+	/**
+	 * AcceptanceCriteria Management
+	 */	Route::group(['namespace' => 'AcceptanceCriteria'], function() {
+		Route::resource('acceptancecriteria', 'AcceptanceCriteriaController');
+	});
+	
 	// Replacer
 });

@@ -43,8 +43,7 @@ class ListenerFrontendMakeCommand extends GeneratorCommand
                 '    	 * {namespace} Subscribers' . PHP_EOL .
                 '    	 */');
     
-            $replace = PHP_EOL .
-                '        \App\Listeners\Frontend\{namespace}\{name}\{name}EventListener::class,' . PHP_EOL .
+            $replace = '        \App\Listeners\Frontend\{namespace}\{name}\{name}EventListener::class,' . PHP_EOL .
                 '        ';
             $replace = str_replace('{namespace}', $this->getNamespaceInput(),$replace);
             $replace = str_replace('{name}', $this->getNameInput(),$replace);

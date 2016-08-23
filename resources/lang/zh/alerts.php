@@ -14,6 +14,11 @@ return [
     
     'backend' => [
         'scrum' => [/*backend*/
+            'acceptancecriterias' => [
+                'created' => 'The acceptancecriteria was successfully created.',
+                'deleted' => 'The acceptancecriteria was successfully deleted.',
+                'updated' => 'The acceptancecriteria was successfully updated.',
+            ],
             'userstories' => [
                 'created' => 'The userstory was successfully created.',
                 'deleted' => 'The userstory was successfully deleted.',
@@ -39,6 +44,11 @@ return [
     
     'frontend' => [
         'scrum' => [/*frontend*/
+            'acceptancecriterias' => [
+                'created' => 'The acceptancecriteria was successfully created.',
+                'deleted' => 'The acceptancecriteria was successfully deleted.',
+                'updated' => 'The acceptancecriteria was successfully updated.',
+            ],
             'userstories' => [
                 'created' => 'The userstory was successfully created.',
                 'deleted' => 'The userstory was successfully deleted.',

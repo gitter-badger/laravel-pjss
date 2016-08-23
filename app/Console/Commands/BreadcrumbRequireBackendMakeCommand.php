@@ -50,7 +50,7 @@ class BreadcrumbRequireBackendMakeCommand extends GeneratorCommand
                 
                 $sutbStartIndex = strpos($sutb, $comment);
                 $sutb = Str::substr($sutb, $sutbStartIndex);
-                $this->files->put($path, $contents . $sutb);
+                $this->files->put($path, $contents . PHP_EOL . $sutb);
             }
             $this->comment('Breadcrumbs modified successfully.');
         }

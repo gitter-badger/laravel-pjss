@@ -14,6 +14,11 @@ return [
     
     'backend' => [
         'scrum' => [/*backend*/
+            'acceptancecriterias' => [
+                'create' => 'Create AcceptanceCriteria',
+                'detail' => 'Information AcceptanceCriteria',
+                'edit' => 'Edit AcceptanceCriteria',
+            ],
             'userstories' => [
                 'create' => '创建用户故事',
                 'detail' => '用户故事详情',
