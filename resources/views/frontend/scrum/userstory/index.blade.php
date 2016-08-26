@@ -4,7 +4,7 @@
 
 @section ('styles')
 
-@endsection
+@stop
 
 @section ('scripts')
 {{ Html::script('vendor/artTemplate/template.js') }}
@@ -54,9 +54,9 @@
 		render({!! $user_stories !!});
 	});
 </script>
-@endsection
+@stop
 
 @section ('content')
 @include('frontend.userstory.includes.list')
 
-@endsection
+@stop

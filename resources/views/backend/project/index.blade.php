@@ -30,7 +30,7 @@
     	background-size: 40%;
     }
 </style>
-@endsection
+@stop
 
 @section ('scripts')
 {{ Html::script('vendor/toastr/toastr.min.js') }}
@@ -142,7 +142,7 @@
 		});
 	});
 </script>
-@endsection
+@stop
 
 @section ('content')
 <!-- csrf -->
@@ -226,4 +226,4 @@
 		</div>
 	</div>
 </div>
-@endsection
+@stop

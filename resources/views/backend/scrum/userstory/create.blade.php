@@ -3,18 +3,18 @@
 @section ('title', trans('labels.backend.scrum.userstories.management'))
 
 @section ('styles')
-
-@endsection
+	@parent
+@stop
 
 @section ('scripts')
-
-@endsection
+	@parent
+@stop
 
 @section ('action')
 	<a href="{{ url()->previous() }}" class="btn btn-primary">
 		<i class="fa fa-arrow-left"></i> 返回
 	</a>
-@endsection
+@stop
 
 @section ('content')
 <div class="wrapper wrapper-content animated fadeInRight">
@@ -39,4 +39,4 @@
     	</div>
     </div>
 </div>
-@endsection
+@stop

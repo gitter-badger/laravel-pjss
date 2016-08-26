@@ -1,12 +1,14 @@
-@section ('after-styles-end')
+@section ('styles')
+@parent
 <style>
 .acceptancecriteria-list ul:empty {
 	margin-bottom: 0;
 }
 </style>
-@endsection
+@stop
 
-@section ('after-scripts-end')
+@section ('scripts')
+@parent
 {{ Html::script('vendor/artTemplate/template.js') }}
 <script>
 	$(function(){
@@ -58,7 +60,7 @@
 		});
 	});
 </script>
-@endsection
+@stop
 
 @include('backend.scrum.userstory.acceptancecriteria.includes.list')
 <div class="acceptancecriteria-list">

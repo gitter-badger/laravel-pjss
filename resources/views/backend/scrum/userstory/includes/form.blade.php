@@ -47,7 +47,10 @@
 	<div class="form-group">
 		<label for="lo-fi" class="col-sm-2 control-label">低保真</label>
 		<div class="col-sm-10">
-			<input id="lo-fi" name="lo-fi" type="file" class="form-control">
+			@include('includes.components.upload', [
+				'id' => 'lo-fi',
+        		'name' => 'lo-fi'
+        	])
 		</div>
 	</div>
 	<div class="form-group">

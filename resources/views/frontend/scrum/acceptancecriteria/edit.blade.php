@@ -4,12 +4,12 @@
 
 @section ('styles')
 
-@endsection
+@stop
 
 @section ('scripts')
 
-@endsection
+@stop
 
 @section ('content')
 
-@endsection
+@stop

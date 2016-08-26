@@ -4,7 +4,7 @@
 
 @section ('styles')
 
-@endsection
+@stop
 
 @section ('scripts')
 {{ Html::script('vendor/artTemplate/template.js') }}
@@ -52,9 +52,9 @@
 		render({!! $acceptance_criterias !!});
 	});
 </script>
-@endsection
+@stop
 
 @section ('content')
 @include('backend.acceptancecriteria.includes.list')
 
-@endsection
+@stop

@@ -4,7 +4,7 @@
 
 @section ('action')
     <a href="#" class="btn btn-primary">新建</a>
-@endsection
+@stop
 
 @section ('styles')
 <style>
@@ -28,7 +28,7 @@
     	background-size: 40%;
     }
 </style>
-@endsection
+@stop
 
 @section ('scripts')
 {{ Html::script('vendor/artTemplate/template.js') }}
@@ -75,7 +75,7 @@
 		render([{},{},{},{}]);
 	});
 </script>
-@endsection
+@stop
 
 @section ('content')
 <!-- csrf -->
@@ -86,4 +86,4 @@
 	<div class="row">
 	</div>
 </div>
-@endsection
+@stop

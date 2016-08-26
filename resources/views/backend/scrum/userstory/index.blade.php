@@ -14,7 +14,7 @@
 	   padding: 8px 15px;
     }
 </style>
-@endsection
+@stop
 
 @section ('scripts')
 {{ Html::script('vendor/toastr/toastr.min.js') }}
@@ -267,7 +267,7 @@
         }).disableSelection();
 	});
 </script>
-@endsection
+@stop
 
 @section ('action')
 <div class="btn-group">
@@ -294,7 +294,7 @@
 </div>
 <a href="#edit/begin" class="btn btn-primary">编辑</a>
 <a href="#edit/end" class="btn btn-primary hidden">完成</a>
-@endsection
+@stop
 
 @section ('content')
 <!-- modal-excel-show -->
@@ -350,4 +350,4 @@
 {{ link_to('https://github.com/SheetJS/js-xlsx', 'SheetJS', ['target' => '_blank']) }}
 {{ link_to('http://handsontable.com/', 'handsontable', ['target' => '_blank']) }}
 {{ link_to('http://jqueryui.com/', 'JqueryUI', ['target' => '_blank']) }}
-@endsection
+@stop
