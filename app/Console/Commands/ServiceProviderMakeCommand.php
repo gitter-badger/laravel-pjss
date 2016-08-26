@@ -44,9 +44,9 @@ class ServiceProviderMakeCommand extends GeneratorCommand
             // 增加本实体的绑定注册
             $contents = $this->files->get($path);
             $comment_header = '     /**' . PHP_EOL .
-                    '       * ' . $this->getNameInput() .' Binding' . PHP_EOL .
-                    '       */';
-            $stub = '        $this->app->bind(' . PHP_EOL .
+                    '        * ' . $this->getNameInput() .' Binding' . PHP_EOL .
+                    '        */';
+            $stub = '       $this->app->bind(' . PHP_EOL .
                     '           \App\Repositories\Frontend\{namespace}\{name}\{name}RepositoryContract::class,' . PHP_EOL .
                     '           \App\Repositories\Frontend\{namespace}\{name}\Eloquent{name}Repository::class' . PHP_EOL .
                     '       );' . PHP_EOL .
@@ -57,10 +57,10 @@ class ServiceProviderMakeCommand extends GeneratorCommand
                     '       );';
             $stub = str_replace('{namespace}', $this->getNamespaceInput(), $stub);
             $stub = str_replace('{name}', $this->getNameInput(), $stub);
-            $comment_footer = '	// Replacer';
+            $comment_footer = '     // Replacer';
             
             if (strpos($contents, $comment_header) === false) {
-                $contents = str_replace($comment_footer, $comment_header . $stub . $comment_footer, $contents);
+                $contents = str_replace($comment_footer, $comment_header . PHP_EOL . $stub . PHP_EOL . $comment_footer, $contents);
                 $this->files->put($path, $contents);
             }
             $this->comment('ServiceProvider modified successfully.');

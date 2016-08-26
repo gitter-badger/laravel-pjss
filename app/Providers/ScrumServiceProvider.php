@@ -66,7 +66,19 @@ class ScrumServiceProvider extends ServiceProvider
             \App\Repositories\Backend\Scrum\UserStory\EloquentUserStoryRepository::class
         );
         
-        // Replacer
+        /**
+         * AcceptanceCriteria Binding
+         */
+        $this->app->bind(
+            \App\Repositories\Frontend\Scrum\AcceptanceCriteria\AcceptanceCriteriaRepositoryContract::class,
+            \App\Repositories\Frontend\Scrum\AcceptanceCriteria\EloquentAcceptanceCriteriaRepository::class
+        );
+
+        $this->app->bind(
+            \App\Repositories\Backend\Scrum\AcceptanceCriteria\AcceptanceCriteriaRepositoryContract::class,
+            \App\Repositories\Backend\Scrum\AcceptanceCriteria\EloquentAcceptanceCriteriaRepository::class
+        );
+     // Replacer
     }
 
     /**

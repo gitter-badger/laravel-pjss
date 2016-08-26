@@ -50,13 +50,13 @@
 				</ul>
             </li>
             <li class="{{ Active::pattern('admin/scrum/*') }}">
-            	<a href="#">
+            	<a href="#" >
             		<i class="fa fa-cubes"></i>
             		<span class="nav-label">{{ trans('menus.backend.sidebar.scrum.index') }}</span>
             		<span class="fa arrow"></span>
         		</a>
                 <ul class="nav nav-second-level collapse">
-                	<li class="{{ Active::pattern('admin/organization/project') }}">
+                	<li class="{{ Active::pattern('admin/scrum/userstory*') }}">
 						{{ link_to_route('admin.scrum.userstory.index', trans('menus.backend.sidebar.scrum.userstory')) }}
 					</li>
 				</ul>

@@ -217,6 +217,13 @@ return [
          */
         Maatwebsite\Excel\ExcelServiceProvider::class,
         
+        /*
+         * Medialibrary Provider
+         * From https://github.com/spatie/laravel-medialibrary
+         */
+        Spatie\MediaLibrary\MediaLibraryServiceProvider::class,
+        
+        
     ],
 
     /*

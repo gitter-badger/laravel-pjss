@@ -42,6 +42,11 @@ return [
     */
 
     'disks' => [
+        
+        'media' => [
+            'driver' => 'local',
+            'root'   => storage_path('/app/public/uploads'),
+        ],
 
         'local' => [
             'driver' => 'local',

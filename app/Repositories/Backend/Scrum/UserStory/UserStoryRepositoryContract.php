@@ -12,16 +12,17 @@ interface UserStoryRepositoryContract
 {
     /**
      * @param $input
+     * @param $acceptance_criterias
      * @return mixed
      */
-    public function create($input);
+    public function create($input, $acceptance_criterias);
 
     /**
      * @param UserStory $userstory
      * @param $input
      * @return mixed
      */
-    public function update(UserStory $userstory, $input);
+    public function update(UserStory $userstory, $input, $acceptance_criterias);
 
     /**
      * @param  UserStory $userstory

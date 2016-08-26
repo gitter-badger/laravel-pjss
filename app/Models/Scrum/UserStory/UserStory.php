@@ -4,14 +4,18 @@ namespace App\Models\Scrum\UserStory;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Scrum\UserStory\Traits\Relationship\UserStoryRelationship;
+use App\Models\Scrum\UserStory\Traits\UserStoryAccess;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\HasMedia\Interfaces\HasMedia;
 
 /**
  * Class UserStory
  * @package App\Models\Scrum\UserStory
  */
-class UserStory extends Model
+class UserStory extends Model implements HasMedia
 {
-	use SoftDeletes;
+	use SoftDeletes, UserStoryAccess, UserStoryRelationship, HasMediaTrait;
 
     /**
      * The table associated with the model.

@@ -9,6 +9,7 @@ use App\Events\Backend\Scrum\UserStory\UserStoryCreated;
 use App\Events\Backend\Scrum\UserStory\UserStoryUpdated;
 use App\Events\Backend\Scrum\UserStory\UserStoryDeleted;
 use App\Events\Backend\Scrum\UserStory\UserStoryRestored;
+use App\Repositories\Backend\Scrum\AcceptanceCriteria\AcceptanceCriteriaRepositoryContract;
 
 /**
  * Class EloquentUserStoryRepository
@@ -17,10 +18,16 @@ use App\Events\Backend\Scrum\UserStory\UserStoryRestored;
 class EloquentUserStoryRepository implements UserStoryRepositoryContract
 {
     /**
+     * @var AcceptanceCriteriaRepositoryContract
      */
-    public function __construct()
+    protected $acceptance_criteria;
+    
+    /**
+     * @param $acceptance_criteria
+     */
+    public function __construct(AcceptanceCriteriaRepositoryContract $acceptance_criteria)
     {
-        
+        $this->acceptance_criteria = $acceptance_criteria;
     }
 
     /**
@@ -29,18 +36,21 @@ class EloquentUserStoryRepository implements UserStoryRepositoryContract
      * @throws GeneralException
      * @return bool
      */
-    public function create($input)
+    public function create($input, $acceptance_criterias)
     {
         $userstory = $this->createUserStoryStub($input);
 
-		DB::transaction(function() use ($userstory) {
+		DB::transaction(function() use ($userstory, $acceptance_criterias) {
 			if ($userstory->save()) {
 				//TODO: set properties
+				
+			    //Attach new acceptance_criterias
+			    $userstory->attachAcceptanceCriterias($acceptance_criterias['acceptance_criteria']);
 				
 				event(new UserStoryCreated($userstory));
 				return true;
 			}
-
+			
         	throw new GeneralException(trans('exceptions.backend.scrum.userstories.create_error'));
 		});
     }
@@ -52,13 +62,13 @@ class EloquentUserStoryRepository implements UserStoryRepositoryContract
      * @return bool
      * @throws GeneralException
      */
-    public function update(UserStory $userstory, $input)
+    public function update(UserStory $userstory, $input, $acceptance_criterias)
     {
-		DB::transaction(function() use ($userstory, $input) {
+		DB::transaction(function() use ($userstory, $input, $acceptance_criterias) {
 			if ($userstory->update($input)) {
 				//TODO: set properties
-
-				$userstory->save();
+				
+			    $userstory->saveAcceptanceCriterias($acceptance_criterias['acceptance_criteria']);
 
 				event(new UserStoryUpdated($userstory));
 				return true;

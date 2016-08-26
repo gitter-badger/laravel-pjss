@@ -21,11 +21,20 @@ class AcceptanceCriteria extends Model
     protected $table = 'scrum_acceptance_criterias';
     
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'condition'
+    ];
+    
+    /**
      * The storage format of the model's date columns.
      *
      * @var string
      */
-    protected $dateFormat = 'U';
+    protected $dateFormat = '';
     
     /**
      * The attributes that should be mutated to dates.

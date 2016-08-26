@@ -17,7 +17,6 @@ class UserStoryController extends Controller
 {
 
     /**
-     *
      * @var UserStoryRepositoryContract
      */
     protected $userstories;
@@ -61,7 +60,16 @@ class UserStoryController extends Controller
      */
     public function create(ManageUserStoryRequest $request)
     {
-        return view('backend.scrum.userstory.create')->withUserStory(new UserStory);
+        $user_story = new UserStory();
+        $max_code = UserStory::all()->where('project_id', session('project_id'))->max('code');
+        
+        preg_match_all('/\d+/', $max_code, $num);
+        $num = $num[0][count($num[0]) - 1];
+        $new_num = sprintf("%0" . (strlen($num)) . "d", $num + 1);
+        $max_code = str_replace($num, $new_num, $max_code);
+        
+        $user_story->code = $max_code;
+        return view('backend.scrum.userstory.create')->withUserStory($user_story);
     }
 
     /**
@@ -71,7 +79,10 @@ class UserStoryController extends Controller
      */
     public function store(StoreUserStoryRequest $request)
     {
-        $this->userstories->create($request->all());
+        $this->userstories->create(
+            $request->except('acceptance_criteria'),
+            $request->only('acceptance_criteria')
+        );
         return redirect()->route('admin.scrum.userstory.index')->withFlashSuccess(trans('alerts.backend.scrum.userstories.created'));
     }
 
@@ -94,7 +105,16 @@ class UserStoryController extends Controller
      */
     public function edit(UserStory $userstory, ManageUserStoryRequest $request)
     {
-        return view('backend.scrum.userstory.edit')->withUserStory($userstory);
+        $userstory->acceptance_criterias = 
+            $userstory->acceptance_criterias->map(function($acceptance_criteria) {
+                return [
+                    'id' => $acceptance_criteria->id,
+                    'condition' => $acceptance_criteria->condition
+                ];
+            });
+            
+        return view('backend.scrum.userstory.edit')
+            ->withUserStory($userstory);
     }
 
     /**
@@ -105,8 +125,28 @@ class UserStoryController extends Controller
      */
     public function update(UserStory $userstory, UpdateUserStoryRequest $request)
     {
-        $this->userstories->update($userstory, $request->all());
-        return redirect()->route('admin.scrum.userstory.index')->withFlashSuccess(trans('alerts.backend.scrum.userstories.updated'));
+        $this->userstories->update($userstory,
+            $request->except('acceptance_criteria'),
+            $request->only('acceptance_criteria')
+        );
+        
+        $userstory->addMediaFromRequest('lo-fi')
+            ->preservingOriginal()
+            ->withCustomProperties(['type' => 'lo-fi'])
+            ->toMediaLibrary();
+        
+        $userstory->addMediaFromRequest('hi-fi')
+            ->preservingOriginal()
+            ->withCustomProperties(['type' => 'lo-fi'])
+            ->toMediaLibrary();
+        
+        $userstory->addMediaFromRequest('attachments')
+            ->preservingOriginal()
+            ->withCustomProperties(['type' => 'attachments'])
+            ->toMediaLibrary();
+        
+        return redirect()->route('admin.scrum.userstory.index')
+            ->withFlashSuccess(trans('alerts.backend.scrum.userstories.updated'));
     }
 
     /**

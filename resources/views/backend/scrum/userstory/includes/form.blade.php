@@ -1,4 +1,5 @@
-<form class="form-horizontal" action="{{ $action }}" method="POST">
+<form class="form-horizontal" action="{{ $action }}" method="POST"
+	enctype="multipart/form-data">
 	{{ csrf_field() }}
 	<input type="hidden" name="_method" value="{{ $method }}">
 	
@@ -6,6 +7,7 @@
 		<label for="code" class="col-sm-2 control-label">故事编号</label>
 		<div class="col-sm-6">
 			<input id="code" name="code" type="text" class="form-control"
+				placeholder="XX-001"
 				value="{{ $model->code }}">
 		</div>
 		
@@ -35,11 +37,12 @@
 	<div class="form-group">
 		<label for="acceptance_criteria" class="col-sm-2 control-label">验收标准</label>
 		<div class="col-sm-10">
-			<textarea id="acceptance_criteria" name="acceptance_criteria" rows="3" 
-				class="form-control">{{ $model->acceptance_criteria }}</textarea>
-			<span class="help-block m-b-none">按Enter添加一个验收标准，按Shift+Enter换行。</span>
+			@include('backend.scrum.userstory.acceptancecriteria.index', [
+        		'acceptance_criterias' => $model->acceptance_criterias
+        	])
 		</div>
 	</div>
+	
 	<div class="hr-line-dashed"></div>
 	<div class="form-group">
 		<label for="lo-fi" class="col-sm-2 control-label">低保真</label>
@@ -56,7 +59,9 @@
 	<div class="form-group">
 		<label for="attachments" class="col-sm-2 control-label">附件</label>
 		<div class="col-sm-10">
-			<input id="attachments" name="attachments" type="file" class="form-control">
+			<input id="attachments" name="attachments" type="file" class="form-control"
+				multiple="multiple" 
+				webkitdirectory="webkitdirectory">
 		</div>
 	</div>
 	<div class="form-group">
