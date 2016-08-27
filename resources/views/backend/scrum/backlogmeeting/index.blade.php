@@ -3,58 +3,22 @@
 @section ('title', trans('labels.backend.scrum.backlogmeetings.management'))
 
 @section ('styles')
+<style>
 
+</style>
 @stop
 
 @section ('scripts')
 {{ Html::script('vendor/artTemplate/template.js') }}
 <script>
-	$(function(){
-		var $$ = $(this);
-
-		/* template helper */
-		template.helper('dateFormat', function (date, format) {
-			date = new Date(date);
-
-		    if (!format){
-		    	return date.toLocaleDateString();
-		    }
-
-		    return date;
-		});
-
-		/* private members */
-		function render(data, method) {
-			method = method || 'append';
-			
-			var html = template('tpl_backlogmeeting_list', data);
-			$('.backlogmeeting-list').find('table > tbody')[method](html);
-		}
-
-		/* events define */
-		$$.on('refresh', function(e){
-			$.ajax({
-				url: '{{route('admin.scrum.backlogmeeting.index')}}'
-			}).then(function(data){
-				render(data, 'html');
-			});
-		});
-
-		/* events emmit */
-		$(document).on('click', 'a[href^="#"]', function(e){
-			e.preventDefault();
-
-			var eventName = $(this).attr('href').substr(1).replace(/\//g, '.');
-			$$.trigger(eventName);
-		});
-
-		/* ctor */
-		render({!! $backlog_meetings !!});
-	});
+	
 </script>
 @stop
-
+@section('action')
+<div class="btn-group">
+  <a href="{{ route('admin.scrum.backlogmeeting.create') }}" class="btn btn-primary" ><i class="fa fa-plus"></i> 新增</a>
+</div>
+@stop
 @section ('content')
-@include('backend.backlogmeeting.includes.list')
 
 @stop

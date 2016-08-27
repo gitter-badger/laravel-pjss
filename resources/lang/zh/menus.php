@@ -75,7 +75,8 @@ return [
             ],
             'scrum' => [
                 'index' => '敏捷',
-                'userstory' => '用户故事'
+                'userstory' => '用户故事',
+                'backlogmeeting' => '梳理会议'
             ]
         ]
         

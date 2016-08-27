@@ -59,6 +59,9 @@
                 	<li class="{{ Active::pattern('admin/scrum/userstory*') }}">
 						{{ link_to_route('admin.scrum.userstory.index', trans('menus.backend.sidebar.scrum.userstory')) }}
 					</li>
+					<li class="{{ Active::pattern('admin/scrum/backlogmeeting*') }}">
+						{{ link_to_route('admin.scrum.backlogmeeting.index', trans('menus.backend.sidebar.scrum.backlogmeeting')) }}
+					</li>					
 				</ul>
             </li>
             

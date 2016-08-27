@@ -37,7 +37,7 @@ return [
         ],
         'scrum' => [/*backend*/
             'backlogmeetings' => [
-                'management' => 'backlogmeeting',
+                'management' => '梳理会议',
             ],
             'acceptancecriterias' => [
                 'management' => 'acceptancecriteria',
