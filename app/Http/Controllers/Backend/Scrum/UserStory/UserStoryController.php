@@ -79,10 +79,13 @@ class UserStoryController extends Controller
      */
     public function store(StoreUserStoryRequest $request)
     {
-        $this->userstories->create(
+        dd($request);
+        
+        $userstory = $this->userstories->create(
             $request->except('acceptance_criteria'),
             $request->only('acceptance_criteria')
         );
+        
         return redirect()->route('admin.scrum.userstory.index')->withFlashSuccess(trans('alerts.backend.scrum.userstories.created'));
     }
 

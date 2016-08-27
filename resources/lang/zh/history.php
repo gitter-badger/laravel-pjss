@@ -12,6 +12,14 @@ return [
      */
     
     'backend' => [
+        'file' => [/*backend*/
+            'media' => [
+                'created' => 'created media',
+                'deleted' => 'deleted media',
+                'updated' => 'updated media',
+                'restored' => 'restored media',
+            ],
+        ],
         'scrum' => [ /* backend */
             'userstories' => [
                 'created' => 'created userstory',
@@ -43,6 +51,14 @@ return [
     ],
     
     'frontend' => [
+        'file' => [/*frontend*/
+            'media' => [
+                'created' => 'created media',
+                'deleted' => 'deleted media',
+                'updated' => 'updated media',
+                'restored' => 'restored media',
+            ],
+        ],
         'scrum' => [ /* frontend */
             'userstories' => [
                 'created' => 'created userstory',

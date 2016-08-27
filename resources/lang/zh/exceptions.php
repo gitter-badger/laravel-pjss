@@ -13,6 +13,14 @@ return [
      */
     
     'backend' => [
+        'file' => [/*backend*/
+            'media' => [
+                'create_error' => 'There was a problem creating this media. Please try again.',
+                'delete_error' => 'There was a problem deleting this media. Please try again.',
+                'restore_error' => 'There was a problem restoring this media. Please try again.',
+                'update_error' => 'There was a problem updating this media. Please try again.',
+            ],
+        ],
         'scrum' => [ /* backend */
             'userstories' => [
                 'create_error' => 'There was a problem creating this userstory. Please try again.',
@@ -51,6 +59,14 @@ return [
     ],
     
     'frontend' => [
+        'file' => [/*frontend*/
+            'media' => [
+                'create_error' => 'There was a problem creating this media. Please try again.',
+                'delete_error' => 'There was a problem deleting this media. Please try again.',
+                'restore_error' => 'There was a problem restoring this media. Please try again.',
+                'update_error' => 'There was a problem updating this media. Please try again.',
+            ],
+        ],
         'scrum' => [ /* frontend */
             'userstories' => [
                 'create_error' => 'There was a problem creating this userstory. Please try again.',

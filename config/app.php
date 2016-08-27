@@ -184,6 +184,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         // Scrum Require
         App\Providers\ScrumServiceProvider::class,
+        // File Require
+        App\Providers\FileServiceProvider::class,
         // Service Provider Replacer
 
         /*

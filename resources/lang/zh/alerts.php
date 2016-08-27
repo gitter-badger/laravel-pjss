@@ -13,6 +13,13 @@ return [
      */
     
     'backend' => [
+        'file' => [/*backend*/
+            'media' => [
+                'created' => 'The media was successfully created.',
+                'deleted' => 'The media was successfully deleted.',
+                'updated' => 'The media was successfully updated.',
+            ],
+        ],
         'scrum' => [/*backend*/
             'acceptancecriterias' => [
                 'created' => 'The acceptancecriteria was successfully created.',
@@ -43,6 +50,13 @@ return [
     ],
     
     'frontend' => [
+        'file' => [/*frontend*/
+            'media' => [
+                'created' => 'The media was successfully created.',
+                'deleted' => 'The media was successfully deleted.',
+                'updated' => 'The media was successfully updated.',
+            ],
+        ],
         'scrum' => [/*frontend*/
             'acceptancecriterias' => [
                 'created' => 'The acceptancecriteria was successfully created.',

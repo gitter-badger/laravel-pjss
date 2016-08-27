@@ -47,6 +47,8 @@ trait UserStoryAccess
      */
     public function attachAcceptanceCriterias($acceptance_criterias)
     {
+        if (is_null($acceptance_criterias)) return;
+        
         foreach ($acceptance_criterias as $acceptance_criteria) {
             $this->attachAcceptanceCriteria($acceptance_criteria);
         }
@@ -60,6 +62,8 @@ trait UserStoryAccess
      */
     public function detachAcceptanceCriterias($acceptance_criterias)
     {
+        if (is_null($acceptance_criterias)) return;
+        
         foreach ($acceptance_criterias as $acceptance_criteria) {
             $this->detachAcceptanceCriteria($acceptance_criteria);
         }
@@ -73,6 +77,8 @@ trait UserStoryAccess
      */
     public function saveAcceptanceCriterias($acceptance_criterias)
     {
+        if (is_null($acceptance_criterias)) return;
+        
         // delete
         $oids = $this->acceptance_criterias->lists('id')->toArray();
         $nids = array_map(function($acceptance_criteria) {

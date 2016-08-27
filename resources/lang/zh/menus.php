@@ -13,6 +13,13 @@ return [
      */
     
     'backend' => [
+        'file' => [/*backend*/
+            'media' => [
+                'create' => 'Create Media',
+                'detail' => 'Information Media',
+                'edit' => 'Edit Media',
+            ],
+        ],
         'scrum' => [/*backend*/
             'acceptancecriterias' => [
                 'create' => 'Create AcceptanceCriteria',

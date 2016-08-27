@@ -3,11 +3,11 @@
 @section ('title', trans('labels.backend.scrum.userstories.management'))
 
 @section ('styles')
-
+	@parent
 @stop
 
 @section ('scripts')
-
+	@parent
 @stop
 
 @section ('action')

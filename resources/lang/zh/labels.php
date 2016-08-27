@@ -29,6 +29,12 @@ return [
     ],
     
     'backend' => [
+       'management' => 'File Management',
+        'file' => [/*backend*/
+            'media' => [
+                'management' => 'media',
+            ],
+        ],
         'scrum' => [/*backend*/
             'acceptancecriterias' => [
                 'management' => 'acceptancecriteria',
@@ -93,6 +99,12 @@ return [
     ],
     
     'frontend' => [
+       'management' => 'File Management',
+        'file' => [/*frontend*/
+            'media' => [
+                'management' => 'media',
+            ],
+        ],
         'scrum' => [/*frontend*/
             'acceptancecriterias' => [
                 'management' => 'acceptancecriteria',

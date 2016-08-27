@@ -31,6 +31,11 @@ class EventServiceProvider extends ServiceProvider
 		\App\Listeners\Frontend\Auth\UserEventListener::class,
         
         // FrontendReplacer
+
+        /**
+    	 * File Subscribers
+    	 */        \App\Listeners\Frontend\File\Media\MediaEventListener::class,
+        // FileFrontendReplacer
     
         /**
     	 * Scrum Subscribers
@@ -50,6 +55,11 @@ class EventServiceProvider extends ServiceProvider
 		\App\Listeners\Backend\Access\Role\RoleEventListener::class,
         
         // BackendReplacer
+
+        /**
+    	 * File Subscribers
+    	 */        \App\Listeners\Backend\File\Media\MediaEventListener::class,
+        // FileBackendReplacer
         
         /**
     	 * Scrum Subscribers
