@@ -14,8 +14,8 @@ error.log
 Todo.rtf
 .vagrant
 
-.settings/
-vendor/
-node_modules/
-bower_components/
-.buildpath
+/.settings
+/vendor
+/node_modules
+/bower_components
+/.buildpath
