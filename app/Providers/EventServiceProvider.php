@@ -42,6 +42,7 @@ class EventServiceProvider extends ServiceProvider
     	 */
         \App\Listeners\Frontend\Scrum\UserStory\UserStoryEventListener::class,
         \App\Listeners\Frontend\Scrum\AcceptanceCriteria\AcceptanceCriteriaEventListener::class,
+                \App\Listeners\Frontend\Scrum\BacklogMeeting\BacklogMeetingEventListener::class,
         // ScrumFrontendReplacer
 
 		/**
@@ -66,6 +67,7 @@ class EventServiceProvider extends ServiceProvider
     	 */
         \App\Listeners\Backend\Scrum\UserStory\UserStoryEventListener::class,
         \App\Listeners\Backend\Scrum\AcceptanceCriteria\AcceptanceCriteriaEventListener::class,
+                \App\Listeners\Backend\Scrum\BacklogMeeting\BacklogMeetingEventListener::class,
         // ScrumBackendReplacer
     ];
 

@@ -78,6 +78,18 @@ class ScrumServiceProvider extends ServiceProvider
             \App\Repositories\Backend\Scrum\AcceptanceCriteria\AcceptanceCriteriaRepositoryContract::class,
             \App\Repositories\Backend\Scrum\AcceptanceCriteria\EloquentAcceptanceCriteriaRepository::class
         );
+     /**
+        * BacklogMeeting Binding
+        */
+       $this->app->bind(
+           \App\Repositories\Frontend\Scrum\BacklogMeeting\BacklogMeetingRepositoryContract::class,
+           \App\Repositories\Frontend\Scrum\BacklogMeeting\EloquentBacklogMeetingRepository::class
+       );
+
+       $this->app->bind(
+           \App\Repositories\Backend\Scrum\BacklogMeeting\BacklogMeetingRepositoryContract::class,
+           \App\Repositories\Backend\Scrum\BacklogMeeting\EloquentBacklogMeetingRepository::class
+       );
      // Replacer
     }
 

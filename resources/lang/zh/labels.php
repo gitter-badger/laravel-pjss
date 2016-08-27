@@ -36,6 +36,9 @@ return [
             ],
         ],
         'scrum' => [/*backend*/
+            'backlogmeetings' => [
+                'management' => 'backlogmeeting',
+            ],
             'acceptancecriterias' => [
                 'management' => 'acceptancecriteria',
             ],
@@ -106,6 +109,9 @@ return [
             ],
         ],
         'scrum' => [/*frontend*/
+            'backlogmeetings' => [
+                'management' => 'backlogmeeting',
+            ],
             'acceptancecriterias' => [
                 'management' => 'acceptancecriteria',
             ],
