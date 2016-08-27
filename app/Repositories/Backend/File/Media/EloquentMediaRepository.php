@@ -34,8 +34,19 @@ class EloquentMediaRepository implements MediaRepositoryContract
         $media = $this->createMediaStub($input);
         //TODO: set properties
 
-		DB::transaction(function() use ($media) {
+		return DB::transaction(function() use ($media) {
 			if ($media->save()) {
+			    $id = $media->toArray()['id'];
+			    
+			    $entity = Media::find($id);
+
+			    $entity->addMediaFromRequest('file')
+    			    ->withCustomProperties([
+    			        'type' => 'lo-fi'
+    			    ])
+    			    ->preservingOriginal()
+    			    ->toMediaLibrary();
+			    
 				event(new MediaCreated($media));
 				return true;
 			}

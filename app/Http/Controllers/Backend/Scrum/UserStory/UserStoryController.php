@@ -37,6 +37,8 @@ class UserStoryController extends Controller
      */
     public function index(ManageUserStoryRequest $request)
     {
+        $request->session()->put('project_id', 1633);
+        
         if (is_null(session('project_id'))) {
             $project_id = DB::select('select m2p.project_id from members2project m2p inner join members m on m.id = m2p.member_id where m.email = :email', [
                 'email' => \Auth::user()->email
@@ -79,8 +81,6 @@ class UserStoryController extends Controller
      */
     public function store(StoreUserStoryRequest $request)
     {
-        dd($request);
-        
         $userstory = $this->userstories->create(
             $request->except('acceptance_criteria'),
             $request->only('acceptance_criteria')
@@ -132,21 +132,6 @@ class UserStoryController extends Controller
             $request->except('acceptance_criteria'),
             $request->only('acceptance_criteria')
         );
-        
-        $userstory->addMediaFromRequest('lo-fi')
-            ->preservingOriginal()
-            ->withCustomProperties(['type' => 'lo-fi'])
-            ->toMediaLibrary();
-        
-        $userstory->addMediaFromRequest('hi-fi')
-            ->preservingOriginal()
-            ->withCustomProperties(['type' => 'lo-fi'])
-            ->toMediaLibrary();
-        
-        $userstory->addMediaFromRequest('attachments')
-            ->preservingOriginal()
-            ->withCustomProperties(['type' => 'attachments'])
-            ->toMediaLibrary();
         
         return redirect()->route('admin.scrum.userstory.index')
             ->withFlashSuccess(trans('alerts.backend.scrum.userstories.updated'));

@@ -109,4 +109,17 @@ class MediaController extends Controller
         $this->media->destroy($media);
         return redirect()->back()->withFlashSuccess(trans('alerts.backend.file.media.deleted'));
     }
+    
+    /**
+     * @param Media $media
+     * @param StoreMediaRequest $request
+     * @return mixed
+     */
+    public function upload(StoreMediaRequest $request)
+    {
+        $media = $this->media->create(
+            $request->all()
+        );
+        dd($media);
+    }
 }

@@ -49,34 +49,6 @@ class EloquentUserStoryRepository implements UserStoryRepositoryContract
         
         DB::transaction(function () use($userstory, $acceptance_criterias) {
             if ($userstory->save()) {
-                
-                try {
-                    $userstory->addMediaFromRequest('lo-fi')
-                        ->preservingOriginal()
-                        ->withCustomProperties([
-                        'type' => 'lo-fi'
-                    ])
-                        ->toMediaLibrary();
-                } catch (\Exception $ex) {}
-                
-                try {
-                    $userstory->addMediaFromRequest('hi-fi')
-                        ->preservingOriginal()
-                        ->withCustomProperties([
-                        'type' => 'hi-fi'
-                    ])
-                        ->toMediaLibrary();
-                } catch (\Exception $ex) {}
-                
-                try {
-                    $userstory->addMediaFromRequest('attachments')
-                        ->preservingOriginal()
-                        ->withCustomProperties([
-                        'type' => 'attachments'
-                    ])
-                        ->toMediaLibrary();
-                } catch (\Exception $ex) {}
-                
                 // Attach new acceptance_criterias
                 $userstory->attachAcceptanceCriterias($acceptance_criterias['acceptance_criteria']);
                 

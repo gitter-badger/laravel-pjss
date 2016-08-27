@@ -57,21 +57,20 @@
 <script>
 $(function() {
 	$('#{{ $id }}').fileupload({
-		dataType: 'json',
-		forceIframeTransport: true,
+		url: '{{ route('admin.file.media.upload') }}',
+		autoUpload: true,
+		paramName: 'file',
 	    add: function (e, data) {
-	        $.each(data.files, function(i, file) {
+	        data.submit();
+	    },
+	    done: function (e, data) {
+	        $.each(data.result.files, function (index, file) {
 	        	$('#{{ $id }}-tagsinput').tagsinput('add', {
 		        	id: Math.random(),
 		        	name: file.name,
 		        	size: file.size,
 		        	type: file.type
 	        	});
-	        });
-	    },
-	    done: function (e, data) {
-	        $.each(data.result.files, function (index, file) {
-	            $('<p/>').text(file.name).appendTo(document.body);
 	        });
 	    }
 	});
@@ -103,8 +102,7 @@ $('#{{ $id }}-tagsinput').tagsinput({
         <button class="btn btn-default fileinput-button" id="{{ $id }}-upload-addfile"
         	title="添加文件">
             <i class="fa fa-plus"></i>
-            <span></span>
-            <input type="file" id="{{ $id }}" name="{{ $name }}">
+        	<input type="file" id="{{ $id }}" name="{{ $name }}">
         </button>
         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span class="caret"></span>
@@ -116,6 +114,12 @@ $('#{{ $id }}-tagsinput').tagsinput({
                     <span>添加文件夹&nbsp;&nbsp;&nbsp;&nbsp;</span>
                     <input type="file" id="{{ $id }}-folder-selector" multiple webkitdirectory>
                     <span class="badge badge-warning">alpha*</span>
+                </a>
+            </li>
+            <li role="separator" class="divider"></li>
+            <li>
+            	<a href="#" class="" title="管理文件">
+                    <span>管理文件</span>
                 </a>
             </li>
             <li role="separator" class="divider"></li>
