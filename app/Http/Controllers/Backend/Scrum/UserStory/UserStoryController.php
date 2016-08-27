@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\Backend\Scrum\UserStory;
 
 use App\Models\Scrum\UserStory\UserStory;
+use App\Models\File\Media\Media;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\Scrum\UserStory\StoreUserStoryRequest;
 use App\Http\Requests\Backend\Scrum\UserStory\ManageUserStoryRequest;
@@ -9,6 +10,7 @@ use App\Http\Requests\Backend\Scrum\UserStory\UpdateUserStoryRequest;
 use App\Repositories\Backend\Scrum\UserStory\UserStoryRepositoryContract;
 use App\Http\Requests\Backend\Scrum\UserStory\Excel\UserStroyImport;
 use DB;
+use function GuzzleHttp\json_encode;
 
 /**
  * Class UserStoryController
@@ -115,20 +117,34 @@ class UserStoryController extends Controller
             ];
         });
         
-        $userstory->lo_fi = is_null($userstory->lo_fi) ? null : [
-            'id' => $userstory->lo_fi->id,
-            'file_name' => $userstory->lo_fi->getMedia()->file_name
-        ];
+        $lo_fi = Media::all()->filter(function($media) use ($userstory) {
+            return $media->obj_id === $userstory->id && $media->type === 'lo_fi';
+        })->values();
+        $hi_fi = Media::all()->filter(function($media) use ($userstory) {
+            return $media->obj_id === $userstory->id && $media->type === 'hi_fi';
+        })->values();
+        $attachments = Media::all()->filter(function($media) use ($userstory) {
+            return $media->obj_id === $userstory->id && $media->type === 'attachment';
+        })->values();
         
-        $userstory->hi_fi = is_null($userstory->hi_fi) ? null : [
-            'id' => $userstory->hi_fi->id,
-            'file_name' => $userstory->hi_fi->getMedia()->file_name
-        ];
-        
-        $userstory->attachments = $userstory->attachments->map(function ($attachment) {
+        $userstory->lo_fi = $lo_fi->map(function ($media) {
             return [
-                'id' => $attachment->id,
-                'condition' => $attachment->getMedia()->file_name
+                'id' => $media->id,
+                'file_name' => $media->getMedia()->first()->file_name
+            ];
+        });
+        
+        $userstory->hi_fi = $hi_fi->map(function ($media) {
+            return [
+                'id' => $media->id,
+                'file_name' => $media->getMedia()->first()->file_name
+            ];
+        });
+        
+        $userstory->attachments = $attachments->map(function ($media) {
+            return [
+                'id' => $media->id,
+                'file_name' => $media->getMedia()->first()->file_name
             ];
         });
         

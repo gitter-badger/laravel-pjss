@@ -15,6 +15,7 @@ class CreateFileMediaTable extends Migration
         Schema::create('file_media', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('obj_id')->unsigned();
+            $table->string('type');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at');
             $table->softDeletes();

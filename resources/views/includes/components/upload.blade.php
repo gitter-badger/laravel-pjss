@@ -56,16 +56,30 @@
 {{ Html::script('vendor/bootstrap-tagsinput/bootstrap-tagsinput.min.js') }}
 <script>
 $(function() {
+	function render(files) {
+		$.each(files, function (index, file) {
+        	$('#{{ $id }}-tagsinput').tagsinput('add', {
+	        	id: file.id,
+	        	name: file.file_name
+        	});
+        });
+	}
+	
 	$('#{{ $id }}').fileupload({
 		url: '{{ route('admin.file.media.upload') }}',
 		autoUpload: true,
 		paramName: 'file',
 	    add: function (e, data) {
+	    	data.formData = {
+    			'_token': '{{ csrf_token() }}'
+	    	};
 	        data.submit();
 	    },
 	    done: function (e, data) {
-		    var files = JSON.parse(data.result);3
-		    console.info(files);
+		    var files = JSON.parse(data.result);
+		    @if (! $multiple)
+	    	$('#{{ $id }}-tagsinput').tagsinput('removeAll');
+	    	@endif
 	        $.each(files, function (index, file) {
 	        	$('#{{ $id }}-tagsinput').tagsinput('add', {
 		        	id: file.model_id,
@@ -80,6 +94,8 @@ $(function() {
 	        fileInput: $(this)
 	    });
 	});
+
+	render({!! $values !!});
 });
 
 $('#{{ $id }}-tagsinput').tagsinput({
@@ -94,21 +110,22 @@ $('#{{ $id }}-tagsinput').tagsinput({
 @stop
 
 <div class="input-group">
-	<span class="input-group-addon"><i class="fa fa-file"></i></span>
-    <input type="text" id="{{ $id }}-tagsinput" name="{{ $name }}" class="form-control" 
-    	data-role="tagsinput"
+	<span class="input-group-addon"><i class="fa {{ $multiple ? 'fa-files-o' : 'fa-file-o' }}"></i></span>
+    <input type="text" id="{{ $id }}-tagsinput" name="{{ $name }}" 
+    	class="form-control" data-role="tagsinput"
     	aria-describedby="{{ $id }}-upload-addfile">
     <div class="input-group-btn">
         <button class="btn btn-default fileinput-button" id="{{ $id }}-upload-addfile"
         	title="添加文件">
             <i class="fa fa-plus"></i>
-        	<input type="file" id="{{ $id }}">
+        	<input type="file" id="{{ $id }}" {{ $multiple ? 'multiple' : '' }}>
         </button>
         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span class="caret"></span>
             <span class="sr-only">Toggle Dropdown</span>
         </button>
         <ul class="dropdown-menu dropdown-menu-right">
+        	@if ($multiple)
             <li>
             	<a class="fileinput-button" title="添加文件夹">
                     <span>添加文件夹&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -117,6 +134,7 @@ $('#{{ $id }}-tagsinput').tagsinput({
                 </a>
             </li>
             <li role="separator" class="divider"></li>
+            @endif
             <li>
             	<a href="#" class="" title="管理文件">
                     <span>管理文件</span>

@@ -44,26 +44,36 @@
 	
 	<div class="hr-line-dashed"></div>
 	<div class="form-group">
-		<label for="lo-fi" class="col-sm-2 control-label">低保真</label>
+		<label for="lo_fi" class="col-sm-2 control-label">低保真</label>
 		<div class="col-sm-10">
 			@include('includes.components.upload', [
 				'id' => 'lo-fi',
-        		'name' => 'lo-fi'
+        		'name' => 'lo_fi',
+        		'values' => $model->lo_fi,
+        		'multiple' => false,
         	])
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="hi-fi" class="col-sm-2 control-label">高保真</label>
+		<label for="hi_fi" class="col-sm-2 control-label">高保真</label>
 		<div class="col-sm-10">
-			<input id="hi-fi" name="hi-fi" type="file" class="form-control">
+			@include('includes.components.upload', [
+				'id' => 'hi-fi',
+        		'name' => 'hi_fi',
+        		'values' => $model->hi_fi,
+        		'multiple' => false,
+        	])
 		</div>
 	</div>
 	<div class="form-group">
 		<label for="attachments" class="col-sm-2 control-label">附件</label>
 		<div class="col-sm-10">
-			<input id="attachments" name="attachments" type="file" class="form-control"
-				multiple="multiple" 
-				webkitdirectory="webkitdirectory">
+			@include('includes.components.upload', [
+				'id' => 'attachments',
+        		'name' => 'attachments',
+        		'values' => $model->attachments,
+        		'multiple' => true,
+        	])
 		</div>
 	</div>
 	<div class="form-group">

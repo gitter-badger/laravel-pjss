@@ -2,6 +2,7 @@
 namespace App\Repositories\Backend\Scrum\UserStory;
 
 use App\Models\Scrum\UserStory\UserStory;
+use App\Models\File\Media\Media;
 use Illuminate\Support\Facades\DB;
 use App\Exceptions\GeneralException;
 use App\Events\Backend\Scrum\UserStory\UserStoryCreated;
@@ -77,6 +78,51 @@ class EloquentUserStoryRepository implements UserStoryRepositoryContract
                 // TODO: set properties
                 
                 $userstory->saveAcceptanceCriterias($acceptance_criterias['acceptance_criteria']);
+                
+                $lo_fi_ids = explode(',', $input['lo_fi']);
+                $lo_fis = Media::all()->filter(function ($media) use($userstory) {
+                    return $media->obj_id === $userstory->id && $media->type === 'lo_fi';
+                })->lists('id');
+                $lo_fi_deletes = array_diff($lo_fis->toArray(), $lo_fi_ids);
+                Media::destroy($lo_fi_deletes);
+                foreach ($lo_fi_ids as $id) {
+                    if ($id) {
+                        $lo_fi = Media::find($id);
+                        $lo_fi->obj_id = $userstory->id;
+                        $lo_fi->type = 'lo_fi';
+                        $lo_fi->save();
+                    }
+                }
+                
+                $hi_fi_ids = explode(',', $input['hi_fi']);
+                $hi_fis = Media::all()->filter(function ($media) use($userstory) {
+                    return $media->obj_id === $userstory->id && $media->type === 'hi_fi';
+                })->lists('id');
+                $hi_fi_deletes = array_diff($hi_fis->toArray(), $hi_fi_ids);
+                Media::destroy($hi_fi_deletes);
+                foreach ($hi_fi_ids as $id) {
+                    if ($id) {
+                        $hi_fi = Media::find($id);
+                        $hi_fi->obj_id = $userstory->id;
+                        $hi_fi->type = 'hi_fi';
+                        $hi_fi->save();
+                    }
+                }
+                
+                $attachment_ids = explode(',', $input['attachments']);
+                $attachments = Media::all()->filter(function ($media) use($userstory) {
+                    return $media->obj_id === $userstory->id && $media->type === 'attachment';
+                })->lists('id');
+                $attachment_deletes = array_diff($attachments->toArray(), $attachment_ids);
+                Media::destroy($attachment_deletes);
+                foreach ($attachment_ids as $id) {
+                    if ($id) {
+                        $attachment = Media::find($id);
+                        $attachment->obj_id = $userstory->id;
+                        $attachment->type = 'attachment';
+                        $attachment->save();
+                    }
+                }
                 
                 event(new UserStoryUpdated($userstory));
                 return true;
