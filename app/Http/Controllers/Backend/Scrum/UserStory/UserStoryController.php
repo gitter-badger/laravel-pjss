@@ -108,16 +108,31 @@ class UserStoryController extends Controller
      */
     public function edit(UserStory $userstory, ManageUserStoryRequest $request)
     {
-        $userstory->acceptance_criterias = 
-            $userstory->acceptance_criterias->map(function($acceptance_criteria) {
-                return [
-                    'id' => $acceptance_criteria->id,
-                    'condition' => $acceptance_criteria->condition
-                ];
-            });
-            
-        return view('backend.scrum.userstory.edit')
-            ->withUserStory($userstory);
+        $userstory->acceptance_criterias = $userstory->acceptance_criterias->map(function ($acceptance_criteria) {
+            return [
+                'id' => $acceptance_criteria->id,
+                'condition' => $acceptance_criteria->condition
+            ];
+        });
+        
+        $userstory->lo_fi = is_null($userstory->lo_fi) ? null : [
+            'id' => $userstory->lo_fi->id,
+            'file_name' => $userstory->lo_fi->getMedia()->file_name
+        ];
+        
+        $userstory->hi_fi = is_null($userstory->hi_fi) ? null : [
+            'id' => $userstory->hi_fi->id,
+            'file_name' => $userstory->hi_fi->getMedia()->file_name
+        ];
+        
+        $userstory->attachments = $userstory->attachments->map(function ($attachment) {
+            return [
+                'id' => $attachment->id,
+                'condition' => $attachment->getMedia()->file_name
+            ];
+        });
+        
+        return view('backend.scrum.userstory.edit')->withUserStory($userstory);
     }
 
     /**

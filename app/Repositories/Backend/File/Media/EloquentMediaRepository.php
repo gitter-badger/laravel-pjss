@@ -36,19 +36,8 @@ class EloquentMediaRepository implements MediaRepositoryContract
 
 		return DB::transaction(function() use ($media) {
 			if ($media->save()) {
-			    $id = $media->toArray()['id'];
-			    
-			    $entity = Media::find($id);
-
-			    $entity->addMediaFromRequest('file')
-    			    ->withCustomProperties([
-    			        'type' => 'lo-fi'
-    			    ])
-    			    ->preservingOriginal()
-    			    ->toMediaLibrary();
-			    
 				event(new MediaCreated($media));
-				return true;
+				return $media;
 			}
 
         	throw new GeneralException(trans('exceptions.backend.file.media.create_error'));

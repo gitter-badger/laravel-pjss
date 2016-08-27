@@ -1,5 +1,4 @@
-<form class="form-horizontal" action="{{ $action }}" method="POST"
-	enctype="multipart/form-data">
+<form class="form-horizontal" action="{{ $action }}" method="POST">
 	{{ csrf_field() }}
 	<input type="hidden" name="_method" value="{{ $method }}">
 	

@@ -24,5 +24,12 @@ Route::group([
 		Route::resource('acceptancecriteria', 'AcceptanceCriteriaController');
 	});
 	
+	/**
+	 * BacklogMeeting Management
+	 */
+	Route::group(['namespace' => 'BacklogMeeting'], function() {
+		Route::resource('backlogmeeting', 'BacklogMeetingController');
+	});
+
 	// Replacer
 });

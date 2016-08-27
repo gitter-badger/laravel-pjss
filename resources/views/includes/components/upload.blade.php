@@ -64,12 +64,12 @@ $(function() {
 	        data.submit();
 	    },
 	    done: function (e, data) {
-	        $.each(data.result.files, function (index, file) {
+		    var files = JSON.parse(data.result);3
+		    console.info(files);
+	        $.each(files, function (index, file) {
 	        	$('#{{ $id }}-tagsinput').tagsinput('add', {
-		        	id: Math.random(),
-		        	name: file.name,
-		        	size: file.size,
-		        	type: file.type
+		        	id: file.model_id,
+		        	name: file.file_name
 	        	});
 	        });
 	    }
@@ -95,14 +95,14 @@ $('#{{ $id }}-tagsinput').tagsinput({
 
 <div class="input-group">
 	<span class="input-group-addon"><i class="fa fa-file"></i></span>
-    <input type="text" id="{{ $id }}-tagsinput" class="form-control" 
+    <input type="text" id="{{ $id }}-tagsinput" name="{{ $name }}" class="form-control" 
     	data-role="tagsinput"
     	aria-describedby="{{ $id }}-upload-addfile">
     <div class="input-group-btn">
         <button class="btn btn-default fileinput-button" id="{{ $id }}-upload-addfile"
         	title="添加文件">
             <i class="fa fa-plus"></i>
-        	<input type="file" id="{{ $id }}" name="{{ $name }}">
+        	<input type="file" id="{{ $id }}">
         </button>
         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span class="caret"></span>
@@ -124,27 +124,20 @@ $('#{{ $id }}-tagsinput').tagsinput({
             </li>
             <li role="separator" class="divider"></li>
             <li>
-            	<a href="#" class="" title="管理文件">
-                    <span>管理文件</span>
+            	<a type="submit" class="btn btn-primary start">
+                    <span>Start upload</span>
+                </a>
+            </li>
+            <li>
+            	<a type="submit" class="btn btn-primary cancel">
+                    <span>Cancel upload</span>
+                </a>
+            </li>
+            <li>
+            	<a type="submit" class="btn btn-primary delete">
+                    <span>Delete</span>
                 </a>
             </li>
         </ul>
 	</div>
 </div>
-
-
-<button type="submit" class="btn btn-primary start">
-    <i class="fa fa-arrow-circle-o-up"></i>
-    <span>Start upload</span>
-</button>
-<button type="reset" class="btn btn-warning cancel">
-    <i class="fa fa-ban"></i>
-    <span>Cancel upload</span>
-</button>
-<button type="button" class="btn btn-danger delete">
-    <i class="fa fa-trash-o"></i>
-    <span>Delete</span>
-</button>
-<input type="checkbox" class="toggle">
-<!-- The global file processing state -->
-<span class="fileupload-process"></span>

@@ -21,6 +21,11 @@ return [
             ],
         ],
         'scrum' => [/*backend*/
+            'backlogmeetings' => [
+                'created' => 'The backlogmeeting was successfully created.',
+                'deleted' => 'The backlogmeeting was successfully deleted.',
+                'updated' => 'The backlogmeeting was successfully updated.',
+            ],
             'acceptancecriterias' => [
                 'created' => 'The acceptancecriteria was successfully created.',
                 'deleted' => 'The acceptancecriteria was successfully deleted.',
@@ -58,6 +63,11 @@ return [
             ],
         ],
         'scrum' => [/*frontend*/
+            'backlogmeetings' => [
+                'created' => 'The backlogmeeting was successfully created.',
+                'deleted' => 'The backlogmeeting was successfully deleted.',
+                'updated' => 'The backlogmeeting was successfully updated.',
+            ],
             'acceptancecriterias' => [
                 'created' => 'The acceptancecriteria was successfully created.',
                 'deleted' => 'The acceptancecriteria was successfully deleted.',

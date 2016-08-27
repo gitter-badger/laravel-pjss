@@ -120,6 +120,11 @@ class MediaController extends Controller
         $media = $this->media->create(
             $request->all()
         );
-        dd($media);
+        
+        $media->addMediaFromRequest('file')
+            ->preservingOriginal()
+            ->toMediaLibrary();
+        
+        return response()->json($media->getMedia()->toJson());
     }
 }
