@@ -27,7 +27,7 @@ class RepositoryBackendMakeCommand extends GeneratorCommand
      * @var string
      */
     protected $type = 'Repository';
-    
+
     /**
      * Execute the console command.
      *
@@ -39,36 +39,36 @@ class RepositoryBackendMakeCommand extends GeneratorCommand
             $this->call('make:pjss-event-backend', [
                 'namespace' => $this->getNamespaceInput(),
                 'name' => $this->getNameInput(),
-                'type' => 'Create',
+                'type' => 'Create'
             ]);
             $this->call('make:pjss-event-backend', [
                 'namespace' => $this->getNamespaceInput(),
                 'name' => $this->getNameInput(),
-                'type' => 'Delete',
+                'type' => 'Delete'
             ]);
             $this->call('make:pjss-event-backend', [
                 'namespace' => $this->getNamespaceInput(),
                 'name' => $this->getNameInput(),
-                'type' => 'Restore',
+                'type' => 'Restore'
             ]);
             $this->call('make:pjss-event-backend', [
                 'namespace' => $this->getNamespaceInput(),
                 'name' => $this->getNameInput(),
-                'type' => 'Update',
+                'type' => 'Update'
             ]);
             $this->call('make:pjss-event-backend', [
                 'namespace' => $this->getNamespaceInput(),
                 'name' => $this->getNameInput(),
-                'type' => 'PermanentlyDeleted',
+                'type' => 'PermanentlyDeleted'
             ]);
             
             $this->call('make:pjss-listener-backend', [
                 'namespace' => $this->getNamespaceInput(),
-                'name' => $this->getNameInput(),
+                'name' => $this->getNameInput()
             ]);
         }
     }
-    
+
     /**
      * Get the stub file for the generator.
      *

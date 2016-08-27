@@ -1,5 +1,4 @@
 <?php
-
 Breadcrumbs::register('admin.scrum.acceptancecriteria.index', function ($breadcrumbs) {
     $breadcrumbs->parent('admin.scrum.index');
     $breadcrumbs->push(trans('labels.backend.scrum.acceptancecriterias.management'), route('admin.scrum.acceptancecriteria.index'));

@@ -1,21 +1,24 @@
 <?php
-
 namespace App\Http\Middleware;
 
 use Closure;
 
 /**
  * Class RouteNeedsRole
+ * 
  * @package App\Http\Middleware
  */
 class RouteNeedsPermission
 {
 
-	/**
-     * @param $request
-     * @param Closure $next
-     * @param $permission
-     * @param bool $needsAll
+    /**
+     *
+     * @param
+     *            $request
+     * @param Closure $next            
+     * @param
+     *            $permission
+     * @param bool $needsAll            
      * @return mixed
      */
     public function handle($request, Closure $next, $permission, $needsAll = false)
@@ -32,14 +35,11 @@ class RouteNeedsPermission
              */
             $access = access()->allow($permission);
         }
-
-
+        
         if (! $access) {
-            return redirect()
-                ->route('frontend.index')
-                ->withFlashDanger(trans('auth.general_error'));
+            return redirect()->route('frontend.index')->withFlashDanger(trans('auth.general_error'));
         }
-
+        
         return $next($request);
     }
 }

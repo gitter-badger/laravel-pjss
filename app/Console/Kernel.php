@@ -6,7 +6,7 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 /**
  * Class Kernel
- * 
+ *
  * @package App\Console
  */
 class Kernel extends ConsoleKernel
@@ -41,7 +41,7 @@ class Kernel extends ConsoleKernel
         Commands\RequestBackendMakeCommand::class,
         Commands\RequestFrontendMakeCommand::class,
         Commands\RouteBackendMakeCommand::class,
-        Commands\RouteFrontendMakeCommand::class,
+        Commands\RouteFrontendMakeCommand::class
     ];
 
     /**

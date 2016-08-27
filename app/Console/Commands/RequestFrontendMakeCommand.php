@@ -28,7 +28,7 @@ class RequestFrontendMakeCommand extends GeneratorCommand
      * @var string
      */
     protected $type = 'Request';
-    
+
     /**
      * Get the stub file for the generator.
      *
@@ -60,24 +60,24 @@ class RequestFrontendMakeCommand extends GeneratorCommand
     {
         $name = str_replace($this->laravel->getNamespace(), '', $name);
         
-        return $this->laravel['path'] . '/' . Str::replaceLast($this->getNameInput(), $this->argument('type'). $this->getNameInput(), str_replace('\\', '/', $name)) . 'Request.php';
+        return $this->laravel['path'] . '/' . Str::replaceLast($this->getNameInput(), $this->argument('type') . $this->getNameInput(), str_replace('\\', '/', $name)) . 'Request.php';
     }
-    
+
     /**
      * Build the class with the given name.
      *
-     * @param string $name
+     * @param string $name            
      * @return string
      */
     protected function buildClass($name)
     {
         $stub = parent::buildClass($name);
-    
+        
         $stub = str_replace('{type}', $this->argument('type'), $stub);
-    
+        
         return $stub;
     }
-    
+
     /**
      * Get the console command arguments.
      *
@@ -95,8 +95,7 @@ class RequestFrontendMakeCommand extends GeneratorCommand
                 'name',
                 InputArgument::REQUIRED,
                 'The name of the class'
-            ]
-            ,
+            ],
             [
                 'type',
                 InputArgument::REQUIRED,

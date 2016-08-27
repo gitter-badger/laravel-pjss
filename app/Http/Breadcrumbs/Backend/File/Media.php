@@ -1,5 +1,4 @@
 <?php
-
 Breadcrumbs::register('admin.file.media.index', function ($breadcrumbs) {
     $breadcrumbs->parent('admin.file.index');
     $breadcrumbs->push(trans('labels.backend.file.media.management'), route('admin.file.media.index'));

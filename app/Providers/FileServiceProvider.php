@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Providers;
 
 use App\Services\File\File;
@@ -8,10 +7,12 @@ use Illuminate\Support\ServiceProvider;
 
 /**
  * Class FileServiceProvider
+ * 
  * @package App\Providers
  */
 class FileServiceProvider extends ServiceProvider
 {
+
     /**
      * Indicates if loading of the provider is deferred.
      *
@@ -44,48 +45,32 @@ class FileServiceProvider extends ServiceProvider
      * @return void
      */
     public function registerFacade()
-    {
-        
-    }
+    {}
 
     /**
      * Register service provider bindings
      */
     public function registerBindings()
     {
-    	/**
-    	 * Media Binding
-    	 */
-        $this->app->bind(
-            \App\Repositories\Frontend\File\Media\MediaRepositoryContract::class,
-            \App\Repositories\Frontend\File\Media\EloquentMediaRepository::class
-        );
-
-        $this->app->bind(
-            \App\Repositories\Backend\File\Media\MediaRepositoryContract::class,
-            \App\Repositories\Backend\File\Media\EloquentMediaRepository::class
-        );
+        /**
+         * Media Binding
+         */
+        $this->app->bind(\App\Repositories\Frontend\File\Media\MediaRepositoryContract::class, \App\Repositories\Frontend\File\Media\EloquentMediaRepository::class);
+        
+        $this->app->bind(\App\Repositories\Backend\File\Media\MediaRepositoryContract::class, \App\Repositories\Backend\File\Media\EloquentMediaRepository::class);
         
         /**
-        * Media Binding
-        */
-       $this->app->bind(
-           \App\Repositories\Frontend\File\Media\MediaRepositoryContract::class,
-           \App\Repositories\Frontend\File\Media\EloquentMediaRepository::class
-       );
-
-       $this->app->bind(
-           \App\Repositories\Backend\File\Media\MediaRepositoryContract::class,
-           \App\Repositories\Backend\File\Media\EloquentMediaRepository::class
-       );
-     // Replacer
+         * Media Binding
+         */
+        $this->app->bind(\App\Repositories\Frontend\File\Media\MediaRepositoryContract::class, \App\Repositories\Frontend\File\Media\EloquentMediaRepository::class);
+        
+        $this->app->bind(\App\Repositories\Backend\File\Media\MediaRepositoryContract::class, \App\Repositories\Backend\File\Media\EloquentMediaRepository::class);
+        // Replacer
     }
 
     /**
      * Register the blade extender to use new blade sections
      */
     protected function registerBladeExtensions()
-    {
-        
-    }
+    {}
 }

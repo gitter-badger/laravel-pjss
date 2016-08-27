@@ -39,48 +39,48 @@ class ControllerBackendMakeCommand extends GeneratorCommand
             $this->call('make:pjss-view-backend', [
                 'namespace' => $this->getNamespaceInput(),
                 'name' => $this->getNameInput(),
-                'type' => 'index',
+                'type' => 'index'
             ]);
             $this->call('make:pjss-view-backend', [
                 'namespace' => $this->getNamespaceInput(),
                 'name' => $this->getNameInput(),
-                'type' => 'create',
+                'type' => 'create'
             ]);
             $this->call('make:pjss-view-backend', [
                 'namespace' => $this->getNamespaceInput(),
                 'name' => $this->getNameInput(),
-                'type' => 'edit',
+                'type' => 'edit'
             ]);
             $this->call('make:pjss-view-backend', [
                 'namespace' => $this->getNamespaceInput(),
                 'name' => $this->getNameInput(),
-                'type' => 'detail',
+                'type' => 'detail'
             ]);
             
             $this->call('make:pjss-breadcrumb-backend', [
                 'namespace' => $this->getNamespaceInput(),
-                'name' => $this->getNameInput(),
+                'name' => $this->getNameInput()
             ]);
             
             $this->call('make:pjss-request-backend', [
                 'namespace' => $this->getNamespaceInput(),
                 'name' => $this->getNameInput(),
-                'type' => 'Manage',
+                'type' => 'Manage'
             ]);
             $this->call('make:pjss-request-backend', [
                 'namespace' => $this->getNamespaceInput(),
                 'name' => $this->getNameInput(),
-                'type' => 'Store',
+                'type' => 'Store'
             ]);
             $this->call('make:pjss-request-backend', [
                 'namespace' => $this->getNamespaceInput(),
                 'name' => $this->getNameInput(),
-                'type' => 'Update',
+                'type' => 'Update'
             ]);
             
             $this->call('make:pjss-route-backend', [
                 'namespace' => $this->getNamespaceInput(),
-                'name' => $this->getNameInput(),
+                'name' => $this->getNameInput()
             ]);
             
             // 修改resources/lang/zh/alerts.php
@@ -92,24 +92,11 @@ class ControllerBackendMakeCommand extends GeneratorCommand
             
             $array = $this->files->getRequire($path);
             $contents = $this->files->get($path);
-            if (!array_has($array['backend'], $lower_namespace)){
-                $contents = str_replace(
-                    '   \'backend\' => [',
-                    '   \'backend\' => [' . PHP_EOL .
-                    '        \'' . $lower_namespace . '\' => [/*backend*/' . PHP_EOL .
-                    '        ],'
-                    , $contents);
+            if (! array_has($array['backend'], $lower_namespace)) {
+                $contents = str_replace('   \'backend\' => [', '   \'backend\' => [' . PHP_EOL . '        \'' . $lower_namespace . '\' => [/*backend*/' . PHP_EOL . '        ],', $contents);
             }
-            if (!(array_has($array['backend'], $lower_namespace) && array_has($array['backend'][$lower_namespace], $plural_lower_name))) {
-                $contents = str_replace(
-                    '       \'' . $lower_namespace . '\' => [/*backend*/',
-                    '       \'' . $lower_namespace . '\' => [/*backend*/' . PHP_EOL .
-                    '            \'' . $plural_lower_name . '\' => [' . PHP_EOL .
-                    '                \'created\' => \'The ' . $lower_name . ' was successfully created.\',' . PHP_EOL .
-                    '                \'deleted\' => \'The ' . $lower_name . ' was successfully deleted.\',' . PHP_EOL .
-                    '                \'updated\' => \'The ' . $lower_name . ' was successfully updated.\',' . PHP_EOL .
-                    '            ],'
-                    , $contents);
+            if (! (array_has($array['backend'], $lower_namespace) && array_has($array['backend'][$lower_namespace], $plural_lower_name))) {
+                $contents = str_replace('       \'' . $lower_namespace . '\' => [/*backend*/', '       \'' . $lower_namespace . '\' => [/*backend*/' . PHP_EOL . '            \'' . $plural_lower_name . '\' => [' . PHP_EOL . '                \'created\' => \'The ' . $lower_name . ' was successfully created.\',' . PHP_EOL . '                \'deleted\' => \'The ' . $lower_name . ' was successfully deleted.\',' . PHP_EOL . '                \'updated\' => \'The ' . $lower_name . ' was successfully updated.\',' . PHP_EOL . '            ],', $contents);
             }
             $this->files->put($path, $contents);
             $this->comment('langs.alerts modified successfully.');

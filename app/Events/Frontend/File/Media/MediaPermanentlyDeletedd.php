@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Events\Frontend\File\Media;
 
 use App\Events\Event;
@@ -8,16 +7,18 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 /**
  * Class MediaPermanentlyDeletedd
+ * 
  * @package App\Events\Frontend\File\Media
  */
 class MediaPermanentlyDeletedd extends Event
 {
     use SerializesModels;
-    
+
     /**
-	 * @var $media
-	 */
-	public $media;
+     *
+     * @var $media
+     */
+    public $media;
 
     /**
      * Create a new event instance.
@@ -25,9 +26,9 @@ class MediaPermanentlyDeletedd extends Event
      * @return void
      */
     public function __construct($media)
-	{
-		$this->media = $media;
-	}
+    {
+        $this->media = $media;
+    }
 
     /**
      * Get the channels the event should be broadcast on.

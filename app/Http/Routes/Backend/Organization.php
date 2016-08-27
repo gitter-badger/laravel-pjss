@@ -1,5 +1,4 @@
 <?php
-
 Route::group([
     'prefix' => 'organization',
     'namespace' => 'Organization'

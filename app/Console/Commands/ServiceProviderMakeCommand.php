@@ -27,7 +27,7 @@ class ServiceProviderMakeCommand extends GeneratorCommand
      * @var string
      */
     protected $type = 'ServiceProvider';
-    
+
     /**
      * Execute the console command.
      *
@@ -36,25 +36,15 @@ class ServiceProviderMakeCommand extends GeneratorCommand
     public function fire()
     {
         $path = $this->getPath($this->parseName($this->getNameInput()));
-        if ($this->files->exists($path)){
+        if ($this->files->exists($path)) {
             $lower_namespace = Str::lower($this->getNamespaceInput());
             $lower_name = Str::lower($this->getNameInput());
             $plural_lower_name = Str::plural($lower_name);
             
             // 增加本实体的绑定注册
             $contents = $this->files->get($path);
-            $comment_header = '     /**' . PHP_EOL .
-                    '        * ' . $this->getNameInput() .' Binding' . PHP_EOL .
-                    '        */';
-            $stub = '       $this->app->bind(' . PHP_EOL .
-                    '           \App\Repositories\Frontend\{namespace}\{name}\{name}RepositoryContract::class,' . PHP_EOL .
-                    '           \App\Repositories\Frontend\{namespace}\{name}\Eloquent{name}Repository::class' . PHP_EOL .
-                    '       );' . PHP_EOL .
-                    PHP_EOL .
-                    '       $this->app->bind(' . PHP_EOL .
-                    '           \App\Repositories\Backend\{namespace}\{name}\{name}RepositoryContract::class,' . PHP_EOL .
-                    '           \App\Repositories\Backend\{namespace}\{name}\Eloquent{name}Repository::class' . PHP_EOL .
-                    '       );';
+            $comment_header = '     /**' . PHP_EOL . '        * ' . $this->getNameInput() . ' Binding' . PHP_EOL . '        */';
+            $stub = '       $this->app->bind(' . PHP_EOL . '           \App\Repositories\Frontend\{namespace}\{name}\{name}RepositoryContract::class,' . PHP_EOL . '           \App\Repositories\Frontend\{namespace}\{name}\Eloquent{name}Repository::class' . PHP_EOL . '       );' . PHP_EOL . PHP_EOL . '       $this->app->bind(' . PHP_EOL . '           \App\Repositories\Backend\{namespace}\{name}\{name}RepositoryContract::class,' . PHP_EOL . '           \App\Repositories\Backend\{namespace}\{name}\Eloquent{name}Repository::class' . PHP_EOL . '       );';
             $stub = str_replace('{namespace}', $this->getNamespaceInput(), $stub);
             $stub = str_replace('{name}', $this->getNameInput(), $stub);
             $comment_footer = '     // Replacer';
@@ -65,7 +55,7 @@ class ServiceProviderMakeCommand extends GeneratorCommand
             }
             $this->comment('ServiceProvider modified successfully.');
         } else {
-            if (parent::fire() !== false){
+            if (parent::fire() !== false) {
                 $path = $this->laravel['path'] . '/../config/app.php';
                 
                 // 增加本命名控件的路由
@@ -75,11 +65,7 @@ class ServiceProviderMakeCommand extends GeneratorCommand
                 $sutb = '        App\Providers\\' . $this->getNamespaceInput() . 'ServiceProvider::class,';
                 
                 if (strpos($contents, $comment) === false) {
-                    $contents = str_replace($replacer, 
-                        $comment . PHP_EOL. 
-                        $sutb . PHP_EOL . 
-                        $replacer,
-                        $contents);
+                    $contents = str_replace($replacer, $comment . PHP_EOL . $sutb . PHP_EOL . $replacer, $contents);
                     $this->files->put($path, $contents);
                 }
                 $this->comment('AppConfig modified successfully.');

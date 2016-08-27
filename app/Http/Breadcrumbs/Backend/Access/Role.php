@@ -1,5 +1,4 @@
 <?php
-
 Breadcrumbs::register('admin.access.role.index', function ($breadcrumbs) {
     $breadcrumbs->parent('admin.dashboard');
     $breadcrumbs->push(trans('menus.backend.access.roles.management'), route('admin.access.role.index'));

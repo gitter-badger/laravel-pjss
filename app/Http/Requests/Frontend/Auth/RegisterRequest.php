@@ -1,15 +1,16 @@
 <?php
-
 namespace App\Http\Requests\Frontend\Auth;
 
 use App\Http\Requests\Request;
 
 /**
  * Class RegisterRequest
+ * 
  * @package App\Http\Requests\Frontend\Access
  */
 class RegisterRequest extends Request
 {
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -31,16 +32,20 @@ class RegisterRequest extends Request
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
-            'g-recaptcha-response' => 'required_if:captcha_status,true|captcha',
+            'g-recaptcha-response' => 'required_if:captcha_status,true|captcha'
         ];
     }
 
-	/**
+    /**
+     *
      * @return array
      */
-    public function messages() {
+    public function messages()
+    {
         return [
-            'g-recaptcha-response.required_if' => trans('validation.required', ['attribute' => 'captcha']),
+            'g-recaptcha-response.required_if' => trans('validation.required', [
+                'attribute' => 'captcha'
+            ])
         ];
     }
 }

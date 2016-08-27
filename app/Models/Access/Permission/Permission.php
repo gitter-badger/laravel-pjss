@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models\Access\Permission;
 
 use Illuminate\Database\Eloquent\Model;
@@ -7,6 +6,7 @@ use App\Models\Access\Permission\Traits\Relationship\PermissionRelationship;
 
 /**
  * Class Permission
+ * 
  * @package App\Models\Access\Permission
  */
 class Permission extends Model
@@ -25,10 +25,15 @@ class Permission extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'display_name', 'sort'];
+    protected $fillable = [
+        'name',
+        'display_name',
+        'sort'
+    ];
 
     /**
-     * @param array $attributes
+     *
+     * @param array $attributes            
      */
     public function __construct(array $attributes = [])
     {

@@ -31,24 +31,26 @@ class ProjectController extends Controller
         
         $sync = new SyncHelper($un);
         $projDetail = $sync->login($un, $pwd)->getProjectDetail($id);
-
+        
         return response()->json($projDetail);
     }
-    
 }
 
 class SyncHelper
 {
+
     protected $cookie_jar = '';
-    
-    function __construct($symbol) {
-        if (is_null($symbol)){
+
+    function __construct($symbol)
+    {
+        if (is_null($symbol)) {
             $symbol = rand();
         }
         $this->cookie_jar = storage_path('app/public/cookies/' . $symbol . '.cookie');
     }
-    
-    function login($email, $pswd){
+
+    function login($email, $pswd)
+    {
         $url = 'https://www.leangoo.com/kanban/login/go';
         $data = [
             'email' => $email,
@@ -59,17 +61,18 @@ class SyncHelper
         
         $this->curl_post($url, $data, [
             CURLOPT_COOKIEJAR => $this->cookie_jar,
-            CURLOPT_COOKIEFILE => $this->cookie_jar,
+            CURLOPT_COOKIEFILE => $this->cookie_jar
         ]);
         return $this;
     }
-    
-    function getProjectDetail($projId) {
+
+    function getProjectDetail($projId)
+    {
         $url = 'https://www.leangoo.com/kanban/project/go/' . $projId;
         
         $html = $this->curl_get($url, [], [
             CURLOPT_COOKIEJAR => $this->cookie_jar,
-            CURLOPT_COOKIEFILE => $this->cookie_jar,
+            CURLOPT_COOKIEFILE => $this->cookie_jar
         ]);
         
         preg_match_all('/<h1 class="break-word">(.*)<\/h1>/i', $html, $results);
@@ -84,12 +87,16 @@ class SyncHelper
             'members' => $members
         ];
     }
-    
+
     /**
      * Send a POST requst using cURL
-     * @param string $url to request
-     * @param array $post values to send
-     * @param array $options for cURL
+     * 
+     * @param string $url
+     *            to request
+     * @param array $post
+     *            values to send
+     * @param array $options
+     *            for cURL
      * @return string
      */
     function curl_post($url, array $post = NULL, array $options = array())
@@ -104,28 +111,31 @@ class SyncHelper
             CURLOPT_TIMEOUT => 4,
             CURLOPT_POSTFIELDS => http_build_query($post)
         );
-    
+        
         $ch = curl_init();
         curl_setopt_array($ch, ($options + $defaults));
-        if( ! $result = curl_exec($ch))
-        {
-            //trigger_error(curl_error($ch));
+        if (! $result = curl_exec($ch)) {
+            // trigger_error(curl_error($ch));
         }
         curl_close($ch);
         return $result;
     }
-    
+
     /**
      * Send a GET requst using cURL
-     * @param string $url to request
-     * @param array $get values to send
-     * @param array $options for cURL
+     * 
+     * @param string $url
+     *            to request
+     * @param array $get
+     *            values to send
+     * @param array $options
+     *            for cURL
      * @return string
      */
     function curl_get($url, array $get = NULL, array $options = array())
     {
         $defaults = array(
-            CURLOPT_URL => $url. (!is_null($get) ? (strpos($url, '?') === FALSE ? '?' : ''). http_build_query($get) : ''),
+            CURLOPT_URL => $url . (! is_null($get) ? (strpos($url, '?') === FALSE ? '?' : '') . http_build_query($get) : ''),
             CURLOPT_HEADER => 0,
             CURLOPT_RETURNTRANSFER => 1,
             CURLOPT_TIMEOUT => 4
@@ -133,9 +143,8 @@ class SyncHelper
         
         $ch = curl_init();
         curl_setopt_array($ch, ($options + $defaults));
-        if( ! $result = curl_exec($ch))
-        {
-            //trigger_error(curl_error($ch));
+        if (! $result = curl_exec($ch)) {
+            // trigger_error(curl_error($ch));
         }
         curl_close($ch);
         return $result;

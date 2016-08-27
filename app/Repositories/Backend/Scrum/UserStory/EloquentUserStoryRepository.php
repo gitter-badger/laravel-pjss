@@ -12,7 +12,7 @@ use App\Repositories\Backend\Scrum\AcceptanceCriteria\AcceptanceCriteriaReposito
 
 /**
  * Class EloquentUserStoryRepository
- * 
+ *
  * @package App\Repositories\UserStory
  */
 class EloquentUserStoryRepository implements UserStoryRepositoryContract

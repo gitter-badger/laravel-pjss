@@ -1,15 +1,16 @@
 <?php
-
 namespace App\Http\Requests\Frontend\Auth;
 
 use App\Http\Requests\Request;
 
 /**
  * Class LoginRequest
+ * 
  * @package App\Http\Requests\Frontend\Auth
  */
 class LoginRequest extends Request
 {
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -28,18 +29,22 @@ class LoginRequest extends Request
     public function rules()
     {
         return [
-            'email'    => 'required|email',
+            'email' => 'required|email',
             'password' => 'required',
-            'g-recaptcha-response' => 'required_if:captcha_status,true|captcha',
+            'g-recaptcha-response' => 'required_if:captcha_status,true|captcha'
         ];
     }
 
     /**
+     *
      * @return array
      */
-    public function messages() {
+    public function messages()
+    {
         return [
-            'g-recaptcha-response.required_if' => trans('validation.required', ['attribute' => 'captcha']),
+            'g-recaptcha-response.required_if' => trans('validation.required', [
+                'attribute' => 'captcha'
+            ])
         ];
     }
 }

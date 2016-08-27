@@ -5,7 +5,6 @@ use DB;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
 use App\Models\Access\User\User;
 use App\Repositories\Backend\Access\User\UserRepositoryContract;
 use App\Repositories\Backend\Access\Role\RoleRepositoryContract;
@@ -15,19 +14,23 @@ use App\Repositories\Backend\Access\Role\RoleRepositoryContract;
  */
 class ProjectController extends Controller
 {
+
     /**
+     *
      * @var UserRepositoryContract
      */
     protected $users;
 
     /**
+     *
      * @var RoleRepositoryContract
      */
     protected $roles;
 
     /**
-     * @param UserRepositoryContract $users
-     * @param RoleRepositoryContract $roles
+     *
+     * @param UserRepositoryContract $users            
+     * @param RoleRepositoryContract $roles            
      */
     public function __construct(UserRepositoryContract $users, RoleRepositoryContract $roles)
     {
@@ -55,7 +58,7 @@ class ProjectController extends Controller
             $project->members = $tmp_members;
         }
         
-        if ($request->ajax()){
+        if ($request->ajax()) {
             return response()->json($projects);
         }
         
@@ -79,49 +82,64 @@ class ProjectController extends Controller
             $members = $input['members'];
             
             $users = User::all();
-    
-            DB::delete('delete from projects where id = :id', ['id' => $project['id']]);
-            DB::delete('delete m from members m inner join members2project m2p on m.id = m2p.member_id where m2p.project_id = :id', ['id' => $project['id']]);
-            DB::delete('delete from members2project where project_id = :id', ['id' => $project['id']]);
             
-            $project['create_date'] = date('y-m-d h:i:s',time());
+            DB::delete('delete from projects where id = :id', [
+                'id' => $project['id']
+            ]);
+            DB::delete('delete m from members m inner join members2project m2p on m.id = m2p.member_id where m2p.project_id = :id', [
+                'id' => $project['id']
+            ]);
+            DB::delete('delete from members2project where project_id = :id', [
+                'id' => $project['id']
+            ]);
+            
+            $project['create_date'] = date('y-m-d h:i:s', time());
             DB::insert('insert into projects (id, name, create_date) values (?, ?, ?)', [
-                $project['id'], $project['name'], $project['create_date']
+                $project['id'],
+                $project['name'],
+                $project['create_date']
             ]);
             foreach ($members as $member) {
                 DB::insert('insert into members2project (member_id, project_id) values (?, ?)', [
-                    $member['id'], $project['id']
+                    $member['id'],
+                    $project['id']
                 ]);
                 DB::insert('insert into members (id, email, head_img_letter, head_img_name, head_img_path, head_img_status, is_admin, nick_name) values (?, ?, ?, ?, ?, ?, ?, ?)', [
-                    $member['id'], $member['email'], $member['head_img_letter'], $member['head_img_name'], $member['head_img_path'], $member['head_img_status'], $member['is_admin'], $member['nick_name']
+                    $member['id'],
+                    $member['email'],
+                    $member['head_img_letter'],
+                    $member['head_img_name'],
+                    $member['head_img_path'],
+                    $member['head_img_status'],
+                    $member['is_admin'],
+                    $member['nick_name']
                 ]);
                 
-                $exists = $users->filter(function($user) use($member) {
+                $exists = $users->filter(function ($user) use($member) {
                     return $user->email == $member['id'];
                 })->count() > 0;
-                if ($exists){
+                if ($exists) {
                     // 随机密码
                     $password = str_random(6);
-                    $this->users->create(
-                        [
-                            'name' => $member['nick_name'],
-                            'email' => $member['email'],
-                            'password' => $password,
-                            'password_confirmation' => $password,
-                            'status' => 1,
-                            'confirmation_email' => 1
-                        ],
-                        [ 
-                            'assignees_roles' => ['3']
+                    $this->users->create([
+                        'name' => $member['nick_name'],
+                        'email' => $member['email'],
+                        'password' => $password,
+                        'password_confirmation' => $password,
+                        'status' => 1,
+                        'confirmation_email' => 1
+                    ], [
+                        'assignees_roles' => [
+                            '3'
                         ]
-                    );
+                    ]);
                 }
             }
-    
+            
             return response()->json([
                 'reuslt' => 'success'
             ]);
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             return response()->json([
                 'reuslt' => 'fail',
                 'message' => $e->message

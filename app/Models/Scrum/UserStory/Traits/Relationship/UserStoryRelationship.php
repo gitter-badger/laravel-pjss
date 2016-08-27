@@ -1,9 +1,9 @@
 <?php
-
 namespace App\Models\Scrum\UserStory\Traits\Relationship;
 
 /**
  * Class UserStoryRelationship
+ * 
  * @package App\Models\Scrum\UserStory\Traits\Relationship
  */
 trait UserStoryRelationship
@@ -16,11 +16,9 @@ trait UserStoryRelationship
      */
     public function acceptance_criterias()
     {
-        return $this->hasMany(
-            \App\Models\Scrum\AcceptanceCriteria\AcceptanceCriteria::class,
-            'userstory_id', 'id');
+        return $this->hasMany(\App\Models\Scrum\AcceptanceCriteria\AcceptanceCriteria::class, 'userstory_id', 'id');
     }
-    
+
     /**
      * One-to-One relations with LoFi.
      *
@@ -28,11 +26,9 @@ trait UserStoryRelationship
      */
     public function lo_fi()
     {
-        return $this->hasOne(
-            \App\Models\File\Media\Media::class,
-            'obj_id', 'id');
+        return $this->hasOne(\App\Models\File\Media\Media::class, 'obj_id', 'id');
     }
-    
+
     /**
      * One-to-One relations with HiFi.
      *
@@ -40,11 +36,9 @@ trait UserStoryRelationship
      */
     public function hi_fi()
     {
-        return $this->hasOne(
-            \App\Models\File\Media\Media::class,
-            'obj_id', 'id');
+        return $this->hasOne(\App\Models\File\Media\Media::class, 'obj_id', 'id');
     }
-    
+
     /**
      * One-to-Many relations with Attachments.
      *
@@ -52,8 +46,6 @@ trait UserStoryRelationship
      */
     public function attachments()
     {
-        return $this->hasMany(
-            \App\Models\File\Media\Media::class,
-            'obj_id', 'id');
+        return $this->hasMany(\App\Models\File\Media\Media::class, 'obj_id', 'id');
     }
 }

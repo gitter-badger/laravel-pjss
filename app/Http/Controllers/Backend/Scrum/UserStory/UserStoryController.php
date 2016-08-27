@@ -17,6 +17,7 @@ class UserStoryController extends Controller
 {
 
     /**
+     *
      * @var UserStoryRepositoryContract
      */
     protected $userstories;
@@ -46,7 +47,9 @@ class UserStoryController extends Controller
             $request->session()->put('project_id', $project_id[0]->project_id);
         }
         
-        $user_stories = UserStory::all()->where('project_id', session('project_id'))->sortByDesc('priority')->values();
+        $user_stories = UserStory::all()->where('project_id', session('project_id'))
+            ->sortByDesc('priority')
+            ->values();
         
         if ($request->ajax()) {
             return response()->json($user_stories->toArray());
@@ -81,10 +84,7 @@ class UserStoryController extends Controller
      */
     public function store(StoreUserStoryRequest $request)
     {
-        $userstory = $this->userstories->create(
-            $request->except('acceptance_criteria'),
-            $request->only('acceptance_criteria')
-        );
+        $userstory = $this->userstories->create($request->except('acceptance_criteria'), $request->only('acceptance_criteria'));
         
         return redirect()->route('admin.scrum.userstory.index')->withFlashSuccess(trans('alerts.backend.scrum.userstories.created'));
     }
@@ -143,13 +143,9 @@ class UserStoryController extends Controller
      */
     public function update(UserStory $userstory, UpdateUserStoryRequest $request)
     {
-        $this->userstories->update($userstory,
-            $request->except('acceptance_criteria'),
-            $request->only('acceptance_criteria')
-        );
+        $this->userstories->update($userstory, $request->except('acceptance_criteria'), $request->only('acceptance_criteria'));
         
-        return redirect()->route('admin.scrum.userstory.index')
-            ->withFlashSuccess(trans('alerts.backend.scrum.userstories.updated'));
+        return redirect()->route('admin.scrum.userstory.index')->withFlashSuccess(trans('alerts.backend.scrum.userstories.updated'));
     }
 
     /**
@@ -161,7 +157,9 @@ class UserStoryController extends Controller
     public function destroy(UserStory $userstory, ManageUserStoryRequest $request)
     {
         $this->userstories->destroy($userstory);
-        return response()->json(['sucs' => true]);
+        return response()->json([
+            'sucs' => true
+        ]);
     }
 
     /**
@@ -174,18 +172,22 @@ class UserStoryController extends Controller
         $results = $import->toArray();
         $this->userstories->importExcel($results[0]);
         
-        return response()->json(['sucs' => true]);
+        return response()->json([
+            'sucs' => true
+        ]);
     }
-    
+
     /**
      *
      * @return mixed
      */
     public function exportExcel($input)
     {
-        Excel::create('Filename', function($excel) {
-            $excel->sheet('Sheetname', function($sheet) {
-                $user_stories = UserStory::all()->where('project_id', session('project_id'))->sortByDesc('priority')->values();
+        Excel::create('Filename', function ($excel) {
+            $excel->sheet('Sheetname', function ($sheet) {
+                $user_stories = UserStory::all()->where('project_id', session('project_id'))
+                    ->sortByDesc('priority')
+                    ->values();
                 $sheet->fromArray($user_stories->toArray());
             });
         })->export('xlsx');
@@ -199,7 +201,9 @@ class UserStoryController extends Controller
     {
         $ids = request('ids');
         
-        $user_stories = UserStory::all()->where('project_id', session('project_id'))->sortByDesc('priority')->values();
+        $user_stories = UserStory::all()->where('project_id', session('project_id'))
+            ->sortByDesc('priority')
+            ->values();
         $priorities = array_column($user_stories->toArray(), 'priority');
         
         foreach ($ids as $i => $id) {
@@ -207,12 +211,16 @@ class UserStoryController extends Controller
                 return $user_story->id == $id;
             });
             
-            $this->userstories->update($user_story, ['priority' => $priorities[$i]]);
+            $this->userstories->update($user_story, [
+                'priority' => $priorities[$i]
+            ]);
         }
         
-        return response()->json(['sucs' => true]);
+        return response()->json([
+            'sucs' => true
+        ]);
     }
-    
+
     /**
      *
      * @return mixed
@@ -220,8 +228,10 @@ class UserStoryController extends Controller
     public function exchange()
     {
         $ids = request('ids');
-    
-        $user_stories = UserStory::all()->where('project_id', session('project_id'))->sortByDesc('priority')->values();
+        
+        $user_stories = UserStory::all()->where('project_id', session('project_id'))
+            ->sortByDesc('priority')
+            ->values();
         $priorities = array_column($user_stories->toArray(), 'priority');
         
         $one = $user_stories->first(function ($i, $user_story) use($ids) {
@@ -230,11 +240,17 @@ class UserStoryController extends Controller
         $another = $user_stories->first(function ($i, $user_story) use($ids) {
             return $user_story->id == $ids[1];
         });
-    
+        
         $temp = $one->priority;
-        $this->userstories->update($one, ['priority' => $another->priority]);
-        $this->userstories->update($another, ['priority' => $temp]);
-    
-        return response()->json(['sucs' => true]);
+        $this->userstories->update($one, [
+            'priority' => $another->priority
+        ]);
+        $this->userstories->update($another, [
+            'priority' => $temp
+        ]);
+        
+        return response()->json([
+            'sucs' => true
+        ]);
     }
 }

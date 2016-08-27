@@ -1,19 +1,18 @@
 <?php
-
 namespace App\Models\Organization\Team;
-
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class Project
+ * 
  * @package App\Models\Organization\Team
  */
 class Project extends Model
 {
-
-    use SoftDeletes;
     
+    use SoftDeletes;
+
     /**
      * The database table used by the model.
      *
@@ -26,7 +25,11 @@ class Project extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'status', 'team_id'];
+    protected $fillable = [
+        'name',
+        'status',
+        'team_id'
+    ];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -36,7 +39,10 @@ class Project extends Model
     protected $hidden = [];
 
     /**
+     *
      * @var array
      */
-    protected $dates = ['deleted_at'];
+    protected $dates = [
+        'deleted_at'
+    ];
 }

@@ -1,13 +1,14 @@
 <?php
-
 namespace App\Services\Access;
 
 /**
  * Class Access
+ * 
  * @package App\Services\Access
  */
 class Access
 {
+
     /**
      * Laravel application
      *
@@ -18,7 +19,7 @@ class Access
     /**
      * Create a new confide instance.
      *
-     * @param \Illuminate\Foundation\Application $app
+     * @param \Illuminate\Foundation\Application $app            
      */
     public function __construct($app)
     {
@@ -35,6 +36,7 @@ class Access
 
     /**
      * Return if the current session user is a guest or not
+     * 
      * @return mixed
      */
     public function guest()
@@ -42,7 +44,8 @@ class Access
         return auth()->guest();
     }
 
-	/**
+    /**
+     *
      * @return mixed
      */
     public function logout()
@@ -52,6 +55,7 @@ class Access
 
     /**
      * Get the currently authenticated user's id
+     * 
      * @return mixed
      */
     public function id()
@@ -59,18 +63,22 @@ class Access
         return auth()->id();
     }
 
-	/**
-     * @param $id
+    /**
+     *
+     * @param
+     *            $id
      * @return mixed
      */
-    public function loginUsingId($id) {
+    public function loginUsingId($id)
+    {
         return auth()->loginUsingId($id);
     }
 
     /**
      * Checks if the current user has a Role by its name or id
      *
-     * @param  string $role Role name.
+     * @param string $role
+     *            Role name.
      * @return bool
      */
     public function hasRole($role)
@@ -78,34 +86,39 @@ class Access
         if ($user = $this->user()) {
             return $user->hasRole($role);
         }
-
+        
         return false;
     }
 
     /**
      * Checks if the user has either one or more, or all of an array of roles
-     * @param  $roles
-     * @param  bool     $needsAll
+     * 
+     * @param
+     *            $roles
+     * @param bool $needsAll            
      * @return bool
      */
     public function hasRoles($roles, $needsAll = false)
     {
         if ($user = $this->user()) {
-            //If not an array, make a one item array
-            if (!is_array($roles)) {
-                $roles = array($roles);
+            // If not an array, make a one item array
+            if (! is_array($roles)) {
+                $roles = array(
+                    $roles
+                );
             }
-
+            
             return $user->hasRoles($roles, $needsAll);
         }
-
+        
         return false;
     }
 
     /**
      * Check if the current user has a permission by its name or id
      *
-     * @param  string $permission Permission name or id.
+     * @param string $permission
+     *            Permission name or id.
      * @return bool
      */
     public function allow($permission)
@@ -113,32 +126,39 @@ class Access
         if ($user = $this->user()) {
             return $user->allow($permission);
         }
-
+        
         return false;
     }
 
     /**
      * Check an array of permissions and whether or not all are required to continue
-     * @param  $permissions
-     * @param  $needsAll
+     * 
+     * @param
+     *            $permissions
+     * @param
+     *            $needsAll
      * @return bool
      */
     public function allowMultiple($permissions, $needsAll = false)
     {
         if ($user = $this->user()) {
-            //If not an array, make a one item array
-            if (!is_array($permissions)) {
-                $permissions = array($permissions);
+            // If not an array, make a one item array
+            if (! is_array($permissions)) {
+                $permissions = array(
+                    $permissions
+                );
             }
-
+            
             return $user->allowMultiple($permissions, $needsAll);
         }
-
+        
         return false;
     }
 
     /**
-     * @param  $permission
+     *
+     * @param
+     *            $permission
      * @return bool
      */
     public function hasPermission($permission)
@@ -147,8 +167,11 @@ class Access
     }
 
     /**
-     * @param  $permissions
-     * @param  $needsAll
+     *
+     * @param
+     *            $permissions
+     * @param
+     *            $needsAll
      * @return bool
      */
     public function hasPermissions($permissions, $needsAll = false)

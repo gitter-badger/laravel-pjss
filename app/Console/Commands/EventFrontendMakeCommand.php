@@ -62,22 +62,22 @@ class EventFrontendMakeCommand extends GeneratorCommand
         
         return $this->laravel['path'] . '/' . str_replace('\\', '/', $name) . $this->argument('type') . 'd.php';
     }
-    
+
     /**
      * Build the class with the given name.
      *
-     * @param string $name
+     * @param string $name            
      * @return string
      */
     protected function buildClass($name)
     {
         $stub = parent::buildClass($name);
-    
+        
         $stub = str_replace('{type}', $this->argument('type'), $stub);
-    
+        
         return $stub;
     }
-    
+
     /**
      * Get the console command arguments.
      *
@@ -95,8 +95,7 @@ class EventFrontendMakeCommand extends GeneratorCommand
                 'name',
                 InputArgument::REQUIRED,
                 'The name of the class'
-            ]
-            ,
+            ],
             [
                 'type',
                 InputArgument::REQUIRED,

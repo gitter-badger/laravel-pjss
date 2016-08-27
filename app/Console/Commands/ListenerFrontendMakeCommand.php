@@ -27,7 +27,7 @@ class ListenerFrontendMakeCommand extends GeneratorCommand
      * @var string
      */
     protected $type = 'Listener';
-    
+
     /**
      * Execute the console command.
      *
@@ -37,23 +37,18 @@ class ListenerFrontendMakeCommand extends GeneratorCommand
     {
         if (parent::fire() !== false) {
             // 修改Providers/EventServiceProvider.php
-            $replace_comment_header = str_replace('{namespace}', $this->getNamespaceInput(),'// FrontendReplacer' . PHP_EOL .
-                PHP_EOL .
-                '        /**' . PHP_EOL .
-                '    	 * {namespace} Subscribers' . PHP_EOL .
-                '    	 */');
-    
-            $replace = '        \App\Listeners\Frontend\{namespace}\{name}\{name}EventListener::class,' . PHP_EOL .
-                '        ';
-            $replace = str_replace('{namespace}', $this->getNamespaceInput(),$replace);
-            $replace = str_replace('{name}', $this->getNameInput(),$replace);
-    
-            $replace_comment_footer = str_replace('{namespace}', $this->getNamespaceInput(),'// {namespace}FrontendReplacer');
-    
+            $replace_comment_header = str_replace('{namespace}', $this->getNamespaceInput(), '// FrontendReplacer' . PHP_EOL . PHP_EOL . '        /**' . PHP_EOL . '    	 * {namespace} Subscribers' . PHP_EOL . '    	 */');
+            
+            $replace = '        \App\Listeners\Frontend\{namespace}\{name}\{name}EventListener::class,' . PHP_EOL . '        ';
+            $replace = str_replace('{namespace}', $this->getNamespaceInput(), $replace);
+            $replace = str_replace('{name}', $this->getNameInput(), $replace);
+            
+            $replace_comment_footer = str_replace('{namespace}', $this->getNamespaceInput(), '// {namespace}FrontendReplacer');
+            
             $path = $this->laravel['path'] . '/Providers/EventServiceProvider.php';
             $contents = $this->files->get($path);
             $index = strpos($contents, $replace);
-            if ($index === false){
+            if ($index === false) {
                 $index = strpos($contents, $replace_comment_footer);
                 if ($index === false) {
                     $contents = str_replace('// FrontendReplacer', $replace_comment_header . $replace . $replace_comment_footer, $contents);
@@ -65,7 +60,6 @@ class ListenerFrontendMakeCommand extends GeneratorCommand
             }
         }
         
-        
         // 修改resources/lang/zh/history.php
         $path = $this->laravel['path'] . '/../resources/lang/' . env('APP_LOCALE') . '/history.php';
         
@@ -75,29 +69,15 @@ class ListenerFrontendMakeCommand extends GeneratorCommand
         
         $array = $this->files->getRequire($path);
         $contents = $this->files->get($path);
-        if (!array_has($array['frontend'], $lower_namespace)){
-            $contents = str_replace(
-                '   \'frontend\' => [',
-                '   \'frontend\' => [' . PHP_EOL .
-                '        \'' . $lower_namespace . '\' => [/*frontend*/' . PHP_EOL .
-                '        ],'
-                , $contents);
+        if (! array_has($array['frontend'], $lower_namespace)) {
+            $contents = str_replace('   \'frontend\' => [', '   \'frontend\' => [' . PHP_EOL . '        \'' . $lower_namespace . '\' => [/*frontend*/' . PHP_EOL . '        ],', $contents);
         }
-        if (!(array_has($array['frontend'], $lower_namespace) && array_has($array['frontend'][$lower_namespace], $plural_lower_name))) {
-            $contents = str_replace(
-                '       \'' . $lower_namespace . '\' => [/*frontend*/',
-                '       \'' . $lower_namespace . '\' => [/*frontend*/' . PHP_EOL .
-                '            \'' . $plural_lower_name . '\' => [' . PHP_EOL .
-                '                \'created\' => \'created ' . $lower_name . '\',' . PHP_EOL .
-                '                \'deleted\' => \'deleted ' . $lower_name . '\',' . PHP_EOL .
-                '                \'updated\' => \'updated ' . $lower_name . '\',' . PHP_EOL .
-                '                \'restored\' => \'restored ' . $lower_name . '\',' . PHP_EOL .
-                '            ],'
-                , $contents);
+        if (! (array_has($array['frontend'], $lower_namespace) && array_has($array['frontend'][$lower_namespace], $plural_lower_name))) {
+            $contents = str_replace('       \'' . $lower_namespace . '\' => [/*frontend*/', '       \'' . $lower_namespace . '\' => [/*frontend*/' . PHP_EOL . '            \'' . $plural_lower_name . '\' => [' . PHP_EOL . '                \'created\' => \'created ' . $lower_name . '\',' . PHP_EOL . '                \'deleted\' => \'deleted ' . $lower_name . '\',' . PHP_EOL . '                \'updated\' => \'updated ' . $lower_name . '\',' . PHP_EOL . '                \'restored\' => \'restored ' . $lower_name . '\',' . PHP_EOL . '            ],', $contents);
         }
         $this->files->put($path, $contents);
     }
-    
+
     /**
      * Get the stub file for the generator.
      *

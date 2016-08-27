@@ -1,18 +1,23 @@
 <?php
-
-Route::group(['middleware' => 'web'], function() {
+Route::group([
+    'middleware' => 'web'
+], function () {
     /**
      * Switch between the included languages
      */
-    Route::group(['namespace' => 'Language'], function () {
+    Route::group([
+        'namespace' => 'Language'
+    ], function () {
         require (__DIR__ . '/Routes/Language/Language.php');
     });
-
+    
     /**
      * Frontend Routes
      * Namespaces indicate folder structure
      */
-    Route::group(['namespace' => 'Frontend'], function () {
+    Route::group([
+        'namespace' => 'Frontend'
+    ], function () {
         require (__DIR__ . '/Routes/Frontend/Frontend.php');
         require (__DIR__ . '/Routes/Frontend/Access.php');
         // Scrum Require
@@ -28,7 +33,11 @@ Route::group(['middleware' => 'web'], function() {
  * Namespaces indicate folder structure
  * Admin middleware groups web, auth, and routeNeedsPermission
  */
-Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'middleware' => 'admin'], function () {
+Route::group([
+    'namespace' => 'Backend',
+    'prefix' => 'admin',
+    'middleware' => 'admin'
+], function () {
     /**
      * These routes need view-backend permission
      * (good if you want to allow more than one group in the backend,

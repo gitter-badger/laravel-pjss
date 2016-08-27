@@ -1,15 +1,16 @@
 <?php
-
 namespace App\Http\Requests\Frontend\Auth;
 
 use App\Http\Requests\Request;
 
 /**
  * Class SendResetLinkEmailRequest
+ * 
  * @package App\Http\Requests\Frontend\Access
  */
 class SendResetLinkEmailRequest extends Request
 {
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -28,7 +29,7 @@ class SendResetLinkEmailRequest extends Request
     public function rules()
     {
         return [
-            'email' => 'required|email',
+            'email' => 'required|email'
         ];
     }
 }

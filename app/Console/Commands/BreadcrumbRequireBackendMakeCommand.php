@@ -53,8 +53,7 @@ class BreadcrumbRequireBackendMakeCommand extends GeneratorCommand
                 $this->files->put($path, $contents . PHP_EOL . $sutb);
             }
             $this->comment('Breadcrumbs modified successfully.');
-        }
-        else {
+        } else {
             if (parent::fire() !== false) {
                 $path = $this->laravel['path'] . '/Http/Breadcrumbs/Backend/Backend.php';
                 
@@ -64,7 +63,7 @@ class BreadcrumbRequireBackendMakeCommand extends GeneratorCommand
                 $sutb = 'require __DIR__ . \'/' . $this->getNamespaceInput() . '.php\';';
                 
                 if (strpos($contents, $comment) === false) {
-                    $this->files->put($path, $contents . PHP_EOL . $comment . PHP_EOL. $sutb);
+                    $this->files->put($path, $contents . PHP_EOL . $comment . PHP_EOL . $sutb);
                 }
                 $this->comment('Breadcrumbs modified successfully.');
             }

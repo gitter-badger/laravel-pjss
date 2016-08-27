@@ -1,17 +1,18 @@
 <?php
-
 namespace App\Models\Access\Role\Traits;
 
 /**
  * Class RoleAccess
+ * 
  * @package App\Models\Access\Role\Traits
  */
 trait RoleAccess
 {
+
     /**
      * Save the inputted permissions.
      *
-     * @param  mixed  $inputPermissions
+     * @param mixed $inputPermissions            
      * @return void
      */
     public function savePermissions($inputPermissions)
@@ -26,7 +27,7 @@ trait RoleAccess
     /**
      * Attach permission to current role.
      *
-     * @param  object|array $permission
+     * @param object|array $permission            
      * @return void
      */
     public function attachPermission($permission)
@@ -34,18 +35,18 @@ trait RoleAccess
         if (is_object($permission)) {
             $permission = $permission->getKey();
         }
-
+        
         if (is_array($permission)) {
             $permission = $permission['id'];
         }
-
+        
         $this->permissions()->attach($permission);
     }
 
     /**
      * Detach permission form current role.
      *
-     * @param  object|array $permission
+     * @param object|array $permission            
      * @return void
      */
     public function detachPermission($permission)
@@ -53,18 +54,18 @@ trait RoleAccess
         if (is_object($permission)) {
             $permission = $permission->getKey();
         }
-
+        
         if (is_array($permission)) {
             $permission = $permission['id'];
         }
-
+        
         $this->permissions()->detach($permission);
     }
 
     /**
      * Attach multiple permissions to current role.
      *
-     * @param  mixed  $permissions
+     * @param mixed $permissions            
      * @return void
      */
     public function attachPermissions($permissions)
@@ -77,7 +78,7 @@ trait RoleAccess
     /**
      * Detach multiple permissions from current role
      *
-     * @param  mixed  $permissions
+     * @param mixed $permissions            
      * @return void
      */
     public function detachPermissions($permissions)

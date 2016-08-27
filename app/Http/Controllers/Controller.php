@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -10,6 +9,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesResources;
 
 /**
  * Class Controller
+ * 
  * @package App\Http\Controllers
  */
 class Controller extends BaseController

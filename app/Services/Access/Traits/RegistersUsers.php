@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Services\Access\Traits;
 
 use App\Events\Frontend\Auth\UserRegistered;
@@ -7,6 +6,7 @@ use App\Http\Requests\Frontend\Auth\RegisterRequest;
 
 /**
  * Class RegistersUsers
+ * 
  * @package App\Services\Access\Traits
  */
 trait RegistersUsers
@@ -14,6 +14,7 @@ trait RegistersUsers
     use RedirectsUsers;
 
     /**
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function showRegistrationForm()
@@ -22,7 +23,8 @@ trait RegistersUsers
     }
 
     /**
-     * @param RegisterRequest $request
+     *
+     * @param RegisterRequest $request            
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function register(RegisterRequest $request)

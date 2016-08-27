@@ -1,15 +1,16 @@
 <?php
-
 namespace App\Http\Requests\Frontend\Auth;
 
 use App\Http\Requests\Request;
 
 /**
  * Class ResetPasswordRequest
+ * 
  * @package App\Http\Requests\Frontend\Access
  */
 class ResetPasswordRequest extends Request
 {
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -30,7 +31,7 @@ class ResetPasswordRequest extends Request
         return [
             'token' => 'required',
             'email' => 'required|email',
-            'password' => 'required|confirmed|min:6',
+            'password' => 'required|confirmed|min:6'
         ];
     }
 }

@@ -1,15 +1,16 @@
 <?php
-
 namespace App\Http\Requests\Backend\Access\User;
 
 use App\Http\Requests\Request;
 
 /**
  * Class UpdateUserRequest
+ * 
  * @package App\Http\Requests\Backend\Access\User
  */
 class UpdateUserRequest extends Request
 {
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -29,7 +30,7 @@ class UpdateUserRequest extends Request
     {
         return [
             'email' => 'required|email',
-            'name'  => 'required',
+            'name' => 'required'
         ];
     }
 }

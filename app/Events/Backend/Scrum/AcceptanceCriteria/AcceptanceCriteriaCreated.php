@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Events\Backend\Scrum\AcceptanceCriteria;
 
 use App\Events\Event;
@@ -8,16 +7,18 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 /**
  * Class AcceptanceCriteriaCreated
+ * 
  * @package App\Events\Backend\Scrum\AcceptanceCriteria
  */
 class AcceptanceCriteriaCreated extends Event
 {
     use SerializesModels;
-    
+
     /**
-	 * @var $acceptancecriteria
-	 */
-	public $acceptancecriteria;
+     *
+     * @var $acceptancecriteria
+     */
+    public $acceptancecriteria;
 
     /**
      * Create a new event instance.
@@ -25,9 +26,9 @@ class AcceptanceCriteriaCreated extends Event
      * @return void
      */
     public function __construct($acceptancecriteria)
-	{
-		$this->acceptancecriteria = $acceptancecriteria;
-	}
+    {
+        $this->acceptancecriteria = $acceptancecriteria;
+    }
 
     /**
      * Get the channels the event should be broadcast on.

@@ -1,5 +1,4 @@
 <?php
-
 Breadcrumbs::register('admin.scrum.userstory.index', function ($breadcrumbs) {
     $breadcrumbs->parent('admin.scrum.index');
     $breadcrumbs->push(trans('labels.backend.scrum.userstories.management'), route('admin.scrum.userstory.index'));

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Frontend\File\Media;
 
 use App\Models\File\Media\Media;
@@ -14,35 +13,39 @@ use App\Repositories\Frontend\File\Media\MediaRepositoryContract;
  */
 class MediaController extends Controller
 {
+
     /**
+     *
      * @var MediaRepositoryContract
      */
     protected $media;
-    
+
     /**
-     * @param MediaRepositoryContract $media
+     *
+     * @param MediaRepositoryContract $media            
      */
     public function __construct(MediaRepositoryContract $media)
     {
         $this->media = $media;
     }
 
-	/**
-     * @param ManageMediaRequest $request
+    /**
+     *
+     * @param ManageMediaRequest $request            
      * @return mixed
      */
     public function index(ManageMediaRequest $request)
     {
-    	if ($request->ajax()){
+        if ($request->ajax()) {
             return response()->json($this->media);
         }
-    
-        return view('frontend.file.media.index')
-        	->withMedia($this->media);
+        
+        return view('frontend.file.media.index')->withMedia($this->media);
     }
 
-	/**
-     * @param ManageMediaRequest $request
+    /**
+     *
+     * @param ManageMediaRequest $request            
      * @return mixed
      */
     public function create(ManageMediaRequest $request)
@@ -50,56 +53,55 @@ class MediaController extends Controller
         return view('frontend.file.media.create');
     }
 
-	/**
-     * @param StoreMediaRequest $request
+    /**
+     *
+     * @param StoreMediaRequest $request            
      * @return mixed
      */
     public function store(StoreMediaRequest $request)
     {
-        $this->media->create(
-            $request->all()
-        );
+        $this->media->create($request->all());
         return redirect()->route('file.media.index')->withFlashSuccess(trans('alerts.frontend.file.media.created'));
     }
-    
+
     /**
-     * @param Media $media
-     * @param ManageMediaRequest $request
+     *
+     * @param Media $media            
+     * @param ManageMediaRequest $request            
      * @return mixed
      */
     public function show(Media $media, ManageMediaRequest $request)
     {
-        return view('frontend.file.media.detail')
-        	->withMedia($media);
+        return view('frontend.file.media.detail')->withMedia($media);
     }
 
-	/**
-     * @param Media $media
-     * @param ManageMediaRequest $request
+    /**
+     *
+     * @param Media $media            
+     * @param ManageMediaRequest $request            
      * @return mixed
      */
     public function edit(Media $media, ManageMediaRequest $request)
     {
-        return view('frontend.file.media.edit')
-            ->withMedia($media);
+        return view('frontend.file.media.edit')->withMedia($media);
     }
 
-	/**
-     * @param Media $media
-     * @param UpdateMediaRequest $request
+    /**
+     *
+     * @param Media $media            
+     * @param UpdateMediaRequest $request            
      * @return mixed
      */
     public function update(Media $media, UpdateMediaRequest $request)
     {
-        $this->media->update($media,
-            $request->all()
-        );
+        $this->media->update($media, $request->all());
         return redirect()->route('file.media.index')->withFlashSuccess(trans('alerts.frontend.file.media.updated'));
     }
 
-	/**
-     * @param Media $media
-     * @param ManageMediaRequest $request
+    /**
+     *
+     * @param Media $media            
+     * @param ManageMediaRequest $request            
      * @return mixed
      */
     public function destroy(Media $media, ManageMediaRequest $request)

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Services\Access\Traits;
 
 use Illuminate\Mail\Message;
@@ -9,6 +8,7 @@ use App\Http\Requests\Frontend\Auth\SendResetLinkEmailRequest;
 
 /**
  * Class ResetsPasswords
+ * 
  * @package App\Services\Access\Traits
  */
 trait ResetsPasswords
@@ -16,6 +16,7 @@ trait ResetsPasswords
     use RedirectsUsers;
 
     /**
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function showLinkRequestForm()
@@ -24,7 +25,8 @@ trait ResetsPasswords
     }
 
     /**
-     * @param SendResetLinkEmailRequest $request
+     *
+     * @param SendResetLinkEmailRequest $request            
      * @return $this|\Illuminate\Http\RedirectResponse
      */
     public function sendResetLinkEmail(SendResetLinkEmailRequest $request)
@@ -32,18 +34,21 @@ trait ResetsPasswords
         $response = Password::sendResetLink($request->only('email'), function (Message $message) {
             $message->subject(trans('strings.emails.auth.password_reset_subject'));
         });
-
+        
         switch ($response) {
             case Password::RESET_LINK_SENT:
                 return redirect()->back()->with('status', trans($response));
-
+            
             case Password::INVALID_USER:
-                return redirect()->back()->withErrors(['email' => trans($response)]);
+                return redirect()->back()->withErrors([
+                    'email' => trans($response)
+                ]);
         }
     }
 
     /**
-     * @param null $token
+     *
+     * @param null $token            
      * @return $this
      */
     public function showResetForm($token = null)
@@ -51,39 +56,42 @@ trait ResetsPasswords
         if (is_null($token)) {
             return $this->showLinkRequestForm();
         }
-
-        return view('frontend.auth.passwords.reset')
-            ->with('token', $token);
+        
+        return view('frontend.auth.passwords.reset')->with('token', $token);
     }
 
     /**
-     * @param ResetPasswordRequest $request
+     *
+     * @param ResetPasswordRequest $request            
      * @return $this|\Illuminate\Http\RedirectResponse
      */
     public function reset(ResetPasswordRequest $request)
     {
-        $credentials = $request->only(
-            'email', 'password', 'password_confirmation', 'token'
-        );
-
+        $credentials = $request->only('email', 'password', 'password_confirmation', 'token');
+        
         $response = Password::reset($credentials, function ($user, $password) {
             $this->resetPassword($user, $password);
         });
-
+        
         switch ($response) {
             case Password::PASSWORD_RESET:
                 return redirect($this->redirectPath())->with('status', trans($response));
-
+            
             default:
                 return redirect()->back()
                     ->withInput($request->only('email'))
-                    ->withErrors(['email' => trans($response)]);
+                    ->withErrors([
+                    'email' => trans($response)
+                ]);
         }
     }
 
     /**
-     * @param $user
-     * @param $password
+     *
+     * @param
+     *            $user
+     * @param
+     *            $password
      */
     protected function resetPassword($user, $password)
     {

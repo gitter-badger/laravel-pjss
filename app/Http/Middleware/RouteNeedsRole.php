@@ -1,21 +1,24 @@
 <?php
-
 namespace App\Http\Middleware;
 
 use Closure;
 
 /**
  * Class RouteNeedsRole
+ * 
  * @package App\Http\Middleware
  */
 class RouteNeedsRole
 {
 
-	/**
-     * @param $request
-     * @param Closure $next
-     * @param $role
-     * @param bool $needsAll
+    /**
+     *
+     * @param
+     *            $request
+     * @param Closure $next            
+     * @param
+     *            $role
+     * @param bool $needsAll            
      * @return mixed
      */
     public function handle($request, Closure $next, $role, $needsAll = false)
@@ -32,14 +35,11 @@ class RouteNeedsRole
              */
             $access = access()->hasRole($role);
         }
-
-
+        
         if (! $access) {
-            return redirect()
-                ->route('frontend.index')
-                ->withFlashDanger(trans('auth.general_error'));
+            return redirect()->route('frontend.index')->withFlashDanger(trans('auth.general_error'));
         }
-
+        
         return $next($request);
     }
 }

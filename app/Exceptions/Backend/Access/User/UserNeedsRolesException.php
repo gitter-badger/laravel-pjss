@@ -1,27 +1,34 @@
 <?php
-
 namespace App\Exceptions\Backend\Access\User;
 
 use Exception;
 
 /**
  * Class UserNeedsRolesException
+ * 
  * @package App\Exceptions\Access
  */
 class UserNeedsRolesException extends Exception
 {
+
     /**
+     *
      * @var
+     *
      */
     protected $user_id;
 
     /**
+     *
      * @var
+     *
      */
     protected $errors;
 
     /**
-     * @param $user_id
+     *
+     * @param
+     *            $user_id
      */
     public function setUserID($user_id)
     {
@@ -29,6 +36,7 @@ class UserNeedsRolesException extends Exception
     }
 
     /**
+     *
      * @return mixed
      */
     public function userID()
@@ -37,7 +45,9 @@ class UserNeedsRolesException extends Exception
     }
 
     /**
-     * @param $errors
+     *
+     * @param
+     *            $errors
      */
     public function setValidationErrors($errors)
     {
@@ -45,6 +55,7 @@ class UserNeedsRolesException extends Exception
     }
 
     /**
+     *
      * @return mixed
      */
     public function validationErrors()

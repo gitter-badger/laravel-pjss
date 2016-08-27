@@ -31,7 +31,7 @@ class EloquentRepositoryBackendMakeCommand extends GeneratorCommand
      * @var string
      */
     protected $type = 'EloquentRepository';
-    
+
     /**
      * Execute the console command.
      *
@@ -49,25 +49,11 @@ class EloquentRepositoryBackendMakeCommand extends GeneratorCommand
             
             $array = $this->files->getRequire($path);
             $contents = $this->files->get($path);
-            if (!array_has($array['backend'], $lower_namespace)){
-                $contents = str_replace(
-                    '   \'backend\' => [',
-                    '   \'backend\' => [' . PHP_EOL .
-                    '        \'' . $lower_namespace . '\' => [/*backend*/' . PHP_EOL .
-                    '        ],'
-                    , $contents);
+            if (! array_has($array['backend'], $lower_namespace)) {
+                $contents = str_replace('   \'backend\' => [', '   \'backend\' => [' . PHP_EOL . '        \'' . $lower_namespace . '\' => [/*backend*/' . PHP_EOL . '        ],', $contents);
             }
-            if (!(array_has($array['backend'], $lower_namespace) && array_has($array['backend'][$lower_namespace], $plural_lower_name))) {
-                $contents = str_replace(
-                    '       \'' . $lower_namespace . '\' => [/*backend*/',
-                    '       \'' . $lower_namespace . '\' => [/*backend*/' . PHP_EOL .
-                    '            \'' . $plural_lower_name . '\' => [' . PHP_EOL .
-                    '                \'create_error\' => \'There was a problem creating this ' . $lower_name . '. Please try again.\',' . PHP_EOL .
-                    '                \'delete_error\' => \'There was a problem deleting this ' . $lower_name . '. Please try again.\',' . PHP_EOL .
-                    '                \'restore_error\' => \'There was a problem restoring this ' . $lower_name . '. Please try again.\',' . PHP_EOL .
-                    '                \'update_error\' => \'There was a problem updating this ' . $lower_name . '. Please try again.\',' . PHP_EOL .
-                    '            ],'
-                    , $contents);
+            if (! (array_has($array['backend'], $lower_namespace) && array_has($array['backend'][$lower_namespace], $plural_lower_name))) {
+                $contents = str_replace('       \'' . $lower_namespace . '\' => [/*backend*/', '       \'' . $lower_namespace . '\' => [/*backend*/' . PHP_EOL . '            \'' . $plural_lower_name . '\' => [' . PHP_EOL . '                \'create_error\' => \'There was a problem creating this ' . $lower_name . '. Please try again.\',' . PHP_EOL . '                \'delete_error\' => \'There was a problem deleting this ' . $lower_name . '. Please try again.\',' . PHP_EOL . '                \'restore_error\' => \'There was a problem restoring this ' . $lower_name . '. Please try again.\',' . PHP_EOL . '                \'update_error\' => \'There was a problem updating this ' . $lower_name . '. Please try again.\',' . PHP_EOL . '            ],', $contents);
             }
             $this->files->put($path, $contents);
             $this->comment('langs.exceptions modified successfully.');

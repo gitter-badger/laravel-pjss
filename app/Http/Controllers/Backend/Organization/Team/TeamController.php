@@ -27,7 +27,7 @@ class TeamController extends Controller
     {
         $teams = [];
         
-        if ($request->ajax()){
+        if ($request->ajax()) {
             return response()->json($teams);
         }
         

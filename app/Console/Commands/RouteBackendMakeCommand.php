@@ -27,7 +27,7 @@ class RouteBackendMakeCommand extends GeneratorCommand
      * @var string
      */
     protected $type = 'Route';
-    
+
     /**
      * Execute the console command.
      *
@@ -36,32 +36,24 @@ class RouteBackendMakeCommand extends GeneratorCommand
     public function fire()
     {
         $path = $this->getPath($this->parseName($this->getNameInput()));
-        if ($this->files->exists($path)){
+        if ($this->files->exists($path)) {
             $lower_namespace = Str::lower($this->getNamespaceInput());
             $lower_name = Str::lower($this->getNameInput());
             $plural_lower_name = Str::plural($lower_name);
             
             // 增加本实体的面包屑
             $contents = $this->files->get($path);
-            $comment_header = '	/**' . PHP_EOL .
-                    '	 * ' . $this->getNameInput() .' Management' . PHP_EOL .
-                    '	 */';
-            $stub = '	Route::group([\'namespace\' => \'' . $this->getNameInput() . '\'], function() {' . PHP_EOL .
-                    '		Route::resource(\'' . $lower_name . '\', \'' . $this->getNameInput() . 'Controller\');' . PHP_EOL .
-                    '	});';
+            $comment_header = '	/**' . PHP_EOL . '	 * ' . $this->getNameInput() . ' Management' . PHP_EOL . '	 */';
+            $stub = '	Route::group([\'namespace\' => \'' . $this->getNameInput() . '\'], function() {' . PHP_EOL . '		Route::resource(\'' . $lower_name . '\', \'' . $this->getNameInput() . 'Controller\');' . PHP_EOL . '	});';
             $comment_footer = '	// Replacer';
             
             if (strpos($contents, $comment_header) === false) {
-                $contents = str_replace($comment_footer, 
-                    $comment_header . PHP_EOL . 
-                    $stub . PHP_EOL . 
-                    PHP_EOL . $comment_footer, 
-                    $contents);
+                $contents = str_replace($comment_footer, $comment_header . PHP_EOL . $stub . PHP_EOL . PHP_EOL . $comment_footer, $contents);
                 $this->files->put($path, $contents);
             }
             $this->comment('Routes modified successfully.');
         } else {
-            if (parent::fire() !== false){
+            if (parent::fire() !== false) {
                 $path = $this->laravel['path'] . '/Http/routes.php';
                 
                 // 增加本命名控件的路由
@@ -71,11 +63,7 @@ class RouteBackendMakeCommand extends GeneratorCommand
                 $sutb = '    require __DIR__ . \'/Routes/Backend/' . $this->getNamespaceInput() . '.php\';';
                 
                 if (strpos($contents, $comment) === false) {
-                    $contents = str_replace($replacer, 
-                        $comment . PHP_EOL. 
-                        $sutb . PHP_EOL . 
-                        $replacer,
-                        $contents);
+                    $contents = str_replace($replacer, $comment . PHP_EOL . $sutb . PHP_EOL . $replacer, $contents);
                     $this->files->put($path, $contents);
                 }
                 $this->comment('Routes modified successfully.');

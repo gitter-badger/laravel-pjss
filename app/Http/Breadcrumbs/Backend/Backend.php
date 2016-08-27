@@ -1,5 +1,4 @@
 <?php
-
 Breadcrumbs::register('admin.dashboard', function ($breadcrumbs) {
     $breadcrumbs->push('Dashboard', route('admin.dashboard'));
 });

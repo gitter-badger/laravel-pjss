@@ -1,9 +1,9 @@
 <?php
-
 namespace App\Services\Access\Traits;
 
 /**
  * Class ConfirmUsers
+ * 
  * @package App\Services\Access\Traits
  */
 trait ConfirmUsers
@@ -12,7 +12,8 @@ trait ConfirmUsers
     /**
      * Confirms the users account by their token
      *
-     * @param $token
+     * @param
+     *            $token
      * @return mixed
      */
     public function confirmAccount($token)
@@ -22,7 +23,9 @@ trait ConfirmUsers
     }
 
     /**
-     * @param $user_id
+     *
+     * @param
+     *            $user_id
      * @return mixed
      */
     public function resendConfirmationEmail($user_id)

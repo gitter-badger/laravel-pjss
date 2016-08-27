@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Events\Backend\Scrum\UserStory;
 
 use App\Events\Event;
@@ -8,16 +7,18 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 /**
  * Class UserStoryCreated
+ * 
  * @package App\Events\Backend\Scrum\UserStory
  */
 class UserStoryCreated extends Event
 {
     use SerializesModels;
-    
+
     /**
-	 * @var $userstory
-	 */
-	public $userstory;
+     *
+     * @var $userstory
+     */
+    public $userstory;
 
     /**
      * Create a new event instance.
@@ -25,9 +26,9 @@ class UserStoryCreated extends Event
      * @return void
      */
     public function __construct($userstory)
-	{
-		$this->userstory = $userstory;
-	}
+    {
+        $this->userstory = $userstory;
+    }
 
     /**
      * Get the channels the event should be broadcast on.

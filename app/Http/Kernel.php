@@ -1,15 +1,16 @@
 <?php
-
 namespace App\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 /**
  * Class Kernel
+ * 
  * @package App\Http
  */
 class Kernel extends HttpKernel
 {
+
     /**
      * The application's global HTTP middleware stack.
      *
@@ -18,7 +19,7 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middleware = [
-        \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
+        \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class
     ];
 
     /**
@@ -33,19 +34,19 @@ class Kernel extends HttpKernel
             \Illuminate\Session\Middleware\StartSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
-            \App\Http\Middleware\LocaleMiddleware::class,
+            \App\Http\Middleware\LocaleMiddleware::class
         ],
-
+        
         'admin' => [
             'web',
             'auth',
             'access.routeNeedsPermission:view-backend',
-            'timeout',
+            'timeout'
         ],
-
+        
         'api' => [
-            'throttle:60,1',
-        ],
+            'throttle:60,1'
+        ]
     ];
 
     /**
@@ -62,11 +63,11 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'timeout' => \App\Http\Middleware\SessionTimeout::class,
-
+        
         /**
          * Access Middleware
          */
         'access.routeNeedsRole' => \App\Http\Middleware\RouteNeedsRole::class,
-        'access.routeNeedsPermission' => \App\Http\Middleware\RouteNeedsPermission::class,
+        'access.routeNeedsPermission' => \App\Http\Middleware\RouteNeedsPermission::class
     ];
 }

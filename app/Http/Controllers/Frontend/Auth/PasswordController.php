@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Frontend\Auth;
 
 use App\Http\Controllers\Controller;
@@ -9,19 +8,21 @@ use App\Repositories\Frontend\Access\User\UserRepositoryContract;
 
 /**
  * Class PasswordController
+ * 
  * @package App\Http\Controllers\Frontend\Auth
  */
 class PasswordController extends Controller
 {
-
+    
     use ChangePasswords, ResetsPasswords;
 
     /**
-     * @param UserRepositoryContract $user
+     *
+     * @param UserRepositoryContract $user            
      */
     public function __construct(UserRepositoryContract $user)
     {
-        //Where to redirect the user after their password has been successfully reset
+        // Where to redirect the user after their password has been successfully reset
         $this->redirectTo = route('frontend.user.dashboard');
         
         $this->user = $user;

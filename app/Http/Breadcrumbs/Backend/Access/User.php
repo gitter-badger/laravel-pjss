@@ -1,5 +1,4 @@
 <?php
-
 Breadcrumbs::register('admin.access.user.index', function ($breadcrumbs) {
     $breadcrumbs->parent('admin.dashboard');
     $breadcrumbs->push(trans('labels.backend.access.users.management'), route('admin.access.user.index'));

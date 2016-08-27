@@ -28,7 +28,7 @@ class ViewBackendMakeCommand extends GeneratorCommand
      * @var string
      */
     protected $type = 'View';
-    
+
     /**
      * Execute the console command.
      *
@@ -39,30 +39,18 @@ class ViewBackendMakeCommand extends GeneratorCommand
         if (parent::fire() !== false) {
             // 修改resources/lang/zh/labels.php
             $path = $this->laravel['path'] . '/../resources/lang/' . env('APP_LOCALE') . '/labels.php';
-    
+            
             $lower_namespace = Str::lower($this->getNamespaceInput());
             $lower_name = Str::lower($this->getNameInput());
             $plural_lower_name = Str::plural($lower_name);
-    
+            
             $array = $this->files->getRequire($path);
             $contents = $this->files->get($path);
-            if (!array_has($array['backend'], $lower_namespace)){
-                $contents = str_replace(
-                    '   \'backend\' => [',
-                    '   \'backend\' => [' . PHP_EOL .
-                    '       \'management\' => \'' . $this->getNamespaceInput() . ' Management\',' . PHP_EOL .
-                    '        \'' . $lower_namespace . '\' => [/*backend*/' . PHP_EOL .
-                    '        ],'
-                    , $contents);
+            if (! array_has($array['backend'], $lower_namespace)) {
+                $contents = str_replace('   \'backend\' => [', '   \'backend\' => [' . PHP_EOL . '       \'management\' => \'' . $this->getNamespaceInput() . ' Management\',' . PHP_EOL . '        \'' . $lower_namespace . '\' => [/*backend*/' . PHP_EOL . '        ],', $contents);
             }
-            if (!(array_has($array['backend'], $lower_namespace) && array_has($array['backend'][$lower_namespace], $plural_lower_name))) {
-                $contents = str_replace(
-                    '       \'' . $lower_namespace . '\' => [/*backend*/',
-                    '       \'' . $lower_namespace . '\' => [/*backend*/' . PHP_EOL .
-                    '            \'' . $plural_lower_name . '\' => [' . PHP_EOL .
-                    '                \'management\' => \'' . $lower_name . '\',' . PHP_EOL .
-                    '            ],'
-                    , $contents);
+            if (! (array_has($array['backend'], $lower_namespace) && array_has($array['backend'][$lower_namespace], $plural_lower_name))) {
+                $contents = str_replace('       \'' . $lower_namespace . '\' => [/*backend*/', '       \'' . $lower_namespace . '\' => [/*backend*/' . PHP_EOL . '            \'' . $plural_lower_name . '\' => [' . PHP_EOL . '                \'management\' => \'' . $lower_name . '\',' . PHP_EOL . '            ],', $contents);
             }
             $this->files->put($path, $contents);
             $this->comment('langs.labels modified successfully.');
@@ -102,7 +90,7 @@ class ViewBackendMakeCommand extends GeneratorCommand
         
         return $this->laravel['path'] . '/' . Str::replaceLast($this->getNameInput(), $this->argument('type'), str_replace('\\', '/', $name)) . '.blade.php';
     }
-    
+
     /**
      * Get the console command arguments.
      *
@@ -120,8 +108,7 @@ class ViewBackendMakeCommand extends GeneratorCommand
                 'name',
                 InputArgument::REQUIRED,
                 'The name of the class'
-            ]
-            ,
+            ],
             [
                 'type',
                 InputArgument::REQUIRED,

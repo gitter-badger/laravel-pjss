@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Exceptions;
 
 use Exception;
@@ -13,10 +12,12 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 /**
  * Class Handler
+ * 
  * @package App\Exceptions
  */
 class Handler extends ExceptionHandler
 {
+
     /**
      * A list of the exception types that should not be reported.
      *
@@ -26,7 +27,7 @@ class Handler extends ExceptionHandler
         AuthorizationException::class,
         HttpException::class,
         ModelNotFoundException::class,
-        ValidationException::class,
+        ValidationException::class
     ];
 
     /**
@@ -34,7 +35,7 @@ class Handler extends ExceptionHandler
      *
      * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
      *
-     * @param  \Exception  $e
+     * @param \Exception $e            
      * @return void
      */
     public function report(Exception $e)
@@ -45,8 +46,8 @@ class Handler extends ExceptionHandler
     /**
      * Render an exception into an HTTP response.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $e
+     * @param \Illuminate\Http\Request $request            
+     * @param \Exception $e            
      * @return \Illuminate\Http\Response
      */
     public function render($request, Exception $e)
@@ -58,21 +59,25 @@ class Handler extends ExceptionHandler
         if ($e instanceof TokenMismatchException) {
             return redirect()->route('auth.login');
         }
-
+        
         /**
          * All instances of GeneralException redirect back with a flash message to show a bootstrap alert-error
          */
         if ($e instanceof GeneralException) {
-            return redirect()->back()->withInput()->withFlashDanger($e->getMessage());
+            return redirect()->back()
+                ->withInput()
+                ->withFlashDanger($e->getMessage());
         }
-
+        
         /**
          * User needs roles and none were selected
          */
         if ($e instanceof UserNeedsRolesException) {
-            return redirect()->route('admin.access.user.edit', $e->userID())->withInput()->withFlashDanger($e->validationErrors());
+            return redirect()->route('admin.access.user.edit', $e->userID())
+                ->withInput()
+                ->withFlashDanger($e->validationErrors());
         }
-
+        
         return parent::render($request, $e);
     }
 }

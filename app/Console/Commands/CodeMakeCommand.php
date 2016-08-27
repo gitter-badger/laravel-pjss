@@ -46,27 +46,21 @@ class CodeMakeCommand extends Command
         // 后台控制器
         $this->call('make:pjss-controller-backend', [
             'namespace' => $this->getNamespaceInput(),
-            'name' => $this->getNameInput(),
+            'name' => $this->getNameInput()
         ]);
         // 前台控制器
         $this->call('make:pjss-controller-frontend', [
             'namespace' => $this->getNamespaceInput(),
-            'name' => $this->getNameInput(),
+            'name' => $this->getNameInput()
         ]);
         
         // 清除缓存
-        $this->call('clear-compiled', [
-        ]);
-        $this->call('cache:clear', [
-        ]);
-        $this->call('config:clear', [
-        ]);
-        $this->call('debugbar:clear', [
-        ]);
-        $this->call('route:clear', [
-        ]);
-        $this->call('view:clear', [
-        ]);
+        $this->call('clear-compiled', []);
+        $this->call('cache:clear', []);
+        $this->call('config:clear', []);
+        $this->call('debugbar:clear', []);
+        $this->call('route:clear', []);
+        $this->call('view:clear', []);
     }
 
     /**

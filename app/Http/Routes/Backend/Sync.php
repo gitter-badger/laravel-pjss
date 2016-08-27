@@ -6,8 +6,7 @@ Route::group([
     Route::group([
         'prefix' => 'leangoo',
         'namespace' => 'Leangoo'
-    ], function () {       
+    ], function () {
         Route::get('project/{id}', 'ProjectController@get')->name('admin.organization.project.get');
     });
-   
 });

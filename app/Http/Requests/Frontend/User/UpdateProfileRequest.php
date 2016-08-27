@@ -1,15 +1,16 @@
 <?php
-
 namespace App\Http\Requests\Frontend\User;
 
 use App\Http\Requests\Request;
 
 /**
  * Class UpdateProfileRequest
+ * 
  * @package App\Http\Requests\Frontend\User
  */
 class UpdateProfileRequest extends Request
 {
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -28,8 +29,8 @@ class UpdateProfileRequest extends Request
     public function rules()
     {
         return [
-            'name'  => 'required',
-            'email' => 'sometimes|required|email',
+            'name' => 'required',
+            'email' => 'sometimes|required|email'
         ];
     }
 }

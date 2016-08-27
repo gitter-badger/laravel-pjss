@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Backend\Access\User;
 
 use App\Models\Access\User\User;
@@ -18,19 +17,23 @@ use App\Repositories\Frontend\Access\User\UserRepositoryContract as FrontendUser
  */
 class UserController extends Controller
 {
+
     /**
+     *
      * @var UserRepositoryContract
      */
     protected $users;
 
     /**
+     *
      * @var RoleRepositoryContract
      */
     protected $roles;
 
     /**
-     * @param UserRepositoryContract $users
-     * @param RoleRepositoryContract $roles
+     *
+     * @param UserRepositoryContract $users            
+     * @param RoleRepositoryContract $roles            
      */
     public function __construct(UserRepositoryContract $users, RoleRepositoryContract $roles)
     {
@@ -38,8 +41,9 @@ class UserController extends Controller
         $this->roles = $roles;
     }
 
-	/**
-     * @param ManageUserRequest $request
+    /**
+     *
+     * @param ManageUserRequest $request            
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(ManageUserRequest $request)
@@ -47,87 +51,87 @@ class UserController extends Controller
         return view('backend.access.index');
     }
 
-	/**
-     * @param ManageUserRequest $request
+    /**
+     *
+     * @param ManageUserRequest $request            
      * @return mixed
      */
-    public function get(ManageUserRequest $request) {
-        return Datatables::of($this->users->getForDataTable($request->get('status'), $request->get('trashed')))
-            ->editColumn('confirmed', function($user) {
-                return $user->confirmed_label;
-            })
-            ->addColumn('roles', function($user) {
-                $roles = [];
-
-                if ($user->roles()->count() > 0) {
-                    foreach ($user->roles as $role) {
-                        array_push($roles, $role->name);
-                    }
-
-                    return implode("<br/>", $roles);
-                } else {
-                    return trans('labels.general.none');
+    public function get(ManageUserRequest $request)
+    {
+        return Datatables::of($this->users->getForDataTable($request->get('status'), $request->get('trashed')))->editColumn('confirmed', function ($user) {
+            return $user->confirmed_label;
+        })
+            ->addColumn('roles', function ($user) {
+            $roles = [];
+            
+            if ($user->roles()
+                ->count() > 0) {
+                foreach ($user->roles as $role) {
+                    array_push($roles, $role->name);
                 }
-            })
-            ->addColumn('actions', function($user) {
-                return $user->action_buttons;
-            })
+                
+                return implode("<br/>", $roles);
+            } else {
+                return trans('labels.general.none');
+            }
+        })
+            ->addColumn('actions', function ($user) {
+            return $user->action_buttons;
+        })
             ->make(true);
     }
 
-	/**
-     * @param ManageUserRequest $request
+    /**
+     *
+     * @param ManageUserRequest $request            
      * @return mixed
      */
     public function create(ManageUserRequest $request)
     {
-        return view('backend.access.create')
-            ->withRoles($this->roles->getAllRoles('sort', 'asc', true));
+        return view('backend.access.create')->withRoles($this->roles->getAllRoles('sort', 'asc', true));
     }
 
-	/**
-     * @param StoreUserRequest $request
+    /**
+     *
+     * @param StoreUserRequest $request            
      * @return mixed
      */
     public function store(StoreUserRequest $request)
     {
-        $this->users->create(
-            $request->except('assignees_roles'),
-            $request->only('assignees_roles')
-        );
+        $this->users->create($request->except('assignees_roles'), $request->only('assignees_roles'));
         return redirect()->route('admin.access.user.index')->withFlashSuccess(trans('alerts.backend.users.created'));
     }
 
-	/**
-     * @param User $user
-     * @param ManageUserRequest $request
+    /**
+     *
+     * @param User $user            
+     * @param ManageUserRequest $request            
      * @return mixed
      */
     public function edit(User $user, ManageUserRequest $request)
     {
-        return view('backend.access.edit')
-            ->withUser($user)
-            ->withUserRoles($user->roles->lists('id')->all())
+        return view('backend.access.edit')->withUser($user)
+            ->withUserRoles($user->roles->lists('id')
+            ->all())
             ->withRoles($this->roles->getAllRoles('sort', 'asc', true));
     }
 
-	/**
-     * @param User $user
-     * @param UpdateUserRequest $request
+    /**
+     *
+     * @param User $user            
+     * @param UpdateUserRequest $request            
      * @return mixed
      */
     public function update(User $user, UpdateUserRequest $request)
     {
-        $this->users->update($user,
-            $request->except('assignees_roles'),
-            $request->only('assignees_roles')
-        );
+        $this->users->update($user, $request->except('assignees_roles'), $request->only('assignees_roles'));
         return redirect()->route('admin.access.user.index')->withFlashSuccess(trans('alerts.backend.users.updated'));
     }
 
-	/**
-     * @param User $user
-     * @param ManageUserRequest $request
+    /**
+     *
+     * @param User $user            
+     * @param ManageUserRequest $request            
      * @return mixed
      */
     public function destroy(User $user, ManageUserRequest $request)
@@ -136,9 +140,10 @@ class UserController extends Controller
         return redirect()->back()->withFlashSuccess(trans('alerts.backend.users.deleted'));
     }
 
-	/**
-     * @param User $user
-     * @param ManageUserRequest $request
+    /**
+     *
+     * @param User $user            
+     * @param ManageUserRequest $request            
      * @return mixed
      */
     public function delete(User $user, ManageUserRequest $request)
@@ -147,9 +152,10 @@ class UserController extends Controller
         return redirect()->back()->withFlashSuccess(trans('alerts.backend.users.deleted_permanently'));
     }
 
-	/**
-     * @param User $user
-     * @param ManageUserRequest $request
+    /**
+     *
+     * @param User $user            
+     * @param ManageUserRequest $request            
      * @return mixed
      */
     public function restore(User $user, ManageUserRequest $request)
@@ -158,10 +164,12 @@ class UserController extends Controller
         return redirect()->back()->withFlashSuccess(trans('alerts.backend.users.restored'));
     }
 
-	/**
-     * @param User $user
-     * @param $status
-     * @param ManageUserRequest $request
+    /**
+     *
+     * @param User $user            
+     * @param
+     *            $status
+     * @param ManageUserRequest $request            
      * @return mixed
      */
     public function mark(User $user, $status, ManageUserRequest $request)
@@ -170,8 +178,9 @@ class UserController extends Controller
         return redirect()->back()->withFlashSuccess(trans('alerts.backend.users.updated'));
     }
 
-	/**
-     * @param ManageUserRequest $request
+    /**
+     *
+     * @param ManageUserRequest $request            
      * @return mixed
      */
     public function deactivated(ManageUserRequest $request)
@@ -179,8 +188,9 @@ class UserController extends Controller
         return view('backend.access.deactivated');
     }
 
-	/**
-     * @param ManageUserRequest $request
+    /**
+     *
+     * @param ManageUserRequest $request            
      * @return mixed
      */
     public function deleted(ManageUserRequest $request)
@@ -188,20 +198,21 @@ class UserController extends Controller
         return view('backend.access.deleted');
     }
 
-	/**
-     * @param User $user
-     * @param ManageUserRequest $request
+    /**
+     *
+     * @param User $user            
+     * @param ManageUserRequest $request            
      * @return mixed
      */
     public function changePassword(User $user, ManageUserRequest $request)
     {
-        return view('backend.access.change-password')
-            ->withUser($user);
+        return view('backend.access.change-password')->withUser($user);
     }
 
-	/**
-     * @param User $user
-     * @param UpdateUserPasswordRequest $request
+    /**
+     *
+     * @param User $user            
+     * @param UpdateUserPasswordRequest $request            
      * @return mixed
      */
     public function updatePassword(User $user, UpdateUserPasswordRequest $request)
@@ -210,31 +221,36 @@ class UserController extends Controller
         return redirect()->route('admin.access.user.index')->withFlashSuccess(trans('alerts.backend.users.updated_password'));
     }
 
-	/**
-     * @param User $user
-     * @param FrontendUserRepositoryContract $user_repository
-     * @param ManageUserRequest $request
+    /**
+     *
+     * @param User $user            
+     * @param FrontendUserRepositoryContract $user_repository            
+     * @param ManageUserRequest $request            
      * @return mixed
      */
     public function resendConfirmationEmail(User $user, FrontendUserRepositoryContract $user_repository, ManageUserRequest $request)
     {
-		$user_repository->sendConfirmationEmail($user);
+        $user_repository->sendConfirmationEmail($user);
         return redirect()->back()->withFlashSuccess(trans('alerts.backend.users.confirmation_email'));
     }
 
-	/**
-	 * @param User $user
-	 * @param ManageUserRequest $request
-	 * @return \Illuminate\Http\RedirectResponse
-	 */
-	public function loginAs(User $user, ManageUserRequest $request) {
+    /**
+     *
+     * @param User $user            
+     * @param ManageUserRequest $request            
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function loginAs(User $user, ManageUserRequest $request)
+    {
         return $this->users->loginAs($user);
     }
 
-	/**
-	 * @return \Illuminate\Http\RedirectResponse
-	 */
-	public function logoutAs() {
+    /**
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function logoutAs()
+    {
         return $this->users->logoutAs();
     }
 }
