@@ -56,3 +56,14 @@ Route::group([
     require __DIR__ . '/Routes/Backend/File.php';
     // Backend Replacer
 });
+
+/**
+ * OAuth Routes
+ * Namespaces indicate folder structure
+ */
+Route::group([
+    'namespace' => 'OAuth',
+    'middleware' => 'web',
+], function () {
+    require (__DIR__ . '/Routes/OAuth/SSO.php');
+});

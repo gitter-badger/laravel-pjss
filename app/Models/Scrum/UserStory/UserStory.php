@@ -29,9 +29,6 @@ class UserStory extends Model
      */
     protected $fillable = [
         'code',
-        'role',
-        'activity',
-        'business_value',
         'description',
         'story_type',
         'priority',

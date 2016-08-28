@@ -10,7 +10,6 @@ use App\Http\Requests\Backend\Scrum\UserStory\UpdateUserStoryRequest;
 use App\Repositories\Backend\Scrum\UserStory\UserStoryRepositoryContract;
 use App\Http\Requests\Backend\Scrum\UserStory\Excel\UserStroyImport;
 use DB;
-use function GuzzleHttp\json_encode;
 
 /**
  * Class UserStoryController
@@ -70,10 +69,12 @@ class UserStoryController extends Controller
         $user_story = new UserStory();
         $max_code = UserStory::all()->where('project_id', session('project_id'))->max('code');
         
-        preg_match_all('/\d+/', $max_code, $num);
-        $num = $num[0][count($num[0]) - 1];
-        $new_num = sprintf("%0" . (strlen($num)) . "d", $num + 1);
-        $max_code = str_replace($num, $new_num, $max_code);
+        if ($max_code) {
+            preg_match_all('/\d+/', $max_code, $num);
+            $num = $num[0][count($num[0]) - 1];
+            $new_num = sprintf("%0" . (strlen($num)) . "d", $num + 1);
+            $max_code = str_replace($num, $new_num, $max_code);
+        }
         
         $user_story->code = $max_code;
         return view('backend.scrum.userstory.create')->withUserStory($user_story);
@@ -99,6 +100,7 @@ class UserStoryController extends Controller
      */
     public function show(UserStory $userstory, ManageUserStoryRequest $request)
     {
+        $this->fill($userstory);
         return view('backend.scrum.userstory.detail')->withUserStory($userstory);
     }
 
@@ -110,44 +112,7 @@ class UserStoryController extends Controller
      */
     public function edit(UserStory $userstory, ManageUserStoryRequest $request)
     {
-        $userstory->acceptance_criterias = $userstory->acceptance_criterias->map(function ($acceptance_criteria) {
-            return [
-                'id' => $acceptance_criteria->id,
-                'condition' => $acceptance_criteria->condition
-            ];
-        });
-        
-        $lo_fi = Media::all()->filter(function($media) use ($userstory) {
-            return $media->obj_id === $userstory->id && $media->type === 'lo_fi';
-        })->values();
-        $hi_fi = Media::all()->filter(function($media) use ($userstory) {
-            return $media->obj_id === $userstory->id && $media->type === 'hi_fi';
-        })->values();
-        $attachments = Media::all()->filter(function($media) use ($userstory) {
-            return $media->obj_id === $userstory->id && $media->type === 'attachment';
-        })->values();
-        
-        $userstory->lo_fi = $lo_fi->map(function ($media) {
-            return [
-                'id' => $media->id,
-                'file_name' => $media->getMedia()->first()->file_name
-            ];
-        });
-        
-        $userstory->hi_fi = $hi_fi->map(function ($media) {
-            return [
-                'id' => $media->id,
-                'file_name' => $media->getMedia()->first()->file_name
-            ];
-        });
-        
-        $userstory->attachments = $attachments->map(function ($media) {
-            return [
-                'id' => $media->id,
-                'file_name' => $media->getMedia()->first()->file_name
-            ];
-        });
-        
+        $this->fill($userstory);
         return view('backend.scrum.userstory.edit')->withUserStory($userstory);
     }
 
@@ -176,6 +141,50 @@ class UserStoryController extends Controller
         return response()->json([
             'sucs' => true
         ]);
+    }
+
+    private function fill(&$userstory)
+    {
+        $userstory->acceptance_criterias = $userstory->acceptance_criterias->map(function ($acceptance_criteria) {
+            return [
+                'id' => $acceptance_criteria->id,
+                'condition' => $acceptance_criteria->condition
+            ];
+        });
+        
+        $lo_fi = Media::all()->filter(function ($media) use($userstory) {
+            return $media->obj_id === $userstory->id && $media->type === 'lo_fi';
+        })->values();
+        $hi_fi = Media::all()->filter(function ($media) use($userstory) {
+            return $media->obj_id === $userstory->id && $media->type === 'hi_fi';
+        })->values();
+        $attachments = Media::all()->filter(function ($media) use($userstory) {
+            return $media->obj_id === $userstory->id && $media->type === 'attachment';
+        })->values();
+        
+        $userstory->lo_fi = $lo_fi->map(function ($media) {
+            return [
+                'id' => $media->id,
+                'file_name' => $media->getMedia()
+                    ->first()->file_name
+            ];
+        });
+        
+        $userstory->hi_fi = $hi_fi->map(function ($media) {
+            return [
+                'id' => $media->id,
+                'file_name' => $media->getMedia()
+                    ->first()->file_name
+            ];
+        });
+        
+        $userstory->attachments = $attachments->map(function ($media) {
+            return [
+                'id' => $media->id,
+                'file_name' => $media->getMedia()
+                    ->first()->file_name
+            ];
+        });
     }
 
     /**
@@ -227,7 +236,7 @@ class UserStoryController extends Controller
                 return $user_story->id == $id;
             });
             
-            $this->userstories->update($user_story, [
+            $user_story->update([
                 'priority' => $priorities[$i]
             ]);
         }
@@ -258,10 +267,10 @@ class UserStoryController extends Controller
         });
         
         $temp = $one->priority;
-        $this->userstories->update($one, [
+        $one->update([
             'priority' => $another->priority
         ]);
-        $this->userstories->update($another, [
+        $another->update([
             'priority' => $temp
         ]);
         

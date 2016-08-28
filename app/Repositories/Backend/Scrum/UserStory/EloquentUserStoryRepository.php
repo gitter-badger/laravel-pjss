@@ -48,10 +48,40 @@ class EloquentUserStoryRepository implements UserStoryRepositoryContract
     {
         $userstory = $this->createUserStoryStub($input);
         
-        DB::transaction(function () use($userstory, $acceptance_criterias) {
+        DB::transaction(function () use($userstory, $acceptance_criterias, $input) {
             if ($userstory->save()) {
                 // Attach new acceptance_criterias
                 $userstory->attachAcceptanceCriterias($acceptance_criterias['acceptance_criteria']);
+                
+                $lo_fi_ids = explode(',', $input['lo_fi']);
+                foreach ($lo_fi_ids as $id) {
+                    if ($id) {
+                        $lo_fi = Media::find($id);
+                        $lo_fi->obj_id = $userstory->id;
+                        $lo_fi->type = 'lo_fi';
+                        $lo_fi->save();
+                    }
+                }
+                
+                $hi_fi_ids = explode(',', $input['hi_fi']);
+                foreach ($hi_fi_ids as $id) {
+                    if ($id) {
+                        $hi_fi = Media::find($id);
+                        $hi_fi->obj_id = $userstory->id;
+                        $hi_fi->type = 'hi_fi';
+                        $hi_fi->save();
+                    }
+                }
+                
+                $attachment_ids = explode(',', $input['attachments']);
+                foreach ($attachment_ids as $id) {
+                    if ($id) {
+                        $attachment = Media::find($id);
+                        $attachment->obj_id = $userstory->id;
+                        $attachment->type = 'attachment';
+                        $attachment->save();
+                    }
+                }
                 
                 event(new UserStoryCreated($userstory));
                 return true;
@@ -75,7 +105,6 @@ class EloquentUserStoryRepository implements UserStoryRepositoryContract
     {
         DB::transaction(function () use($userstory, $input, $acceptance_criterias) {
             if ($userstory->update($input)) {
-                // TODO: set properties
                 
                 $userstory->saveAcceptanceCriterias($acceptance_criterias['acceptance_criteria']);
                 
@@ -247,9 +276,6 @@ class EloquentUserStoryRepository implements UserStoryRepositoryContract
         $userstory = new UserStory();
         $userstory->code = $input['code'];
         $userstory->project_id = session('project_id');
-        $userstory->role = in_array('role', $input) ? $input['role'] : '';
-        $userstory->activity = in_array('activity', $input) ? $input['activity'] : '';
-        $userstory->business_value = in_array('business_value', $input) ? $input['business_value'] : '';
         $userstory->description = $input['description'];
         $userstory->story_type = $input['story_type'];
         $userstory->priority = $input['priority'];

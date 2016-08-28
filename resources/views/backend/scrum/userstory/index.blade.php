@@ -51,10 +51,10 @@
 		    var label;
 
 		    switch(type){
-    		    case '1':
+    		    case 1:
     		    	label = 'primary';
     			    break;
-    		    case '2':
+    		    case 2:
     		    	label = 'default';
     			    break;
 			    default:

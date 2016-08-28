@@ -38,5 +38,6 @@
     		</div>
     	</div>
     </div>
+    @include('includes.components.comment.changyan', ['source' => 'USERSTORY_' . $user_story->id])
 </div>
 @stop

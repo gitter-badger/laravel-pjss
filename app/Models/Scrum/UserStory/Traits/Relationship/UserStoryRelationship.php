@@ -16,7 +16,7 @@ trait UserStoryRelationship
      */
     public function acceptance_criterias()
     {
-        return $this->hasMany(\App\Models\Scrum\AcceptanceCriteria\AcceptanceCriteria::class, 'userstory_id', 'id');
+        return $this->hasMany(\App\Models\Scrum\AcceptanceCriteria\AcceptanceCriteria::class, 'user_story_id', 'id');
     }
 
     /**

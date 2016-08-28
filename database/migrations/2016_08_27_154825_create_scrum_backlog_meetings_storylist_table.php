@@ -28,8 +28,6 @@ class CreateScrumBacklogMeetingsStorylistTable extends Migration
      */
     public function down()
     {
-        Schema::table('scrum_backlog_meetings_storylist', function (Blueprint $table) {
-            //
-        });
+        Schema::drop('scrum_backlog_meetings_storylist');
     }
 }

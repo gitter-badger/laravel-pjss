@@ -46,7 +46,7 @@
 	<div class="form-group">
 		<label for="lo_fi" class="col-sm-2 control-label">低保真</label>
 		<div class="col-sm-10">
-			@include('includes.components.upload', [
+			@include('includes.components.file.upload', [
 				'id' => 'lo-fi',
         		'name' => 'lo_fi',
         		'values' => $model->lo_fi,
@@ -57,7 +57,7 @@
 	<div class="form-group">
 		<label for="hi_fi" class="col-sm-2 control-label">高保真</label>
 		<div class="col-sm-10">
-			@include('includes.components.upload', [
+			@include('includes.components.file.upload', [
 				'id' => 'hi-fi',
         		'name' => 'hi_fi',
         		'values' => $model->hi_fi,
@@ -68,7 +68,7 @@
 	<div class="form-group">
 		<label for="attachments" class="col-sm-2 control-label">附件</label>
 		<div class="col-sm-10">
-			@include('includes.components.upload', [
+			@include('includes.components.file.upload', [
 				'id' => 'attachments',
         		'name' => 'attachments',
         		'values' => $model->attachments,
