@@ -35,6 +35,7 @@
 			@include('backend.includes.inspinia-footer')
         </div>
     </div>
+    @include('backend.includes.partials.issues')
 
     <!-- Mainly scripts -->
     @yield('before-scripts-start')

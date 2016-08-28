@@ -97,3 +97,29 @@ if (! function_exists('getLanguageBlock')) {
         }
     }
 }
+
+
+// 自己封装
+if (! function_exists('array_remove_key')) {
+    
+    /**
+     * 删除数据中的指定key和其value
+     * 
+     * @param $array
+     * @param $delete_keys
+     * return mixed
+     */
+    function array_remove_keys(&$array, $delete_keys){
+        foreach($array as &$data) {
+            foreach($delete_keys as $key) {
+                if(array_key_exists($key, $data)){
+                    $keys = array_keys($data);
+                    $index = array_search($key, $keys);
+                    if($index !== FALSE){
+                        array_splice($data, $index, 1);
+                    }
+                }
+            }
+        }
+    }
+}

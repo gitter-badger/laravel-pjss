@@ -8,14 +8,16 @@ use App\Http\Requests\Backend\Scrum\UserStory\StoreUserStoryRequest;
 use App\Http\Requests\Backend\Scrum\UserStory\ManageUserStoryRequest;
 use App\Http\Requests\Backend\Scrum\UserStory\UpdateUserStoryRequest;
 use App\Repositories\Backend\Scrum\UserStory\UserStoryRepositoryContract;
-use App\Http\Requests\Backend\Scrum\UserStory\Excel\UserStroyImport;
-use DB;
+use App\Http\Requests\Backend\Scrum\UserStory\Excel\UserStoryImport;
+use App\Http\Requests\Backend\Scrum\UserStory\Excel\UserStoryExport;
+use App\Models\Scrum\UserStory\Traits\Enum\StoryTypeEnum;
 
 /**
  * Class UserStoryController
  */
 class UserStoryController extends Controller
 {
+    use StoryTypeEnum;
 
     /**
      *
@@ -192,7 +194,7 @@ class UserStoryController extends Controller
      * @param UserStroyImport $import            
      * @return mixed
      */
-    public function importExcel(UserStroyImport $import)
+    public function importExcel(UserStoryImport $import)
     {
         $results = $import->toArray();
         $this->userstories->importExcel($results[0]);
@@ -206,15 +208,50 @@ class UserStoryController extends Controller
      *
      * @return mixed
      */
-    public function exportExcel($input)
+    public function exportExcel(UserStoryExport $export)
     {
-        Excel::create('Filename', function ($excel) {
-            $excel->sheet('Sheetname', function ($sheet) {
-                $user_stories = UserStory::all()->where('project_id', session('project_id'))
-                    ->sortByDesc('priority')
-                    ->values();
-                $sheet->fromArray($user_stories->toArray());
+        return $export->sheet('用户故事', function($sheet)
+        {
+            $user_stories = UserStory::all()->where('project_id', session('project_id'))
+                ->sortByDesc('priority')
+                ->values();
+            $user_stories = $user_stories->toArray();
+            array_remove_keys($user_stories, ['id', 'project_id', 'INVEST', 'created_at', 'updated_at', 'deleted_at']);
+            $enums = array_flip($this->enum_story_type());
+            foreach ($user_stories as $i => &$user_story) {
+                $user_story['story_type'] = $enums[$user_story['story_type']];
+            }
+            array_splice($user_stories, 0, 0, [[
+                'code' => '故事编号',
+                'description' => '用户故事',
+                'story_type' => '故事类型',
+                //'acceptance_criterias' => '验收标准',
+                'priority' => '优先级',
+                'story_points' => '故事点数',
+                'remarks' => '备注',
+            ]]);
+            
+            $sheet->fromArray($user_stories);
+            
+            $sheet->cells('A2:G2', function($cells) {
+                $cells->setFontWeight('bold');
+                $cells->setAlignment('center');
             });
+            $sheet->setAllBorders('solid');
+            $sheet->setFreeze('A3');
+            $sheet->setHeight(1, 0);
+            $sheet->setWidth(array(
+                'A' => 10,
+                'B' => 50,
+                'C' => 10,
+                'D' => 8,
+                'E' => 10,
+                'F' => 20,
+            ));
+            $sheet->setColumnFormat(array(
+                'D' => '0',
+                'E' => '0',
+            ));
         })->export('xlsx');
     }
 

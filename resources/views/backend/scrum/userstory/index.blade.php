@@ -13,6 +13,10 @@
     .modal .modal-footer .nav > li > a {
 	   padding: 8px 15px;
     }
+    
+    .dz-preview {
+	   display: none !important;
+    }
 </style>
 @stop
 

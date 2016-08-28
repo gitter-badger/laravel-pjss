@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
 
-class UserStroyImport extends \Maatwebsite\Excel\Files\ExcelFile
+class UserStoryImport extends \Maatwebsite\Excel\Files\ExcelFile
 {
 
     public function getFile()

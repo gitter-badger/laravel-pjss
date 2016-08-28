@@ -10,6 +10,7 @@ use App\Events\Backend\Scrum\UserStory\UserStoryUpdated;
 use App\Events\Backend\Scrum\UserStory\UserStoryDeleted;
 use App\Events\Backend\Scrum\UserStory\UserStoryRestored;
 use App\Repositories\Backend\Scrum\AcceptanceCriteria\AcceptanceCriteriaRepositoryContract;
+use App\Models\Scrum\UserStory\Traits\Enum\StoryTypeEnum;
 
 /**
  * Class EloquentUserStoryRepository
@@ -18,7 +19,8 @@ use App\Repositories\Backend\Scrum\AcceptanceCriteria\AcceptanceCriteriaReposito
  */
 class EloquentUserStoryRepository implements UserStoryRepositoryContract
 {
-
+    use StoryTypeEnum;
+    
     /**
      *
      * @var AcceptanceCriteriaRepositoryContract
@@ -244,7 +246,7 @@ class EloquentUserStoryRepository implements UserStoryRepositoryContract
                     return $value->code == $row['code'];
                 });
                 if (! is_null($user_story)) {
-                    $row['story_type'] = $this->storyTypeEnum[$row['story_type']];
+                    $row['story_type'] = $this->enum_story_type()[$row['story_type']];
                     
                     if ($user_story->update($row)) {
                         event(new UserStoryUpdated($user_story));
@@ -252,7 +254,7 @@ class EloquentUserStoryRepository implements UserStoryRepositoryContract
                     }
                 } else {
                     $userstory = $this->createUserStoryStub($row);
-                    $userstory->story_type = $this->storyTypeEnum[$row['story_type']];
+                    $userstory->story_type = $this->enum_story_type()[$row['story_type']];
                     
                     if ($userstory->save()) {
                         event(new UserStoryCreated($userstory));
@@ -279,15 +281,10 @@ class EloquentUserStoryRepository implements UserStoryRepositoryContract
         $userstory->description = $input['description'];
         $userstory->story_type = $input['story_type'];
         $userstory->priority = $input['priority'];
-        $userstory->story_points = in_array('story_points', $input) ? $input['story_points'] : '';
+        $userstory->story_points = in_array('story_points', $input) ? $input['story_points'] : null;
         $userstory->remarks = in_array('remarks', $input) ? $input['remarks'] : '';
         $userstory->INVEST = in_array('INVEST', $input) ? $input['INVEST'] : 0;
         
         return $userstory;
     }
-
-    private $storyTypeEnum = [
-        '功能性' => 1,
-        '技术性' => 2
-    ];
 }
