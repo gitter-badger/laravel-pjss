@@ -17,6 +17,16 @@
     .dz-preview {
 	   display: none !important;
     }
+    
+    .sortable-list.ui-sortable li.ui-sortable-handle {
+        padding-left: 30px;
+    	background: url('/img/move-up-down.png') no-repeat 10px center;
+    	background-size: 12px 35px;
+    }
+    .sortable-list.ui-sortable-disabled li.ui-sortable-handle {
+        padding-left: 10px;
+    	background-image: none;
+    }
 </style>
 @stop
 

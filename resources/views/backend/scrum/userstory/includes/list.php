@@ -22,9 +22,15 @@
 <li class="{{priority | priorityLabelFormat}}-element" id="{{id}}">
     <div class="pull-right">
         <div class="btn-group btn-group-xs" role="group">
-            <a href="#move/exchange" class="btn btn-link" title="交换"><i class="fa fa-exchange"></i></a>
-            <a href="#move/up" class="btn btn-link" title="上移"><i class="fa fa-long-arrow-up"></i></a>
-            <a href="#move/down" class="btn btn-link" title="下移"><i class="fa fa-long-arrow-down"></i></a>
+            <!--a href="#move/exchange" class="btn btn-link" title="交换">
+                <i class="fa fa-exchange"></i>
+            </a-->
+            <a href="#move/up" class="btn btn-link" title="上移">
+                <i class="fa fa-long-arrow-up"></i>
+            </a>
+            <a href="#move/down" class="btn btn-link" title="下移">
+                <i class="fa fa-long-arrow-down"></i>
+            </a>
         </div>
         <div class="btn-group btn-group-xs" role="group">
             <a href="/admin/scrum/userstory/{{id}}/edit" class="btn btn-link" title="编辑"><i class="fa fa-edit"></i></a>
