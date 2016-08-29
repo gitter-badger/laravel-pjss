@@ -10,3 +10,5 @@ require __DIR__ . '/Scrum/UserStory.php';
 require __DIR__ . '/Scrum/AcceptanceCriteria.php';
 // BacklogMeeting Require
 require __DIR__ . '/Scrum/BacklogMeeting.php';
+// Meeting Require
+require __DIR__ . '/Scrum/Meeting.php';

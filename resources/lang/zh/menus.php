@@ -21,6 +21,11 @@ return [
             ],
         ],
         'scrum' => [/*backend*/
+            'meetings' => [
+                'create' => 'Create Meeting',
+                'detail' => 'Information Meeting',
+                'edit' => 'Edit Meeting',
+            ],
             'backlogmeetings' => [
                 'create' => 'Create BacklogMeeting',
                 'detail' => 'Information BacklogMeeting',

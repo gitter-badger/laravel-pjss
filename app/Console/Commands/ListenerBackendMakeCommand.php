@@ -39,7 +39,7 @@ class ListenerBackendMakeCommand extends GeneratorCommand
             // 修改Providers/EventServiceProvider.php
             $replace_comment_header = str_replace('{namespace}', $this->getNamespaceInput(), '// BackendReplacer' . PHP_EOL . PHP_EOL . '        /**' . PHP_EOL . '    	 * {namespace} Subscribers' . PHP_EOL . '    	 */');
             
-            $replace = '        \App\Listeners\Backend\{namespace}\{name}\{name}EventListener::class,' . PHP_EOL . '        ';
+            $replace = '\App\Listeners\Backend\{namespace}\{name}\{name}EventListener::class,' . PHP_EOL . '        ';
             $replace = str_replace('{namespace}', $this->getNamespaceInput(), $replace);
             $replace = str_replace('{name}', $this->getNameInput(), $replace);
             

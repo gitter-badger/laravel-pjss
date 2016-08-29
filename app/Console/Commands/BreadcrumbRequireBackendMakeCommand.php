@@ -63,7 +63,7 @@ class BreadcrumbRequireBackendMakeCommand extends GeneratorCommand
                 $sutb = 'require __DIR__ . \'/' . $this->getNamespaceInput() . '.php\';';
                 
                 if (strpos($contents, $comment) === false) {
-                    $this->files->put($path, $contents . PHP_EOL . $comment . PHP_EOL . $sutb);
+                    $this->files->put($path, $contents . $comment . PHP_EOL . $sutb);
                 }
                 $this->comment('Breadcrumbs modified successfully.');
             }

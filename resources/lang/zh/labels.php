@@ -36,6 +36,9 @@ return [
             ],
         ],
         'scrum' => [/*backend*/
+            'meetings' => [
+                'management' => 'meeting',
+            ],
             'backlogmeetings' => [
                 'management' => '梳理会议',
             ],
@@ -109,6 +112,9 @@ return [
             ],
         ],
         'scrum' => [/*frontend*/
+            'meetings' => [
+                'management' => 'meeting',
+            ],
             'backlogmeetings' => [
                 'management' => 'backlogmeeting',
             ],
