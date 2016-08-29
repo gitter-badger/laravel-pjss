@@ -8,7 +8,7 @@
                 <i class="fa fa-trash-o"></i>
             </a>
         </div>
-        {{value.condition}}
+        {{#value.condition | formatHTML}}
     </li>
     {{/each}}
 </script>

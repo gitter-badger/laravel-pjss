@@ -37,7 +37,7 @@
             <a href="#delete" class="btn btn-link" title="删除"><i class="fa fa-trash-o"></i></a>
         </div>
     </div>
-    {{description}}
+    <a class="btn btn-link btn-xs" href="/admin/scrum/userstory/{{id}}">{{description}}</a>
     <div class="agile-detail">
         <a href="#" class="pull-right btn btn-xs btn-{{story_type | typeLabelFormat}}">{{story_type | typeFormat}}</a>
         <i class="fa fa-clock-o"></i> {{created_at}}

@@ -167,24 +167,27 @@ class UserStoryController extends Controller
         $userstory->lo_fi = $lo_fi->map(function ($media) {
             return [
                 'id' => $media->id,
-                'file_name' => $media->getMedia()
-                    ->first()->file_name
+                'file_name' => $media->file()->file_name,
+                'file_size' => $media->file()->size,
+                'type_ico' => $media->file_type_ico(),
             ];
         });
         
         $userstory->hi_fi = $hi_fi->map(function ($media) {
             return [
                 'id' => $media->id,
-                'file_name' => $media->getMedia()
-                    ->first()->file_name
+                'file_name' => $media->file()->file_name,
+                'file_size' => $media->file()->size,
+                'type_ico' => $media->file_type_ico(),
             ];
         });
         
         $userstory->attachments = $attachments->map(function ($media) {
             return [
                 'id' => $media->id,
-                'file_name' => $media->getMedia()
-                    ->first()->file_name
+                'file_name' => $media->file()->file_name,
+                'file_size' => $media->file()->size,
+                'type_ico' => $media->file_type_ico(),
             ];
         });
     }

@@ -27,6 +27,10 @@
         padding-left: 10px;
     	background-image: none;
     }
+    
+    .agile-detail {
+	   padding-left: 5px;
+    }
 </style>
 @stop
 

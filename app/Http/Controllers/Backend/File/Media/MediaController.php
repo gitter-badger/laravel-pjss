@@ -7,6 +7,7 @@ use App\Http\Requests\Backend\File\Media\StoreMediaRequest;
 use App\Http\Requests\Backend\File\Media\ManageMediaRequest;
 use App\Http\Requests\Backend\File\Media\UpdateMediaRequest;
 use App\Repositories\Backend\File\Media\MediaRepositoryContract;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * Class MediaController
@@ -114,7 +115,6 @@ class MediaController extends Controller
 
     /**
      *
-     * @param Media $media            
      * @param StoreMediaRequest $request            
      * @return mixed
      */
@@ -128,5 +128,16 @@ class MediaController extends Controller
         
         return response()->json($media->getMedia()
             ->toJson());
+    }
+    
+    /**
+     *
+     * @param Media $media
+     * @return mixed
+     */
+    public function download(Media $media)
+    {
+        $path = storage_path('app/public/uploads/' . $media->file()->id . '/' . $media->file()->file_name);
+        return response()->download($path, $media->file()->file_name);
     }
 }

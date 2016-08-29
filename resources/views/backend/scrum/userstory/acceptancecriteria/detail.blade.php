@@ -13,6 +13,11 @@
 <script>
 	$(function(){
 		var $$ = $(this);
+
+		/* template helper */
+		template.helper('formatHTML', function (text) {
+		    return text.replace(/\r\n/g, '<br />');
+		});
 		
 		/* private members */
 		var add_i = 0;
@@ -20,19 +25,10 @@
 			method = method || 'append';
 			
 			var html = template('tpl_acceptancecriteria_list', data);
-			$('.acceptancecriteria-list').find('ul')[method](html);
+			$('.acceptancecriteria-list').find('ol')[method](html);
 		}
 
 		/* events define */
-		$$.on('acceptancecriteria.delete', function(e, item) {
-			var $i = $(item);
-			var $li = $i.parent().parent().parent();
-			if ($li.parent().children().size() == 1) {
-				$li.parent().empty();
-			} else {
-				$li.remove();
-			}
-		});
 
 		/* events emmit */
 		$(document).on('click', 'a[href^="#"]', function(e){
@@ -62,10 +58,7 @@
 </script>
 @stop
 
-@include('backend.scrum.userstory.acceptancecriteria.includes.list')
+@include('backend.scrum.userstory.acceptancecriteria.includes.detail-list')
 <div class="acceptancecriteria-list">
-	<ul class="list-group"></ul>
+	<ol></ol>
 </div>
-<textarea id="acceptance_criteria" rows="3" 
-	class="form-control">{{ $model->acceptance_criteria }}</textarea>
-<span class="help-block m-b-none">按Enter换行，按Ctrl+Enter添加一个验收标准。</span>

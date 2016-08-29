@@ -36,7 +36,7 @@
 	<div class="form-group">
 		<label for="acceptance_criteria" class="col-sm-2 control-label">验收标准</label>
 		<div class="col-sm-10">
-			@include('backend.scrum.userstory.acceptancecriteria.index', [
+			@include('backend.scrum.userstory.acceptancecriteria.edit', [
         		'acceptance_criterias' => $model->acceptance_criterias
         	])
 		</div>

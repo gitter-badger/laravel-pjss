@@ -37,4 +37,32 @@ class Media extends Model implements HasMedia
     protected $dates = [
         'deleted_at'
     ];
+    
+    private $file;
+    
+    public function file() {
+        if (is_null($this->file)) {
+            $this->file = $this->getMedia()->first();
+        }
+        return $this->file;
+    }
+    
+    public function file_type_ico() {
+        $file_name = $this->file()->file_name;
+        $ext = pathinfo($file_name, PATHINFO_EXTENSION);
+        switch ($ext) {
+            case 'doc':
+            case 'docx':
+                $icon = 'fa-file-word-o';
+                break;
+            case 'xls':
+            case 'xlsx':
+                $icon = 'fa-file-excel-o';
+                break;
+            default:
+                $icon = 'fa-file-o';
+                break;
+        }
+        return $icon;
+    }
 }
