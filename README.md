@@ -1,5 +1,7 @@
 ## Laravel 5.* Boilerplate, Currently 5.2.39 [Screenshots](http://imgur.com/a/rFv2g)
 
+[![Join the chat at https://gitter.im/laravel-pjss/Lobby](https://badges.gitter.im/laravel-pjss/Lobby.svg)](https://gitter.im/laravel-pjss/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![Latest Stable Version](https://poser.pugx.org/rappasoft/laravel-5-boilerplate/v/stable)](https://packagist.org/packages/rappasoft/laravel-5-boilerplate) [![Latest Unstable Version](https://poser.pugx.org/rappasoft/laravel-5-boilerplate/v/unstable)](https://packagist.org/packages/rappasoft/laravel-5-boilerplate)
 
 ### Laravel 5.1
